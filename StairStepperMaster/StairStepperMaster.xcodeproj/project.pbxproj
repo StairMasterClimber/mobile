@@ -11,6 +11,9 @@
 		1FB4D845283D5CD3001D00CF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4D844283D5CD3001D00CF /* ContentView.swift */; };
 		1FB4D847283D5CD5001D00CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FB4D846283D5CD5001D00CF /* Assets.xcassets */; };
 		1FB4D84A283D5CD5001D00CF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FB4D849283D5CD5001D00CF /* Preview Assets.xcassets */; };
+		201CDE632840125C006900A0 /* FlightsClimbedTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201CDE622840125C006900A0 /* FlightsClimbedTile.swift */; };
+		201CDE6628401291006900A0 /* LightChart in Frameworks */ = {isa = PBXBuildFile; productRef = 201CDE6528401291006900A0 /* LightChart */; };
+		201CDE682840129F006900A0 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201CDE672840129F006900A0 /* Tile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,12 @@
 		1FB4D844283D5CD3001D00CF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1FB4D846283D5CD5001D00CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FB4D849283D5CD5001D00CF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		201CDE622840125C006900A0 /* FlightsClimbedTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsClimbedTile.swift; sourceTree = "<group>"; };
+		201CDE672840129F006900A0 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		201CDE6A28401438006900A0 /* AvenirLTStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Light.otf"; sourceTree = "<group>"; };
+		201CDE6B28401438006900A0 /* AvenirLTStd-Roman.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Roman.otf"; sourceTree = "<group>"; };
+		201CDE6C28401438006900A0 /* AvenirLTStd-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Book.otf"; sourceTree = "<group>"; };
+		201CDE6D2840145D006900A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				201CDE6628401291006900A0 /* LightChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +61,9 @@
 		1FB4D841283D5CD3001D00CF /* StairStepperMaster */ = {
 			isa = PBXGroup;
 			children = (
+				201CDE6D2840145D006900A0 /* Info.plist */,
+				201CDE692840141C006900A0 /* Fonts */,
+				201CDE6128401223006900A0 /* Views */,
 				1FB4D842283D5CD3001D00CF /* StairStepperMasterApp.swift */,
 				1FB4D844283D5CD3001D00CF /* ContentView.swift */,
 				1FB4D846283D5CD5001D00CF /* Assets.xcassets */,
@@ -65,6 +78,25 @@
 				1FB4D849283D5CD5001D00CF /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		201CDE6128401223006900A0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				201CDE622840125C006900A0 /* FlightsClimbedTile.swift */,
+				201CDE672840129F006900A0 /* Tile.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		201CDE692840141C006900A0 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				201CDE6C28401438006900A0 /* AvenirLTStd-Book.otf */,
+				201CDE6A28401438006900A0 /* AvenirLTStd-Light.otf */,
+				201CDE6B28401438006900A0 /* AvenirLTStd-Roman.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +115,9 @@
 			dependencies = (
 			);
 			name = StairStepperMaster;
+			packageProductDependencies = (
+				201CDE6528401291006900A0 /* LightChart */,
+			);
 			productName = StairStepperMaster;
 			productReference = 1FB4D83F283D5CD3001D00CF /* StairStepperMaster.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +146,9 @@
 				Base,
 			);
 			mainGroup = 1FB4D836283D5CD3001D00CF;
+			packageReferences = (
+				201CDE6428401291006900A0 /* XCRemoteSwiftPackageReference "LightChart" */,
+			);
 			productRefGroup = 1FB4D840283D5CD3001D00CF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,8 +175,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				201CDE632840125C006900A0 /* FlightsClimbedTile.swift in Sources */,
 				1FB4D845283D5CD3001D00CF /* ContentView.swift in Sources */,
 				1FB4D843283D5CD3001D00CF /* StairStepperMasterApp.swift in Sources */,
+				201CDE682840129F006900A0 /* Tile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +310,7 @@
 				DEVELOPMENT_TEAM = 539H954LB4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StairStepperMaster/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -299,6 +340,7 @@
 				DEVELOPMENT_TEAM = 539H954LB4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StairStepperMaster/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -339,6 +381,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		201CDE6428401291006900A0 /* XCRemoteSwiftPackageReference "LightChart" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pichukov/LightChart";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		201CDE6528401291006900A0 /* LightChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 201CDE6428401291006900A0 /* XCRemoteSwiftPackageReference "LightChart" */;
+			productName = LightChart;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1FB4D837283D5CD3001D00CF /* Project object */;
 }
