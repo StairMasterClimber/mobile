@@ -23,6 +23,7 @@ struct SelectionView: View {
                     Image("LogoWithName")
                     Text("Typically how active are you?")
                         .font(Font.custom("Avenir", size: 24))
+                        .fontWeight(.heavy)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                     Button(action: {print("asf")}, label: {
