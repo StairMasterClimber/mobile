@@ -7,10 +7,108 @@
 
 import SwiftUI
 import HealthKit
+import GameKit
 
 struct SelectionView: View {
+    @AppStorage("ActivityGoal") var activityGoal:Int = 8
+    //    @State private var activityGoal:Int = 8
+    //    @AppStorage("DidShowSelectionView") var isActive:Bool = false
+    @State var isActive:Bool = false
+    var valHR = 0.0
+    var heartCount = 0.0
+    @AppStorage("VO2Max") var vo2Max:Double = 0
+    @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
+    var body: some View {
+        if self.isActive {
+            // 3.
+            DashboardView()
+        }
+        else{
+            
+            ScrollView{
+                VStack(){
+                    Image("LogoWithName")
+                    Text("Typically how active are you?")
+                        .font(Font.custom("Avenir", size: 24))
+                        .fontWeight(.heavy)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                    Button(action: {activityGoal = 5}, label: {
+                        VStack{
+                            Text("Lightly")
+                                .fontWeight(.heavy)
+                                .font(Font.custom("Avenir", size: 24))
+                            Text("Little to no exercise (5 flights/day)")
+                                .fontWeight(.thin)
+                                .font(Font.custom("Avenir", size: 14))
+                        }
+                    })
+                    .buttonStyle(SelectionButton(isActive: activityGoal == 5))
+                    
+                    Button(action: {activityGoal = 8}, label: {
+                        VStack{
+                            Text("Moderately")
+                                .fontWeight(.heavy)
+                                .font(Font.custom("Avenir", size: 24))
+                            Text("Somewhat physically active (8 flights/day)")
+                                .fontWeight(.thin)
+                                .font(Font.custom("Avenir", size: 14))
+                        }
+                    })
+                    .buttonStyle(SelectionButton(isActive: activityGoal == 8))
+                    
+                    Button(action: {activityGoal = 10}, label: {
+                        VStack{
+                            Text("Highly")
+                                .fontWeight(.heavy)
+                                .font(Font.custom("Avenir", size: 24))
+                            Text("Dedicated work out routine (10 flights/day)")
+                                .fontWeight(.thin)
+                                .font(Font.custom("Avenir", size: 14))
+                        }
+                    })
+                    .buttonStyle(SelectionButton(isActive: activityGoal == 10))
+                    
+                    Text("A flights of stairs is counted as approximately 10 feet (3 meters) of elevation gain")
+                        .font(Font.custom("Avenir", size: 14))
+                        .fontWeight(.thin)
+                        .padding()
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                    Button(action: {
+                        fetchHealthData()
+                        simpleSuccessHaptic()
+                    }, label: {
+                        Text("Get Started")
+                            .font(Font.custom("Avenir", size: 24))
+                    })
+                    .buttonStyle(WhiteButton())
+                    
+                    
+                }
+                .padding()
+            }
+            .background(ZStack{
+                Image("ScreenBackground").aspectRatio(contentMode: .fit).border(.black)
+            }.background(Color("BrandBlack")))
+            .onAppear(){
+                authenticateUser()
+            }
+        }
+    }
     
-    func fetchHealthData() -> Void
+    let localPlayer = GKLocalPlayer.local
+    func authenticateUser() {
+        localPlayer.authenticateHandler = { vc, error in
+            guard error == nil else {
+                print(error?.localizedDescription ?? "")
+                return
+            }
+            GKAccessPoint.shared.isActive = localPlayer.isAuthenticated
+        }
+    }
+    
+    func fetchHealthData()
     {
         let HKStore = HKHealthStore()
         
@@ -19,11 +117,11 @@ struct SelectionView: View {
             let readData = Set([
                 HKObjectType.quantityType(forIdentifier: .heartRate)!,
                 HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
-//                HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
+                //                HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
                 HKObjectType.quantityType(forIdentifier: .stepCount)!,
                 HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
                 HKObjectType.quantityType(forIdentifier: .vo2Max)!,
-//                HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
+                //                HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
                 HKObjectType.quantityType(forIdentifier: .stairAscentSpeed)!,
                 HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!,
                 HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!])
@@ -48,10 +146,10 @@ struct SelectionView: View {
                     }
                     
                     guard let startDate = cal.date(byAdding: .month, value: -1, to: endDate)
-                            else
-                            {
-                                fatalError("Can't generate a startDate! :-/")
-                            }
+                    else
+                    {
+                        fatalError("Can't generate a startDate! :-/")
+                    }
                     print(startDate)
                     print(endDate)
                     let interval = NSDateComponents()
@@ -121,7 +219,7 @@ struct SelectionView: View {
                         
                     }
                     HKStore.execute(HKquery)
-
+                    
                 }
                 else
                 {
@@ -132,90 +230,6 @@ struct SelectionView: View {
         else
         {
             print("ERROR: Unable to fetch data!")
-        }
-    }
-
-    @AppStorage("ActivityGoal") var activityGoal:Int = 8
-//    @State private var activityGoal:Int = 8
-//    @AppStorage("DidShowSelectionView") var isActive:Bool = false
-    @State var isActive:Bool = false
-    var valHR = 0.0
-    var heartCount = 0.0
-    @AppStorage("VO2Max") var vo2Max:Double = 0
-    @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
-    var body: some View {
-        if self.isActive {
-            // 3.
-            DashboardView()
-        }
-        else{
-
-            ScrollView{
-                VStack(){
-                    Image("LogoWithName")
-                    Text("Typically how active are you?")
-                        .font(Font.custom("Avenir", size: 24))
-                        .fontWeight(.heavy)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                    Button(action: {activityGoal = 5}, label: {
-                        VStack{
-                            Text("Lightly")
-                                .fontWeight(.heavy)
-                                .font(Font.custom("Avenir", size: 24))
-                            Text("Little to no exercise (5 flights/day)")
-                                .fontWeight(.thin)
-                                .font(Font.custom("Avenir", size: 14))
-                        }
-                    })
-                    .buttonStyle(SelectionButton(isActive: activityGoal == 5))
-
-                    Button(action: {activityGoal = 8}, label: {
-                        VStack{
-                            Text("Moderately")
-                                .fontWeight(.heavy)
-                                .font(Font.custom("Avenir", size: 24))
-                            Text("Somewhat physically active (8 flights/day)")
-                                .fontWeight(.thin)
-                                .font(Font.custom("Avenir", size: 14))
-                        }
-                    })
-                    .buttonStyle(SelectionButton(isActive: activityGoal == 8))
-
-                    Button(action: {activityGoal = 10}, label: {
-                        VStack{
-                            Text("Highly")
-                                .fontWeight(.heavy)
-                                .font(Font.custom("Avenir", size: 24))
-                            Text("Dedicated work out routine (10 flights/day)")
-                                .fontWeight(.thin)
-                                .font(Font.custom("Avenir", size: 14))
-                        }
-                    })
-                    .buttonStyle(SelectionButton(isActive: activityGoal == 10))
-
-                    Text("A flights of stairs is counted as approximately 10 feet (3 meters) of elevation gain")
-                        .font(Font.custom("Avenir", size: 14))
-                        .fontWeight(.thin)
-                        .padding()
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                    Button(action: {
-                        fetchHealthData()
-                        simpleSuccessHaptic()
-                    }, label: {
-                        Text("Get Started")
-                            .font(Font.custom("Avenir", size: 24))
-                    })
-                    .buttonStyle(WhiteButton())
-
-
-                }
-                .padding()
-            }
-            .background(ZStack{
-                Image("ScreenBackground").aspectRatio(contentMode: .fit).border(.black)
-            }.background(Color("BrandBlack")))
         }
     }
 }

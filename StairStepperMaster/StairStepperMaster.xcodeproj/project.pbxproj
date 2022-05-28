@@ -17,10 +17,11 @@
 		761B501F28412D0F0012C2E3 /* HapticHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B501E28412D0F0012C2E3 /* HapticHelpers.swift */; };
 		761B5023284130590012C2E3 /* MachineTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B5022284130590012C2E3 /* MachineTileView.swift */; };
 		761B50272841A3290012C2E3 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761B50262841A3290012C2E3 /* HealthKit.framework */; };
+		761B502D2841F2620012C2E3 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761B502C2841F2620012C2E3 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1FB4D83F283D5CD3001D00CF /* StairStepperMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StairStepperMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FB4D83F283D5CD3001D00CF /* StairStepperMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = StairStepperMaster.app; path = "/Users/saamer/Documents/GitHub/StairMaster/StairStepperMaster/build/Debug-iphoneos/StairStepperMaster.app"; sourceTree = "<absolute>"; };
 		1FB4D842283D5CD3001D00CF /* StairStepperMasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StairStepperMasterApp.swift; sourceTree = "<group>"; };
 		1FB4D844283D5CD3001D00CF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1FB4D846283D5CD5001D00CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -32,6 +33,7 @@
 		761B5022284130590012C2E3 /* MachineTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineTileView.swift; sourceTree = "<group>"; };
 		761B50242841A3290012C2E3 /* StairStepperMaster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StairStepperMaster.entitlements; sourceTree = "<group>"; };
 		761B50262841A3290012C2E3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		761B502C2841F2620012C2E3 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				761B50272841A3290012C2E3 /* HealthKit.framework in Frameworks */,
+				761B502D2841F2620012C2E3 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,17 +53,8 @@
 			isa = PBXGroup;
 			children = (
 				1FB4D841283D5CD3001D00CF /* StairStepperMaster */,
-				1FB4D840283D5CD3001D00CF /* Products */,
 				761B50252841A3290012C2E3 /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		1FB4D840283D5CD3001D00CF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				1FB4D83F283D5CD3001D00CF /* StairStepperMaster.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		1FB4D841283D5CD3001D00CF /* StairStepperMaster */ = {
@@ -91,6 +85,7 @@
 		761B50252841A3290012C2E3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				761B502C2841F2620012C2E3 /* GameKit.framework */,
 				761B50262841A3290012C2E3 /* HealthKit.framework */,
 			);
 			name = Frameworks;
@@ -140,7 +135,7 @@
 				Base,
 			);
 			mainGroup = 1FB4D836283D5CD3001D00CF;
-			productRefGroup = 1FB4D840283D5CD3001D00CF /* Products */;
+			productRefGroup = 1FB4D836283D5CD3001D00CF;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -310,6 +305,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = gamekit;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -342,6 +338,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = gamekit;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

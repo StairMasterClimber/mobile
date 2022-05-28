@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HealthKit
 
 struct MachineTileView: View {
 //    @AppStorage("AskedAboutMachine") var shouldShowInitialQuestion:Bool = true
@@ -70,7 +71,7 @@ struct MachineTileView: View {
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                         Button(action: {
-                            print("Yes")
+                            saveFlights()
                             didStartWorkout = false
                         }, label:{ Text("End Workout")
                                 .font(Font.custom("Avenir", size: 20))
@@ -85,6 +86,32 @@ struct MachineTileView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20))
             }
         }
+    }
+    
+    func saveFlights()
+    {
+        guard let stepCountType = HKQuantityType.quantityType(forIdentifier:.flightsClimbed) else {
+            fatalError("Step Count Type is no longer available in HealthKit")
+        }
+        
+        let stepsCountUnit:HKUnit = HKUnit.count()
+        let stepsCountQuantity = HKQuantity(unit: stepsCountUnit,
+                                           doubleValue: 1)
+        let date:Date = Date.init()
+        let stepsCountSample = HKQuantitySample(type: stepCountType,
+                                               quantity: stepsCountQuantity,
+                                               start: date,
+                                               end: date)
+        
+        HKHealthStore().save(stepsCountSample) { (success, error) in
+            
+            if let error = error {
+                print("Error Saving Steps Count Sample: \(error.localizedDescription)")
+            } else {
+                print("Successfully saved Steps Count Sample")
+            }
+        }
+        
     }
 }
 
