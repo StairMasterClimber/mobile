@@ -79,7 +79,7 @@ struct DashboardView: View {
                     Int(flightsClimbed),
                     context: 0,
                     player: GKLocalPlayer.local,
-                    leaderboardIDs: ["Flights"]
+                    leaderboardIDs: ["com.tfp.stairsteppermaster.flights"]
                 )
                 GKAccessPoint.shared.isActive = false
                 print("Code is run")
