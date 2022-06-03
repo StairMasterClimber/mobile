@@ -22,13 +22,20 @@ struct MachineTileView: View {
 
     var body: some View {
         if !shouldHide{
-            VStack{
+            VStack(spacing: 0){
+                HStack{
                 Text("STAIR STEPPER MACHINE")
                     .font(Font.custom("Avenir", size: 25))
                     .fontWeight(.heavy)
+//                    .foregroundColor(.orange)
+//                    .multilineTextAlignment(.leading)
+
+                    .padding(.leading, 19)
                     .foregroundColor(.white)
-                    .multilineTextAlignment(.leading)
-                VStack{
+      Spacer()
+                }
+
+                VStack(spacing: 0){
                     if shouldShowInitialQuestion{
                         Text("Do you use a Stair Stepper Machine?")
                             .font(Font.custom("Avenir", size: 14))
