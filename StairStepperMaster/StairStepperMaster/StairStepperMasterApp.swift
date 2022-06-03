@@ -11,7 +11,7 @@ import SwiftUI
 struct StairStepperMasterApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SelectionView()
         }
     }
 }
