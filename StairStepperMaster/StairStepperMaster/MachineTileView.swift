@@ -9,15 +9,15 @@ import SwiftUI
 import HealthKit
 
 struct MachineTileView: View {
-//    @AppStorage("AskedAboutMachine") var shouldShowInitialQuestion:Bool = true
-//    @AppStorage("MachineUsage") var shouldHide:Bool = false
+    @AppStorage("AskedAboutMachine") var shouldShowInitialQuestion:Bool = true
+    @AppStorage("MachineUsage") var shouldHide:Bool = false
 //    @AppStorage("DidStartWorkout") var didStartWorkout:Bool = false
     @AppStorage("InitialWorkoutStepsClimbed") var initialStepsWalked:Double = 0
     @AppStorage("FinalWorkoutStepsClimbed") var finalStepsWalked:Double = 0
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     @AppStorage("StepsTakenAtStart") var stepsAt:Double = 0
-    @State private var shouldShowInitialQuestion:Bool = true
-    @State private var shouldHide:Bool = false
+//    @State private var shouldShowInitialQuestion:Bool = true
+//    @State private var shouldHide:Bool = false
     @State private var didStartWorkout:Bool = false
 
     var body: some View {
