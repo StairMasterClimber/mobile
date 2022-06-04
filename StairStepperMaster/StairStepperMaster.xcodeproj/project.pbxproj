@@ -20,6 +20,8 @@
 		761B5023284130590012C2E3 /* MachineTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B5022284130590012C2E3 /* MachineTileView.swift */; };
 		761B50272841A3290012C2E3 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761B50262841A3290012C2E3 /* HealthKit.framework */; };
 		761B502D2841F2620012C2E3 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761B502C2841F2620012C2E3 /* GameKit.framework */; };
+		763EF3E6284A9E630044CBE5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763EF3E5284A9E630044CBE5 /* Extensions.swift */; };
+		763EF3E8284AAB460044CBE5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763EF3E7284AAB460044CBE5 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		761B50242841A3290012C2E3 /* StairStepperMaster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StairStepperMaster.entitlements; sourceTree = "<group>"; };
 		761B50262841A3290012C2E3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		761B502C2841F2620012C2E3 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		763EF3E5284A9E630044CBE5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		763EF3E7284AAB460044CBE5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,8 @@
 				761B501C28412C530012C2E3 /* DashboardView.swift */,
 				761B501E28412D0F0012C2E3 /* HapticHelpers.swift */,
 				761B5022284130590012C2E3 /* MachineTileView.swift */,
+				763EF3E5284A9E630044CBE5 /* Extensions.swift */,
+				763EF3E7284AAB460044CBE5 /* SettingsView.swift */,
 				1FC5B81328494AA4008DA00B /* FlightsTileView.swift */,
 				1F8F0FC9284AB08F00A7A11E /* Launch Screen.storyboard */,
 			);
@@ -174,6 +180,8 @@
 				1FB4D845283D5CD3001D00CF /* ContentView.swift in Sources */,
 				1FC5B81428494AA4008DA00B /* FlightsTileView.swift in Sources */,
 				761B501D28412C530012C2E3 /* DashboardView.swift in Sources */,
+				763EF3E8284AAB460044CBE5 /* SettingsView.swift in Sources */,
+				763EF3E6284A9E630044CBE5 /* Extensions.swift in Sources */,
 				761B5023284130590012C2E3 /* MachineTileView.swift in Sources */,
 				761B5019284120990012C2E3 /* ButtonStyles.swift in Sources */,
 				1FB4D843283D5CD3001D00CF /* StairStepperMasterApp.swift in Sources */,

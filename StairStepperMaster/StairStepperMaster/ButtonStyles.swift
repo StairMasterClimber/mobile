@@ -47,6 +47,21 @@ struct SelectionButton: ButtonStyle {
     }
 }
 
+struct SettingsSelectionButton: ButtonStyle {
+    var isActive:Bool = false
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .frame(minWidth: 250)
+            .padding()
+            .background(isActive ? Color("ButtonOrange") : Color("ButtonGrey"))
+            .foregroundColor(isActive ? Color("TextBrown") : .white)
+            .scaleEffect(configuration.isPressed ? 1.1 : 1)
+            .animation(.easeOut(duration: 0.1), value: configuration.isPressed)
+            .clipShape(RoundedRectangle(cornerRadius: 62))
+            .shadow(color: .black, radius: 4, x: 0, y: 2)
+    }
+}
+
 struct GreyButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

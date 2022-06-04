@@ -19,81 +19,91 @@ struct SelectionView: View {
     @AppStorage("VO2Max") var vo2Max:Double = 0
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     var body: some View {
-        if self.isActive {
-            // 3.
-            DashboardView()
-        }
-        else{
+        ZStack{
+            LinearGradient(colors: [Color.gray,Color.black], startPoint: .bottom, endPoint: .leading)
+                .edgesIgnoringSafeArea(.all)
             
-            ScrollView{
-                VStack(){
-                    Image("LogoWithName")
-                    Text("Typically how active are you?")
-                        .font(Font.custom("Avenir", size: 24))
-                        .fontWeight(.heavy)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                    Button(action: {activityGoal = 5}, label: {
-                        VStack{
-                            Text("Lightly")
-                                .fontWeight(.heavy)
-                                .font(Font.custom("Avenir", size: 24))
-                            Text("Little to no exercise (5 flights/day)")
-                                .fontWeight(.thin)
-                                .font(Font.custom("Avenir", size: 14))
-                        }
-                    })
-                    .buttonStyle(SelectionButton(isActive: activityGoal == 5))
-                    
-                    Button(action: {activityGoal = 8}, label: {
-                        VStack{
-                            Text("Moderately")
-                                .fontWeight(.heavy)
-                                .font(Font.custom("Avenir", size: 24))
-                            Text("Somewhat physically active (8 flights/day)")
-                                .fontWeight(.thin)
-                                .font(Font.custom("Avenir", size: 14))
-                        }
-                    })
-                    .buttonStyle(SelectionButton(isActive: activityGoal == 8))
-                    
-                    Button(action: {activityGoal = 10}, label: {
-                        VStack{
-                            Text("Highly")
-                                .fontWeight(.heavy)
-                                .font(Font.custom("Avenir", size: 24))
-                            Text("Dedicated work out routine (10 flights/day)")
-                                .fontWeight(.thin)
-                                .font(Font.custom("Avenir", size: 14))
-                        }
-                    })
-                    .buttonStyle(SelectionButton(isActive: activityGoal == 10))
-                    
-                    Text("A flights of stairs is counted as approximately 10 feet (3 meters) of elevation gain")
-                        .font(Font.custom("Avenir", size: 14))
-                        .fontWeight(.thin)
-                        .padding()
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                    Button(action: {
-                        fetchHealthData()
-                        simpleSuccessHaptic()
-                    }, label: {
-                        Text("Get Started")
+            if self.isActive {
+                // 3.
+                DashboardView()
+            }
+            else{
+                
+                ScrollView{
+                    VStack(){
+                        Image("LogoWithName")
+                        Text("Typically how active are you?")
                             .font(Font.custom("Avenir", size: 24))
-                    })
-                    .buttonStyle(WhiteButton())
-                    
-                    
+                            .fontWeight(.heavy)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                        Button(action: {activityGoal = 5}, label: {
+                            VStack{
+                                Text("Lightly")
+                                    .fontWeight(.heavy)
+                                    .font(Font.custom("Avenir", size: 24))
+                                Text("Little to no exercise (5 flights/day)")
+                                    .fontWeight(.thin)
+                                    .font(Font.custom("Avenir", size: 14))
+                            }
+                        })
+                        .buttonStyle(SelectionButton(isActive: activityGoal == 5))
+                        
+                        Button(action: {activityGoal = 8}, label: {
+                            VStack{
+                                Text("Moderately")
+                                    .fontWeight(.heavy)
+                                    .font(Font.custom("Avenir", size: 24))
+                                Text("Somewhat physically active (8 flights/day)")
+                                    .fontWeight(.thin)
+                                    .font(Font.custom("Avenir", size: 14))
+                            }
+                        })
+                        .buttonStyle(SelectionButton(isActive: activityGoal == 8))
+                        
+                        Button(action: {activityGoal = 10}, label: {
+                            VStack{
+                                Text("Highly")
+                                    .fontWeight(.heavy)
+                                    .font(Font.custom("Avenir", size: 24))
+                                Text("Dedicated work out routine (10 flights/day)")
+                                    .fontWeight(.thin)
+                                    .font(Font.custom("Avenir", size: 14))
+                            }
+                        })
+                        .buttonStyle(SelectionButton(isActive: activityGoal == 10))
+                        
+                        Text("A flights of stairs is counted as approximately 10 feet (3 meters) of elevation gain")
+                            .font(Font.custom("Avenir", size: 14))
+                            .fontWeight(.thin)
+                            .padding()
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                        Button(action: {
+                            fetchHealthData()
+                            simpleSuccessHaptic()
+                        }, label: {
+                            Text("Get Started")
+                                .font(Font.custom("Avenir", size: 24))
+                        })
+                        .buttonStyle(WhiteButton())
+                        
+                        
+                    }
+                    .padding()
                 }
-                .padding()
+                .background(ZStack{
+                    Image("ScreenBackground").aspectRatio(contentMode: .fit).border(.black)
+                })
+                .onAppear(){
+                    authenticateUser()
+                }
             }
-            .background(ZStack{
-                Image("ScreenBackground").aspectRatio(contentMode: .fit).border(.black)
-            }.background(Color("BrandBlack")))
-            .onAppear(){
-                authenticateUser()
-            }
+        }.onAppear {
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation") // Forcing the rotation to portrait
+            AppDelegate.orientationLock = .portrait // And making sure it stays that way
+        }.onDisappear {
+            AppDelegate.orientationLock = .all // Unlocking the rotation when leaving the view
         }
     }
     
