@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F8F0FCA284AB08F00A7A11E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F8F0FC9284AB08F00A7A11E /* Launch Screen.storyboard */; };
 		1FB4D843283D5CD3001D00CF /* StairStepperMasterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4D842283D5CD3001D00CF /* StairStepperMasterApp.swift */; };
 		1FB4D845283D5CD3001D00CF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4D844283D5CD3001D00CF /* ContentView.swift */; };
 		1FB4D847283D5CD5001D00CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FB4D846283D5CD5001D00CF /* Assets.xcassets */; };
 		1FB4D84A283D5CD5001D00CF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FB4D849283D5CD5001D00CF /* Preview Assets.xcassets */; };
+		1FC5B81428494AA4008DA00B /* FlightsTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC5B81328494AA4008DA00B /* FlightsTileView.swift */; };
 		761B5017283FF8590012C2E3 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B5016283FF8590012C2E3 /* SelectionView.swift */; };
 		761B5019284120990012C2E3 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B5018284120990012C2E3 /* ButtonStyles.swift */; };
 		761B501D28412C530012C2E3 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761B501C28412C530012C2E3 /* DashboardView.swift */; };
@@ -24,10 +26,13 @@
 
 /* Begin PBXFileReference section */
 		1FB4D83F283D5CD3001D00CF /* StairStepperMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = StairStepperMaster.app; path = "/Users/saamer/Documents/GitHub/StairMaster/StairStepperMaster/build/Debug-iphoneos/StairStepperMaster.app"; sourceTree = "<absolute>"; };
+		1F8F0FC9284AB08F00A7A11E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		1F8F0FCB284AB0E100A7A11E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1FB4D842283D5CD3001D00CF /* StairStepperMasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StairStepperMasterApp.swift; sourceTree = "<group>"; };
 		1FB4D844283D5CD3001D00CF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1FB4D846283D5CD5001D00CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FB4D849283D5CD5001D00CF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1FC5B81328494AA4008DA00B /* FlightsTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsTileView.swift; sourceTree = "<group>"; };
 		761B5016283FF8590012C2E3 /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 		761B5018284120990012C2E3 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		761B501C28412C530012C2E3 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -64,6 +69,7 @@
 		1FB4D841283D5CD3001D00CF /* StairStepperMaster */ = {
 			isa = PBXGroup;
 			children = (
+				1F8F0FCB284AB0E100A7A11E /* Info.plist */,
 				761B50242841A3290012C2E3 /* StairStepperMaster.entitlements */,
 				1FB4D842283D5CD3001D00CF /* StairStepperMasterApp.swift */,
 				1FB4D844283D5CD3001D00CF /* ContentView.swift */,
@@ -76,6 +82,8 @@
 				761B5022284130590012C2E3 /* MachineTileView.swift */,
 				763EF3E5284A9E630044CBE5 /* Extensions.swift */,
 				763EF3E7284AAB460044CBE5 /* SettingsView.swift */,
+				1FC5B81328494AA4008DA00B /* FlightsTileView.swift */,
+				1F8F0FC9284AB08F00A7A11E /* Launch Screen.storyboard */,
 			);
 			path = StairStepperMaster;
 			sourceTree = "<group>";
@@ -155,6 +163,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F8F0FCA284AB08F00A7A11E /* Launch Screen.storyboard in Resources */,
 				1FB4D84A283D5CD5001D00CF /* Preview Assets.xcassets in Resources */,
 				1FB4D847283D5CD5001D00CF /* Assets.xcassets in Resources */,
 			);
@@ -169,6 +178,7 @@
 			files = (
 				761B501F28412D0F0012C2E3 /* HapticHelpers.swift in Sources */,
 				1FB4D845283D5CD3001D00CF /* ContentView.swift in Sources */,
+				1FC5B81428494AA4008DA00B /* FlightsTileView.swift in Sources */,
 				761B501D28412C530012C2E3 /* DashboardView.swift in Sources */,
 				763EF3E8284AAB460044CBE5 /* SettingsView.swift in Sources */,
 				763EF3E6284A9E630044CBE5 /* Extensions.swift in Sources */,
@@ -308,11 +318,13 @@
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StairStepperMaster/Info.plist;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app accesses your health information to show you a dashboard. It doesn't share it with anyone";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app calculates the number of flights you climb and updates your iPhone Health data as well";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = gamekit;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -341,11 +353,13 @@
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StairStepperMaster/Info.plist;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app accesses your health information to show you a dashboard. It doesn't share it with anyone";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app calculates the number of flights you climb and updates your iPhone Health data as well";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = gamekit;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

@@ -155,7 +155,7 @@ struct SelectionView: View {
                         fatalError("Can't get a valid date from the achor. You fucked something up!")
                     }
                     
-                    guard let startDate = cal.date(byAdding: .month, value: -1, to: endDate)
+                    guard let startDate = cal.date(byAdding: .day, value: -7, to: endDate)
                     else
                     {
                         fatalError("Can't generate a startDate! :-/")

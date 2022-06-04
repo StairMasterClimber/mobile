@@ -70,7 +70,8 @@ struct DashboardView: View {
                         Text("Your VO2 Max is " + String(vo2Max)).foregroundColor(.white)
                     }
                     Text("Your flights climbed in the last 30 days is " + String(flightsClimbed) + " and your goal is \(activityGoal*30)").foregroundColor(.white)
-                    MachineTileView()
+                    FlightsTileView()
+                    MachineTileView()                    
                 }
             }
             .background(ZStack{
