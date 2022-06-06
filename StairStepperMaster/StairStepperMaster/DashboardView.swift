@@ -12,20 +12,23 @@ import Foundation
 struct DashboardView: View {
     @AppStorage("VO2Max") var vo2Max:Double = 0
     @AppStorage("IsSettingsActive") var isSettingsActive:Bool = false
+    @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
     var body: some View {
         if isSettingsActive{
             SettingsView()
+        }else if isGKActive{
+            GameCenterView()
         }else{
             VStack(alignment: .leading){
-                HStack(alignment: .top){                    
+                HStack(alignment: .top){
                     HeaderSubView()
                     Image(systemName: "gearshape")
                         .padding([.top, .trailing])
                         .foregroundColor(.white)
                         .onTapGesture {
-                        isSettingsActive = true
-                    }
+                            isSettingsActive = true
+                        }
                 }
                 ScrollView{
                     if (vo2Max == 0){

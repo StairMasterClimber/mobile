@@ -10,6 +10,7 @@ import SwiftUI
 
 struct HeaderSubView: View {
     @State private var playerImage: UIImage?
+    @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
     @State private var displayName: String = ""
     let localPlayer = GKLocalPlayer.local
     private var quotes = ["It's never too late to be who you might have been","The person who says it cannot be done should not interrupt the person doing it","You can't fall if you don't climb, but there's no joy in living on the ground","Every mountain top is within reach if you just keep climbing"]
@@ -25,12 +26,7 @@ struct HeaderSubView: View {
                     .frame(width: 64, height: 64)
                     .clipShape(Circle())
                     .onTapGesture {
-                        GKAccessPoint.shared.isActive = true
-//                            let gameCenterViewController = GKGameCenterViewController()
-//                            gameCenterViewController.gameCenterDelegate = self
-//                            gameCenterViewController.viewState = .achievements
-//                            return gameCenterViewController
-
+                        isGKActive = true
                     }
             }else{
                 Circle()

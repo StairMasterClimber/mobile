@@ -24,10 +24,10 @@
 		763EF3E8284AAB460044CBE5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763EF3E7284AAB460044CBE5 /* SettingsView.swift */; };
 		7641B171284C6E32009B43BB /* LeadersTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B170284C6E32009B43BB /* LeadersTileView.swift */; };
 		7676C43E284D473E000819E3 /* HeaderSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7676C43D284D473E000819E3 /* HeaderSubView.swift */; };
+		FD80DCC9284EB92D00BF94CC /* GameCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1FB4D83F283D5CD3001D00CF /* StairStepperMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = StairStepperMaster.app; path = "/Users/saamer/Documents/GitHub/StairMaster/StairStepperMaster/build/Debug-iphoneos/StairStepperMaster.app"; sourceTree = "<absolute>"; };
 		1F8F0FC9284AB08F00A7A11E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		1F8F0FCB284AB0E100A7A11E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1FB4D842283D5CD3001D00CF /* StairStepperMasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StairStepperMasterApp.swift; sourceTree = "<group>"; };
@@ -47,6 +47,8 @@
 		763EF3E7284AAB460044CBE5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7641B170284C6E32009B43BB /* LeadersTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadersTileView.swift; sourceTree = "<group>"; };
 		7676C43D284D473E000819E3 /* HeaderSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSubView.swift; sourceTree = "<group>"; };
+		FD80DCC7284EB68A00BF94CC /* StairStepperMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = StairStepperMaster.app; path = "/Users/saamer.mansoor/Documents/GitHub/mobile/StairStepperMaster/build/Debug-iphoneos/StairStepperMaster.app"; sourceTree = "<absolute>"; };
+		FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				1F8F0FC9284AB08F00A7A11E /* Launch Screen.storyboard */,
 				7641B170284C6E32009B43BB /* LeadersTileView.swift */,
 				7676C43D284D473E000819E3 /* HeaderSubView.swift */,
+				FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */,
 			);
 			path = StairStepperMaster;
 			sourceTree = "<group>";
@@ -128,7 +131,7 @@
 			);
 			name = StairStepperMaster;
 			productName = StairStepperMaster;
-			productReference = 1FB4D83F283D5CD3001D00CF /* StairStepperMaster.app */;
+			productReference = FD80DCC7284EB68A00BF94CC /* StairStepperMaster.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -189,6 +192,7 @@
 				7676C43E284D473E000819E3 /* HeaderSubView.swift in Sources */,
 				761B501D28412C530012C2E3 /* DashboardView.swift in Sources */,
 				763EF3E8284AAB460044CBE5 /* SettingsView.swift in Sources */,
+				FD80DCC9284EB92D00BF94CC /* GameCenterView.swift in Sources */,
 				763EF3E6284A9E630044CBE5 /* Extensions.swift in Sources */,
 				761B5023284130590012C2E3 /* MachineTileView.swift in Sources */,
 				761B5019284120990012C2E3 /* ButtonStyles.swift in Sources */,

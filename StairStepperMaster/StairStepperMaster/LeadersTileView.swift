@@ -15,25 +15,29 @@ struct Player: Hashable {
 }
 
 struct LeadersTileView: View {
-
+    @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     var leaderboardIdentifier = "com.tfp.stairsteppermaster.flights"
     @State var players: [Player] = []
-
+    
     var body: some View {
         VStack(spacing: 0){
-           
             HStack{
-
-            Text("COMPETITION")
-                .font(Font.custom("Avenir", size: 25))
-                .fontWeight(.heavy)
-                .padding(.leading, 19)
-                .foregroundColor(.white)
-  Spacer()
+                
+                Text("COMPETITION")
+                    .font(Font.custom("Avenir", size: 25))
+                    .fontWeight(.heavy)
+                    .padding(.leading, 19)
+                    .foregroundColor(.white)
+                Spacer()
+                Text("Show More")
+                    .font(Font.custom("Avenir", size: 14))
+                    .padding(.trailing, 19)
+                    .foregroundColor(Color("MoreYellow"))
+                
             }
-
+            
             VStack{
                 HStack{
                     ForEach(players, id: \.self) { item in
@@ -52,7 +56,7 @@ struct LeadersTileView: View {
                 
             }
             .padding()
-            .frame(minWidth:353, minHeight: 113)
+            .frame(minHeight: 113)
             .background(Color("TileBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }.onAppear(){
@@ -62,7 +66,11 @@ struct LeadersTileView: View {
             } else {
                 loadLeaderboard()
             }
-
+            
+        }
+        .onTapGesture {
+            // TODO: Point to Leaderboard
+            isGKActive = true
         }
     }
     
@@ -84,10 +92,10 @@ struct LeadersTileView: View {
                         allPlayers.forEach { leaderboardEntry in
                             leaderboardEntry.player.loadPhoto(for: .small) { image, error in
                                 var numberOfAddedPlayers = 0
-//                                if (leaderboardEntry.player.displayName != GKLocalPlayer.local.displayName && numberOfAddedPlayers < 3){
-                                    self.players.append(Player(name: leaderboardEntry.player.displayName, image: image))
-                                    numberOfAddedPlayers = numberOfAddedPlayers + 1
-//                                }
+                                //                                if (leaderboardEntry.player.displayName != GKLocalPlayer.local.displayName && numberOfAddedPlayers < 3){
+                                self.players.append(Player(name: leaderboardEntry.player.displayName, image: image))
+                                numberOfAddedPlayers = numberOfAddedPlayers + 1
+                                //                                }
                             }
                         }
                     }
