@@ -41,6 +41,7 @@ struct MachineTileView: View {
                             .font(Font.custom("Avenir", size: 14))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
+                            .padding(.bottom)
                         HStack{
                             Button(action: {
                                 shouldShowInitialQuestion = false
@@ -66,6 +67,7 @@ struct MachineTileView: View {
                             .font(Font.custom("Avenir", size: 14))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
+                            .padding(.bottom)
                         Button(action: {
                             print("Yes")
                             fetchInitialStepData()
@@ -83,6 +85,7 @@ struct MachineTileView: View {
                             .font(Font.custom("Avenir", size: 14))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
+                            .padding(.bottom)
                         Button(action: {
                             fetchFinalStepData()
                             didStartWorkout = false
