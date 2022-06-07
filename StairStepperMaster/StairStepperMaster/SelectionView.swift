@@ -11,9 +11,7 @@ import GameKit
 
 struct SelectionView: View {
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
-    //    @State private var activityGoal:Int = 8
-    //    @AppStorage("DidShowSelectionView") var isActive:Bool = false
-    @State var isActive:Bool = false
+    @AppStorage("DidShowSelectionView") var isActive:Bool = false
     var valHR = 0.0
     var heartCount = 0.0
     @AppStorage("VO2Max") var vo2Max:Double = 0
@@ -142,6 +140,7 @@ struct SelectionView: View {
                 if success
                 {
                     let cal = NSCalendar.current
+                    print(cal)
                     var anchorComps = cal.dateComponents([.day, .month, .year, .weekday], from: NSDate() as Date)
                     let offset = (5 + anchorComps.weekday! - 2) % 5
                     let endDate = Date()

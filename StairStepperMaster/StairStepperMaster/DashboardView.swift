@@ -40,6 +40,7 @@ struct DashboardView: View {
                     FlightsTileView()
                     MachineTileView()
                     LeadersTileView()
+                    AchievementTileView()
                 }
             }
             .background(ZStack{

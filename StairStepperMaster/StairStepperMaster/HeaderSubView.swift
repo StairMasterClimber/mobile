@@ -16,7 +16,7 @@ struct HeaderSubView: View {
     private var quotes = ["It's never too late to be who you might have been","The person who says it cannot be done should not interrupt the person doing it","You can't fall if you don't climb, but there's no joy in living on the ground","Every mountain top is within reach if you just keep climbing"]
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     @AppStorage("FlightsClimbedAtFirstInstall") var flightsClimbedAtFirstInstall:Double = 0
-
+    
     var body: some View {
         HStack{
             if playerImage != nil {
@@ -58,7 +58,7 @@ struct HeaderSubView: View {
             }
         }
     }
-        
+    
     func authenticateUser() {
         localPlayer.authenticateHandler = { vc, error in
             guard error == nil else {
@@ -102,34 +102,34 @@ struct HeaderSubView: View {
     func calculateAchievements(){
         // Skywalker-3900, AllStairsLeadToRome-16, StairClimbingMasterTier1-10
         GKAchievement.loadAchievements(completionHandler: { (achievements: [GKAchievement]?, error: Error?) in
-                           let romeAchievementID = "AllStairsLeadToRome"
-                           var romeAchievement: GKAchievement? = nil
-
-                           // Find an existing achievement.
-                            romeAchievement = achievements?.first(where: { $0.identifier == romeAchievementID})
-
-                           // Otherwise, create a new achievement.
-                           if romeAchievement == nil {
-                               romeAchievement = GKAchievement(identifier: romeAchievementID)
-                               romeAchievement?.percentComplete=(romeAchievement?.percentComplete ?? 0) + ((flightsClimbed - flightsClimbedAtFirstInstall) / flightsClimbedAtFirstInstall) * 16
-                           }else{
-                               romeAchievement?.percentComplete=(romeAchievement?.percentComplete ?? 0) + ((flightsClimbed - flightsClimbedAtFirstInstall) / flightsClimbedAtFirstInstall) * 16
-                           }
-                           // Create an array containing the achievement.
-                           let achievementsToReport: [GKAchievement] = [romeAchievement!]
-                           // Report the progress to Game Center.
-                           GKAchievement.report(achievementsToReport, withCompletionHandler: {(error: Error?) in
-                               if error != nil {
-                                   // Handle the error that occurs.
-                                   print("Error: \(String(describing: error))")
-                               }
-                           })
-                           // Insert code to report the percentage.
-                           if error != nil {
-                               // Handle the error that occurs.
-                               print("Error: \(String(describing: error))")
-                           }
-                       })
+            let romeAchievementID = "AllStairsLeadToRome"
+            var romeAchievement: GKAchievement? = nil
+            
+            // Find an existing achievement.
+            romeAchievement = achievements?.first(where: { $0.identifier == romeAchievementID})
+            
+            // Otherwise, create a new achievement.
+            if romeAchievement == nil {
+                romeAchievement = GKAchievement(identifier: romeAchievementID)
+                romeAchievement?.percentComplete=(romeAchievement?.percentComplete ?? 0) + ((flightsClimbed - flightsClimbedAtFirstInstall) / flightsClimbedAtFirstInstall) * 16
+            }else{
+                romeAchievement?.percentComplete=(romeAchievement?.percentComplete ?? 0) + ((flightsClimbed - flightsClimbedAtFirstInstall) / flightsClimbedAtFirstInstall) * 16
+            }
+            // Create an array containing the achievement.
+            let achievementsToReport: [GKAchievement] = [romeAchievement!]
+            // Report the progress to Game Center.
+            GKAchievement.report(achievementsToReport, withCompletionHandler: {(error: Error?) in
+                if error != nil {
+                    // Handle the error that occurs.
+                    print("Error: \(String(describing: error))")
+                }
+            })
+            // Insert code to report the percentage.
+            if error != nil {
+                // Handle the error that occurs.
+                print("Error: \(String(describing: error))")
+            }
+        })
     }
 }
 

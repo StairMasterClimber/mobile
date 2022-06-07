@@ -23,6 +23,7 @@
 		763EF3E6284A9E630044CBE5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763EF3E5284A9E630044CBE5 /* Extensions.swift */; };
 		763EF3E8284AAB460044CBE5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763EF3E7284AAB460044CBE5 /* SettingsView.swift */; };
 		7641B171284C6E32009B43BB /* LeadersTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B170284C6E32009B43BB /* LeadersTileView.swift */; };
+		7671DD2E284ED9BF00993148 /* AchievementTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671DD2D284ED9BF00993148 /* AchievementTileView.swift */; };
 		7676C43E284D473E000819E3 /* HeaderSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7676C43D284D473E000819E3 /* HeaderSubView.swift */; };
 		FD80DCC9284EB92D00BF94CC /* GameCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */; };
 /* End PBXBuildFile section */
@@ -46,8 +47,9 @@
 		763EF3E5284A9E630044CBE5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		763EF3E7284AAB460044CBE5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7641B170284C6E32009B43BB /* LeadersTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadersTileView.swift; sourceTree = "<group>"; };
+		7671DD2D284ED9BF00993148 /* AchievementTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementTileView.swift; sourceTree = "<group>"; };
 		7676C43D284D473E000819E3 /* HeaderSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSubView.swift; sourceTree = "<group>"; };
-		FD80DCC7284EB68A00BF94CC /* StairStepperMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = StairStepperMaster.app; path = "/Users/saamer.mansoor/Documents/GitHub/mobile/StairStepperMaster/build/Debug-iphoneos/StairStepperMaster.app"; sourceTree = "<absolute>"; };
+		7676C442284EC1C9000819E3 /* StairStepperMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StairStepperMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +71,7 @@
 			children = (
 				1FB4D841283D5CD3001D00CF /* StairStepperMaster */,
 				761B50252841A3290012C2E3 /* Frameworks */,
+				7676C442284EC1C9000819E3 /* StairStepperMaster.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,6 +96,7 @@
 				7641B170284C6E32009B43BB /* LeadersTileView.swift */,
 				7676C43D284D473E000819E3 /* HeaderSubView.swift */,
 				FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */,
+				7671DD2D284ED9BF00993148 /* AchievementTileView.swift */,
 			);
 			path = StairStepperMaster;
 			sourceTree = "<group>";
@@ -131,7 +135,7 @@
 			);
 			name = StairStepperMaster;
 			productName = StairStepperMaster;
-			productReference = FD80DCC7284EB68A00BF94CC /* StairStepperMaster.app */;
+			productReference = 7676C442284EC1C9000819E3 /* StairStepperMaster.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -189,6 +193,7 @@
 				1FB4D845283D5CD3001D00CF /* ContentView.swift in Sources */,
 				1FC5B81428494AA4008DA00B /* FlightsTileView.swift in Sources */,
 				7641B171284C6E32009B43BB /* LeadersTileView.swift in Sources */,
+				7671DD2E284ED9BF00993148 /* AchievementTileView.swift in Sources */,
 				7676C43E284D473E000819E3 /* HeaderSubView.swift in Sources */,
 				761B501D28412C530012C2E3 /* DashboardView.swift in Sources */,
 				763EF3E8284AAB460044CBE5 /* SettingsView.swift in Sources */,
@@ -325,7 +330,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
@@ -360,7 +365,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
