@@ -10,6 +10,7 @@ import SwiftUI
 
 struct HeaderSubView: View {
     @State private var playerImage: UIImage?
+    @AppStorage("GKGameCenterViewControllerState") var gameCenterViewControllerState:GKGameCenterViewControllerState = .default
     @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
     @State private var displayName: String = ""
     let localPlayer = GKLocalPlayer.local
@@ -26,6 +27,7 @@ struct HeaderSubView: View {
                     .frame(width: 64, height: 64)
                     .clipShape(Circle())
                     .onTapGesture {
+                        gameCenterViewControllerState = .localPlayerProfile
                         isGKActive = true
                     }
             }else{

@@ -11,10 +11,12 @@ import GameKit
 struct Player: Hashable {
     let id = UUID()
     let name: String
+    let score: String
     let image: UIImage?
 }
 
 struct LeadersTileView: View {
+    @AppStorage("GKGameCenterViewControllerState") var gameCenterViewControllerState:GKGameCenterViewControllerState = .default
     @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
@@ -50,6 +52,9 @@ struct LeadersTileView: View {
                                 .font(Font.custom("Avenir",size: 10))
                                 .fontWeight(.heavy)
                                 .foregroundColor(.white)
+                            Text(item.score)
+                                .font(Font.custom("Avenir",size: 10))
+                                .foregroundColor(.white)
                         }.padding(15)
                     }
                 }
@@ -69,7 +74,7 @@ struct LeadersTileView: View {
             
         }
         .onTapGesture {
-            // TODO: Point to Leaderboard
+            gameCenterViewControllerState = .leaderboards
             isGKActive = true
         }
     }
@@ -91,11 +96,7 @@ struct LeadersTileView: View {
                     if let allPlayers = allPlayers {
                         allPlayers.forEach { leaderboardEntry in
                             leaderboardEntry.player.loadPhoto(for: .small) { image, error in
-                                var numberOfAddedPlayers = 0
-                                //                                if (leaderboardEntry.player.displayName != GKLocalPlayer.local.displayName && numberOfAddedPlayers < 3){
-                                self.players.append(Player(name: leaderboardEntry.player.displayName, image: image))
-                                numberOfAddedPlayers = numberOfAddedPlayers + 1
-                                //                                }
+                                self.players.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.formattedScore, image: image))
                             }
                         }
                     }

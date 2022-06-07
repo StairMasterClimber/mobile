@@ -16,6 +16,7 @@ struct Achievement: Hashable {
 }
 
 struct AchievementTileView: View {
+    @AppStorage("GKGameCenterViewControllerState") var gameCenterViewControllerState:GKGameCenterViewControllerState = .default
     @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
@@ -74,7 +75,7 @@ struct AchievementTileView: View {
             
         }
         .onTapGesture {
-            // TODO: Point to Leaderboard
+            gameCenterViewControllerState = .achievements
             isGKActive = true
         }
     }

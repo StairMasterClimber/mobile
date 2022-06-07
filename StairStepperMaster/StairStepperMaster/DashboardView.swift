@@ -12,6 +12,7 @@ import Foundation
 struct DashboardView: View {
     @AppStorage("VO2Max") var vo2Max:Double = 0
     @AppStorage("IsSettingsActive") var isSettingsActive:Bool = false
+    @AppStorage("GKGameCenterViewControllerState") var gameCenterViewControllerState:GKGameCenterViewControllerState = .default
     @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
     var body: some View {
