@@ -38,6 +38,7 @@ struct VO2MaxTileView: View {
             .background(Color("TileBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }
+        .padding([.horizontal])
     }
 }
 

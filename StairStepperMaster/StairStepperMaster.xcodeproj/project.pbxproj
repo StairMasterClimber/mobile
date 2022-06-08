@@ -334,7 +334,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
@@ -369,7 +369,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
