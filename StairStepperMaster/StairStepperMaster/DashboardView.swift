@@ -19,7 +19,7 @@ struct DashboardView: View {
         if isSettingsActive{
             SettingsView()
         }else if isGKActive{
-            GameCenterView()
+            GameCenterView(format: gameCenterViewControllerState)
         }else{
             VStack(alignment: .leading){
                 HStack(alignment: .top){
@@ -32,16 +32,11 @@ struct DashboardView: View {
                         }
                 }
                 ScrollView{
-                    if (vo2Max == 0){
-                        Text("You don't have any VO2 Max data registered. You can get that data by using an Apple Watch").foregroundColor(.white)
-                    }
-                    else{
-                        Text("Your VO2 Max is " + String(vo2Max)).foregroundColor(.white)
-                    }
                     FlightsTileView()
-                    MachineTileView()
                     LeadersTileView()
                     AchievementTileView()
+                    VO2MaxTileView()
+                    MachineTileView()
                 }
             }
             .background(ZStack{

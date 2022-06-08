@@ -24,15 +24,12 @@ struct MachineTileView: View {
         if !shouldHide{
             VStack(spacing: 0){
                 HStack{
-                Text("STAIR STEPPER MACHINE")
-                    .font(Font.custom("Avenir", size: 25))
-                    .fontWeight(.heavy)
-//                    .foregroundColor(.orange)
-//                    .multilineTextAlignment(.leading)
-
-                    .padding(.leading, 19)
-                    .foregroundColor(.white)
-      Spacer()
+                    Text("STAIR STEPPER MACHINE")
+                        .font(Font.custom("Avenir", size: 25))
+                        .fontWeight(.heavy)
+                        .padding(.leading, 19)
+                        .foregroundColor(.white)
+                    Spacer()
                 }
 
                 VStack(spacing: 0){

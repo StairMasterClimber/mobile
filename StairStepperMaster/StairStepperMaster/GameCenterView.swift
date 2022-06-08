@@ -14,7 +14,7 @@ public struct GameCenterView: UIViewControllerRepresentable {
     @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
 
     public init(viewController: GKGameCenterViewController = GKGameCenterViewController(), format:GKGameCenterViewControllerState = .default ) {
-        self.viewController = viewController
+        self.viewController = GKGameCenterViewController(state: format)
     }
 
     public func makeUIViewController(context: Context) -> GKGameCenterViewController {
