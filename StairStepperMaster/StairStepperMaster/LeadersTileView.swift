@@ -55,13 +55,13 @@ struct LeadersTileView: View {
                             Text(item.score)
                                 .font(Font.custom("Avenir",size: 10))
                                 .foregroundColor(.white)
-                        }.padding(15)
+                        }.padding(5)
                     }
                 }
                 
             }
             .padding()
-            .frame(minHeight: 113)
+            .frame(minWidth:300, minHeight: 113)
             .background(Color("TileBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }.onAppear(){

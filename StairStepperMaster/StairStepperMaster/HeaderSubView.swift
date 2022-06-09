@@ -32,7 +32,7 @@ struct HeaderSubView: View {
                     }
             }else{
                 Circle()
-                    .frame(width: 96, height: 96)
+                    .frame(width: 50, height: 50)
                     .foregroundColor(.red)
             }
             VStack(alignment: .leading){
@@ -48,7 +48,7 @@ struct HeaderSubView: View {
                     .font(Font.custom("Avenir", size: 14))
                     .fontWeight(.thin)
             }
-        }
+        }.frame(minWidth: 300, minHeight: 113)
         .onAppear(){
             if !GKLocalPlayer.local.isAuthenticated {
                 authenticateUser()
