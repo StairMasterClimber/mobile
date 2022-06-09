@@ -24,6 +24,13 @@
 		763EF3E8284AAB460044CBE5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763EF3E7284AAB460044CBE5 /* SettingsView.swift */; };
 		7641B171284C6E32009B43BB /* LeadersTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B170284C6E32009B43BB /* LeadersTileView.swift */; };
 		7671DD2E284ED9BF00993148 /* AchievementTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671DD2D284ED9BF00993148 /* AchievementTileView.swift */; };
+		7671DD33284EEE2B00993148 /* CurvedChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671DD32284EEE2B00993148 /* CurvedChart.swift */; };
+		7671DD35284EEE4E00993148 /* ChartType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671DD34284EEE4E00993148 /* ChartType.swift */; };
+		7671DD37284EEE7A00993148 /* DataRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671DD36284EEE7A00993148 /* DataRepresentable.swift */; };
+		7671DD39284EEE9A00993148 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671DD38284EEE9A00993148 /* Math.swift */; };
+		7671DD3B284EEEEA00993148 /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671DD3A284EEEEA00993148 /* LineChart.swift */; };
+		7671DD3D284EEF4F00993148 /* LightChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671DD3C284EEF4F00993148 /* LightChartView.swift */; };
+		7671DD43284EF03300993148 /* FlightsChartTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671DD42284EF03300993148 /* FlightsChartTileView.swift */; };
 		7676C43E284D473E000819E3 /* HeaderSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7676C43D284D473E000819E3 /* HeaderSubView.swift */; };
 		FD80DCC9284EB92D00BF94CC /* GameCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +55,13 @@
 		763EF3E7284AAB460044CBE5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7641B170284C6E32009B43BB /* LeadersTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadersTileView.swift; sourceTree = "<group>"; };
 		7671DD2D284ED9BF00993148 /* AchievementTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementTileView.swift; sourceTree = "<group>"; };
+		7671DD32284EEE2B00993148 /* CurvedChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvedChart.swift; sourceTree = "<group>"; };
+		7671DD34284EEE4E00993148 /* ChartType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartType.swift; sourceTree = "<group>"; };
+		7671DD36284EEE7A00993148 /* DataRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepresentable.swift; sourceTree = "<group>"; };
+		7671DD38284EEE9A00993148 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		7671DD3A284EEEEA00993148 /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
+		7671DD3C284EEF4F00993148 /* LightChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightChartView.swift; sourceTree = "<group>"; };
+		7671DD42284EF03300993148 /* FlightsChartTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsChartTileView.swift; sourceTree = "<group>"; };
 		7676C43D284D473E000819E3 /* HeaderSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSubView.swift; sourceTree = "<group>"; };
 		7676C442284EC1C9000819E3 /* StairStepperMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StairStepperMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterView.swift; sourceTree = "<group>"; };
@@ -78,25 +92,17 @@
 		1FB4D841283D5CD3001D00CF /* StairStepperMaster */ = {
 			isa = PBXGroup;
 			children = (
+				7671DD41284EEFE800993148 /* Views */,
+				7671DD40284EEFD300993148 /* Helpers */,
+				7671DD3E284EEF9900993148 /* Tiles */,
+				7671DD31284EEE0800993148 /* Charts */,
 				1F8F0FCB284AB0E100A7A11E /* Info.plist */,
 				761B50242841A3290012C2E3 /* StairStepperMaster.entitlements */,
 				1FB4D842283D5CD3001D00CF /* StairStepperMasterApp.swift */,
 				1FB4D844283D5CD3001D00CF /* ContentView.swift */,
 				1FB4D846283D5CD5001D00CF /* Assets.xcassets */,
 				1FB4D848283D5CD5001D00CF /* Preview Content */,
-				761B5016283FF8590012C2E3 /* SelectionView.swift */,
-				761B5018284120990012C2E3 /* ButtonStyles.swift */,
-				761B501C28412C530012C2E3 /* DashboardView.swift */,
-				761B501E28412D0F0012C2E3 /* HapticHelpers.swift */,
-				761B5022284130590012C2E3 /* MachineTileView.swift */,
-				763EF3E5284A9E630044CBE5 /* Extensions.swift */,
-				763EF3E7284AAB460044CBE5 /* SettingsView.swift */,
-				1FC5B81328494AA4008DA00B /* FlightsTileView.swift */,
 				1F8F0FC9284AB08F00A7A11E /* Launch Screen.storyboard */,
-				7641B170284C6E32009B43BB /* LeadersTileView.swift */,
-				7676C43D284D473E000819E3 /* HeaderSubView.swift */,
-				FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */,
-				7671DD2D284ED9BF00993148 /* AchievementTileView.swift */,
 			);
 			path = StairStepperMaster;
 			sourceTree = "<group>";
@@ -116,6 +122,53 @@
 				761B50262841A3290012C2E3 /* HealthKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7671DD31284EEE0800993148 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				7671DD32284EEE2B00993148 /* CurvedChart.swift */,
+				7671DD34284EEE4E00993148 /* ChartType.swift */,
+				7671DD36284EEE7A00993148 /* DataRepresentable.swift */,
+				7671DD38284EEE9A00993148 /* Math.swift */,
+				7671DD3A284EEEEA00993148 /* LineChart.swift */,
+				7671DD3C284EEF4F00993148 /* LightChartView.swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		7671DD3E284EEF9900993148 /* Tiles */ = {
+			isa = PBXGroup;
+			children = (
+				761B5022284130590012C2E3 /* MachineTileView.swift */,
+				1FC5B81328494AA4008DA00B /* FlightsTileView.swift */,
+				7641B170284C6E32009B43BB /* LeadersTileView.swift */,
+				7671DD2D284ED9BF00993148 /* AchievementTileView.swift */,
+				7671DD42284EF03300993148 /* FlightsChartTileView.swift */,
+			);
+			path = Tiles;
+			sourceTree = "<group>";
+		};
+		7671DD40284EEFD300993148 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				761B5018284120990012C2E3 /* ButtonStyles.swift */,
+				761B501E28412D0F0012C2E3 /* HapticHelpers.swift */,
+				763EF3E5284A9E630044CBE5 /* Extensions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		7671DD41284EEFE800993148 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				761B5016283FF8590012C2E3 /* SelectionView.swift */,
+				761B501C28412C530012C2E3 /* DashboardView.swift */,
+				763EF3E7284AAB460044CBE5 /* SettingsView.swift */,
+				7676C43D284D473E000819E3 /* HeaderSubView.swift */,
+				FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,16 +243,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				761B501F28412D0F0012C2E3 /* HapticHelpers.swift in Sources */,
+				7671DD35284EEE4E00993148 /* ChartType.swift in Sources */,
 				1FB4D845283D5CD3001D00CF /* ContentView.swift in Sources */,
 				1FC5B81428494AA4008DA00B /* FlightsTileView.swift in Sources */,
+				7671DD3B284EEEEA00993148 /* LineChart.swift in Sources */,
 				7641B171284C6E32009B43BB /* LeadersTileView.swift in Sources */,
 				7671DD2E284ED9BF00993148 /* AchievementTileView.swift in Sources */,
 				7676C43E284D473E000819E3 /* HeaderSubView.swift in Sources */,
 				761B501D28412C530012C2E3 /* DashboardView.swift in Sources */,
+				7671DD3D284EEF4F00993148 /* LightChartView.swift in Sources */,
+				7671DD33284EEE2B00993148 /* CurvedChart.swift in Sources */,
 				763EF3E8284AAB460044CBE5 /* SettingsView.swift in Sources */,
+				7671DD37284EEE7A00993148 /* DataRepresentable.swift in Sources */,
 				FD80DCC9284EB92D00BF94CC /* GameCenterView.swift in Sources */,
 				763EF3E6284A9E630044CBE5 /* Extensions.swift in Sources */,
 				761B5023284130590012C2E3 /* MachineTileView.swift in Sources */,
+				7671DD39284EEE9A00993148 /* Math.swift in Sources */,
+				7671DD43284EF03300993148 /* FlightsChartTileView.swift in Sources */,
 				761B5019284120990012C2E3 /* ButtonStyles.swift in Sources */,
 				1FB4D843283D5CD3001D00CF /* StairStepperMasterApp.swift in Sources */,
 				761B5017283FF8590012C2E3 /* SelectionView.swift in Sources */,
@@ -330,7 +390,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
@@ -365,7 +425,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;

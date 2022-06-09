@@ -58,6 +58,8 @@ struct HeaderSubView: View {
                     await leaderboard()
                 }
             }
+            GKAccessPoint.shared.location = .topLeading
+            GKAccessPoint.shared.isActive = false
         }
     }
     
@@ -67,12 +69,13 @@ struct HeaderSubView: View {
                 print(error?.localizedDescription ?? "")
                 return
             }
-            GKAccessPoint.shared.isActive = localPlayer.isAuthenticated
             loadPhoto()
             Task{
                 await leaderboard()
             }
         }
+        GKAccessPoint.shared.location = .topLeading
+        GKAccessPoint.shared.isActive = false
     }
     
     func leaderboard() async{
@@ -84,6 +87,7 @@ struct HeaderSubView: View {
                 leaderboardIDs: ["com.tfp.stairsteppermaster.flights"]
             )
         }
+        GKAccessPoint.shared.location = .topLeading
         GKAccessPoint.shared.isActive = false
         print("Code is run")
         calculateAchievements()
