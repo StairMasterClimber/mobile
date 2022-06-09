@@ -12,6 +12,7 @@ struct SettingsView: View {
     @AppStorage("IsSettingsActive") var isSettingsActive:Bool = false
     @AppStorage("AskedAboutMachine") var shouldShowInitialQuestion:Bool = true
     @AppStorage("MachineUsage") var shouldHide:Bool = false
+//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         ScrollView{
@@ -22,6 +23,7 @@ struct SettingsView: View {
                         .foregroundColor(.white)
                         .onTapGesture {
                             isSettingsActive = false
+                     //       self.presentationMode.wrappedValue.dismiss()
                         }
                     Spacer()
                 }
@@ -100,6 +102,8 @@ struct SettingsView: View {
             }
             .padding()
         }
+        .navigationTitle("")
+        .navigationBarHidden(true)
         .background(ZStack{
             Image("ScreenBackground").aspectRatio(contentMode: .fit).border(.black)
         })

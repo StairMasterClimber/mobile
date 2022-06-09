@@ -26,6 +26,7 @@
 		7671DD2E284ED9BF00993148 /* AchievementTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671DD2D284ED9BF00993148 /* AchievementTileView.swift */; };
 		7676C43E284D473E000819E3 /* HeaderSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7676C43D284D473E000819E3 /* HeaderSubView.swift */; };
 		FD7FBA072850F98700649056 /* VO2MaxTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7FBA062850F98700649056 /* VO2MaxTileView.swift */; };
+		FD7FBA092851025E00649056 /* FlightsChartTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7FBA082851025E00649056 /* FlightsChartTileView.swift */; };
 		FD80DCC9284EB92D00BF94CC /* GameCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		7676C43D284D473E000819E3 /* HeaderSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSubView.swift; sourceTree = "<group>"; };
 		7676C442284EC1C9000819E3 /* StairStepperMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StairStepperMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7FBA062850F98700649056 /* VO2MaxTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VO2MaxTileView.swift; sourceTree = "<group>"; };
+		FD7FBA082851025E00649056 /* FlightsChartTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsChartTileView.swift; sourceTree = "<group>"; };
 		FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +102,7 @@
 				FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */,
 				7671DD2D284ED9BF00993148 /* AchievementTileView.swift */,
 				FD7FBA062850F98700649056 /* VO2MaxTileView.swift */,
+				FD7FBA082851025E00649056 /* FlightsChartTileView.swift */,
 			);
 			path = StairStepperMaster;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				761B501F28412D0F0012C2E3 /* HapticHelpers.swift in Sources */,
+				FD7FBA092851025E00649056 /* FlightsChartTileView.swift in Sources */,
 				1FB4D845283D5CD3001D00CF /* ContentView.swift in Sources */,
 				1FC5B81428494AA4008DA00B /* FlightsTileView.swift in Sources */,
 				7641B171284C6E32009B43BB /* LeadersTileView.swift in Sources */,
@@ -334,12 +338,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StairStepperMaster/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app accesses your health information to show you a dashboard. It doesn't share it with anyone";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app calculates the number of flights you climb and updates your iPhone Health data as well";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -369,12 +374,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StairStepperMaster/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app accesses your health information to show you a dashboard. It doesn't share it with anyone";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app calculates the number of flights you climb and updates your iPhone Health data as well";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
