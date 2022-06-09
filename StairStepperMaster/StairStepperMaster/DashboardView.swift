@@ -32,6 +32,7 @@ struct DashboardView: View {
                         }
                 }
                 ScrollView{
+                    FlightsChartTileView()
                     FlightsTileView()
                     LeadersTileView()
                     AchievementTileView()
