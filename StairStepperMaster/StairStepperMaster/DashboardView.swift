@@ -40,9 +40,9 @@ struct DashboardView: View {
 
                     }
                     ScrollView{
-                        if #available(iOS 16.0, *) {
-                            FlightsChartTileView()
-                        }
+#if canImport(Charts)
+                        FlightsChartTileView()
+#endif
                         FlightsTileView()
                         LeadersTileView()
                         AchievementTileView()

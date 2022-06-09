@@ -6,7 +6,10 @@
 //
 
 import SwiftUI
+#if canImport(Charts)
 import Charts
+
+
 
 struct Stairs: Identifiable, Hashable {
     var Day: Int
@@ -147,3 +150,4 @@ struct FlightsChartTileView_Previews: PreviewProvider {
 func date(year: Int, month: Int, day: Int = 1) -> Date {
     Calendar.current.date(from: DateComponents(year: year, month: month, day: day)) ?? Date()
 }
+#endif
