@@ -16,33 +16,45 @@ struct DashboardView: View {
     @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
     var body: some View {
-        if isSettingsActive{
-            SettingsView()
-        }else if isGKActive{
-            GameCenterView(format: gameCenterViewControllerState)
-        }else{
-            VStack(alignment: .leading){
-                HStack(alignment: .top){
-                    HeaderSubView()
-                    Image(systemName: "gearshape")
-                        .padding([.top, .trailing])
-                        .foregroundColor(.white)
-                        .onTapGesture {
-                            isSettingsActive = true
+        NavigationView{
+            if isGKActive{
+                GameCenterView(format: gameCenterViewControllerState)
+            }else{
+                VStack(alignment: .leading){
+                    HStack(alignment: .top){
+                        HeaderSubView()
+                        
+                        NavigationLink(destination: SettingsView(), isActive: $isSettingsActive) {
+                            Image(systemName: "gearshape")
+                                .padding([.top, .trailing])
+                                .foregroundColor(.white)
                         }
+                        
+//                        NavigationLink(
+//                            destination: SettingsView()
+//                        ) {
+//                            Image(systemName: "gearshape")
+//                                .padding([.top, .trailing])
+//                                .foregroundColor(.white)
+//                        }
+
+                    }
+                    ScrollView{
+                        if #available(iOS 16.0, *) {
+                            FlightsChartTileView()
+                        }
+                        FlightsTileView()
+                        LeadersTileView()
+                        AchievementTileView()
+                        VO2MaxTileView()
+                        MachineTileView()
+                    }
                 }
-                ScrollView{
-                    FlightsChartTileView()
-                    FlightsTileView()
-                    LeadersTileView()
-                    AchievementTileView()
-                    VO2MaxTileView()
-                    MachineTileView()
-                }
+                .background(ZStack{
+                    Image("ScreenBackground").aspectRatio(contentMode: .fit).border(.black)
+                })
+                .padding(.bottom)
             }
-            .background(ZStack{
-                Image("ScreenBackground").aspectRatio(contentMode: .fit).border(.black)
-            })
         }
     }
 }

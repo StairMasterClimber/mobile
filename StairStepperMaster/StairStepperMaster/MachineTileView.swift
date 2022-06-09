@@ -10,6 +10,7 @@ import HealthKit
 
 struct MachineTileView: View {
     @AppStorage("AskedAboutMachine") var shouldShowInitialQuestion:Bool = true
+    @AppStorage("FlightsClimbedArray") var flightsClimbedArray:[Double] = [4,2,5,6,7,2,4]
     @AppStorage("MachineUsage") var shouldHide:Bool = false
 //    @AppStorage("DidStartWorkout") var didStartWorkout:Bool = false
     @AppStorage("InitialWorkoutStepsClimbed") var initialStepsWalked:Double = 0
@@ -123,6 +124,9 @@ struct MachineTileView: View {
             if let error = error {
                 print("Error Saving Steps Count Sample: \(error.localizedDescription)")
             } else {
+                let newLastValue = (flightsClimbedArray.last ?? 0) + numberOfFlights
+                flightsClimbedArray.removeLast()
+                flightsClimbedArray.append(newLastValue)
                 flightsClimbed = flightsClimbed + numberOfFlights
                 print("Successfully saved Steps Count Sample")
             }
@@ -272,7 +276,7 @@ struct MachineTileView: View {
                         fatalError("Can't get quantityType forIdentifier: .stepCount!")
                     }
                     let HKquery2 = HKStatisticsCollectionQuery(quantityType: quantityType2, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
-                    flightsClimbed = 0
+                    finalStepsWalked = 0
                     
                     HKquery2.initialResultsHandler =
                     {
