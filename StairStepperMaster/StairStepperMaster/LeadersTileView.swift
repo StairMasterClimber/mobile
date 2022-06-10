@@ -61,7 +61,7 @@ struct LeadersTileView: View {
                 
             }
             .padding()
-            .frame(minWidth:350, minHeight: 113)
+            .frame(minHeight: 113)
             .background(Color("TileBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }.onAppear(){
