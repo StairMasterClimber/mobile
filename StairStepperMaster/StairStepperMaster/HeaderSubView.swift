@@ -62,6 +62,19 @@ struct HeaderSubView: View {
                     await leaderboard()
                 }
             }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                // 7.
+                withAnimation {
+                    if !localPlayer.isAuthenticated {
+                        authenticateUser()
+                    } else if playerImage == nil {
+                        loadPhoto()
+                        Task{
+                            await leaderboard()
+                        }
+                    }
+                }
+            }
         }
     }
     

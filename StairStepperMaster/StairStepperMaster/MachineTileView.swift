@@ -28,7 +28,7 @@ struct MachineTileView: View {
                     Text("STAIR STEPPER MACHINE")
                         .font(Font.custom("Avenir", size: 25))
                         .fontWeight(.heavy)
-                        .padding(.leading, 19)
+                        .padding(.leading, 20)
                         .foregroundColor(.white)
                     Spacer()
                 }

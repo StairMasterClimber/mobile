@@ -30,12 +30,12 @@ struct LeadersTileView: View {
                 Text("COMPETITION")
                     .font(Font.custom("Avenir", size: 25))
                     .fontWeight(.heavy)
-                    .padding(.leading, 19)
+                    .padding(.leading, 20)
                     .foregroundColor(.white)
                 Spacer()
                 Text("Show More")
                     .font(Font.custom("Avenir", size: 14))
-                    .padding(.trailing, 19)
+                    .padding(.trailing, 20)
                     .foregroundColor(Color("MoreYellow"))
                 
             }
@@ -55,12 +55,12 @@ struct LeadersTileView: View {
                             Text(item.score)
                                 .font(Font.custom("Avenir",size: 10))
                                 .foregroundColor(.white)
-                        }.padding(15)
+                        }.padding(5)
                     }
                 }
                 
             }
-            .padding()
+            .padding(5)
             .frame(minWidth:350, minHeight: 113)
             .background(Color("TileBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -72,6 +72,16 @@ struct LeadersTileView: View {
                 loadLeaderboard()
             }
             
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                // 7.
+                withAnimation {
+                    if !GKLocalPlayer.local.isAuthenticated {
+                        authenticateUser()
+                    } else if playersList.count == 0 {
+                        loadLeaderboard()
+                    }
+                }
+            }
         }
         .onTapGesture {
             gameCenterViewControllerState = .leaderboards

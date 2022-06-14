@@ -16,7 +16,6 @@ struct VO2MaxTileView: View {
                 Text("WELLNESS")
                     .font(Font.custom("Avenir", size: 25))
                     .fontWeight(.heavy)
-                    .padding(.leading, 19)
                     .foregroundColor(.white)
                 Spacer()
             }
