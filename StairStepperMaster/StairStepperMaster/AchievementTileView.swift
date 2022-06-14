@@ -31,12 +31,12 @@ struct AchievementTileView: View {
                 Text("ACHIEVEMENTS")
                     .font(Font.custom("Avenir", size: 25))
                     .fontWeight(.heavy)
-                    .padding(.leading, 19)
+                    .padding(.leading, 20)
                     .foregroundColor(.white)
                 Spacer()
                 Text("Challenge Someone")
                     .font(Font.custom("Avenir", size: 14))
-                    .padding(.trailing, 19)
+                    .padding(.trailing, 20)
                     .foregroundColor(Color("MoreYellow"))
                     .onTapGesture {
                         isChallengeSomeone = true
@@ -60,6 +60,7 @@ struct AchievementTileView: View {
                                 .font(Font.custom("Avenir",size: 10))
                                 .foregroundColor(.white)
                         }.padding(5)
+                            .frame(maxWidth:105)
                     }
                 }
                 
