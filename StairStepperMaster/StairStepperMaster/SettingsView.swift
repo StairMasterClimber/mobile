@@ -100,6 +100,8 @@ struct SettingsView: View {
             }
             .padding()
         }
+        .navigationTitle("")
+        .navigationBarHidden(true)
         .background(ZStack{
             Image("ScreenBackground").aspectRatio(contentMode: .fit).border(.black)
         })

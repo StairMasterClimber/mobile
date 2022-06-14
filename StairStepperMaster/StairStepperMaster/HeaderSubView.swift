@@ -45,12 +45,14 @@ struct HeaderSubView: View {
                     .font(Font.custom("Avenir", size: 14))
                 Text("last sync: just now")
                     .foregroundColor(.gray)
+                    .italic()
                     .font(Font.custom("Avenir", size: 14))
                     .fontWeight(.thin)
                     .italic()
                     
             }
         }
+        .padding(.leading, 10)
         .onAppear(){
             if !GKLocalPlayer.local.isAuthenticated {
                 authenticateUser()

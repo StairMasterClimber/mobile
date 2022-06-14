@@ -35,6 +35,9 @@ struct DashboardView: View {
                         }
                 }                
                 ScrollView{
+#if canImport(Charts)
+                    FlightsChartTileView()
+#endif
                     FlightsTileView()
                     LeadersTileView()
                     AchievementTileView()
@@ -45,7 +48,9 @@ struct DashboardView: View {
             .background(ZStack{
                 Image("ScreenBackground").aspectRatio(contentMode: .fit).border(.black)
             })
+            .padding(.bottom)
         }
+        
     }
 }
 

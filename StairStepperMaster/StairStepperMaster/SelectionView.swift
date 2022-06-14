@@ -12,6 +12,7 @@ import GameKit
 struct SelectionView: View {
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
     @AppStorage("DidShowSelectionView") var isActive:Bool = false
+    @AppStorage("FlightsClimbedArray") var flightsClimbedArray:[Double] = [4,2,5,6,7,2,4]
     var valHR = 0.0
     var heartCount = 0.0
     @AppStorage("VO2Max") var vo2Max:Double = 0
@@ -185,7 +186,7 @@ struct SelectionView: View {
                         {
                             fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
                         }
-                        
+                        flightsClimbedArray.removeAll()
                         statsCollection.enumerateStatistics(from: startDate, to: endDate)
                         {
                             statistics, stop in
@@ -194,6 +195,8 @@ struct SelectionView: View {
                                 print(quantity)
                                 let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "count"))
+                                print(val)
+                                flightsClimbedArray.append(val)
                                 flightsClimbed = val + flightsClimbed
                                 print(val)
                                 print(date)
