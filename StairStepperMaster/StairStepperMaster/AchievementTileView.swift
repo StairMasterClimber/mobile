@@ -95,7 +95,15 @@ struct AchievementTileView: View {
                     // Find an existing achievement.
                     achievement = achievements?.first(where: { $0.identifier == achievementID})
                     achievementDescription.loadImage() { image, error in
-                        self.achievementsList.append(Achievement(name: achievementDescription.title, percentComplete: String(format: "%.0f",achievement?.percentComplete ?? 0.0) + "%", image: image))
+                        print(achievement)
+                        print(achievement?.percentComplete)
+                        
+                        if achievement?.percentComplete ?? 0 < 0 || achievement?.percentComplete ?? 0 > 100  {
+                            self.achievementsList.append(Achievement(name: achievementDescription.title, percentComplete: "100%", image: image))
+                        } else {
+                            self.achievementsList.append(Achievement(name: achievementDescription.title, percentComplete: String(format: "%.0f",achievement?.percentComplete ?? 0.0) + "%", image: image))
+                        }
+
                     }
                 })
             }

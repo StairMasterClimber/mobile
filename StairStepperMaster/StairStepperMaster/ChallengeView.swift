@@ -15,7 +15,7 @@ struct ChallengeView: View {
 
     var body: some View {
         ScrollView{
-            VStack(){
+            VStack{
                 HStack{
                     Image(systemName: "chevron.left")
                         .padding()
@@ -26,10 +26,35 @@ struct ChallengeView: View {
                     Spacer()
                 }
                 Text("SENDING CHALLENGES")
-                Text("1. If your friends are not on GameCenter, add them from here")
-                Text("2. Go here, then tap and hold an achievement and send it to your friend")
-                Text("3. You can’t see challenges you sent, but you can see challenges you received here.")
-                Text("4. You get a notification when your friend beats your challenge!")
+                    .font(Font.custom("Avenir", size: 25))
+                    .fontWeight(.heavy)
+//                    .padding(.top, 10)
+                    .foregroundColor(.white)
+
+                Text("1. If your friends are not on GameCenter, add them from by tapping on your picture in the Dashboard")
+                    .multilineTextAlignment(.leading)
+                    .font(Font.custom("Avenir", size: 18))
+                    .padding(.top, 20)
+                    .foregroundColor(.white)
+                Image("sendingChallenges1")
+
+                Text("2. The tap on the Achievements tile and tap and hold an achievement and send it to challenge your friend")
+                    .multilineTextAlignment(.leading)
+                    .font(Font.custom("Avenir", size: 18))
+                    .foregroundColor(.white)
+                Image("sendingChallenges2")
+
+                Text("3. You can’t see challenges you sent, but you can see challenges you received in Game Center.")
+                    .multilineTextAlignment(.leading)
+                    .font(Font.custom("Avenir", size: 18))
+                    .foregroundColor(.white)
+                Image("sendingChallenges3")
+
+                Text("4. You will get a notification when your friend beats your challenge!")
+                    .font(Font.custom("Avenir", size: 18))
+                    .multilineTextAlignment(.leading)
+                    .foregroundColor(.white)
+                Image("sendingChallenges4")
             }
             .padding()
         }

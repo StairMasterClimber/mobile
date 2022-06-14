@@ -33,7 +33,7 @@ struct DashboardView: View {
                         .onTapGesture {
                             isSettingsActive = true
                         }
-                }
+                }                
                 ScrollView{
                     FlightsTileView()
                     LeadersTileView()
