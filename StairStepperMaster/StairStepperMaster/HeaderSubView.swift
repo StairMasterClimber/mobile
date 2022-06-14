@@ -48,6 +48,8 @@ struct HeaderSubView: View {
                     .italic()
                     .font(Font.custom("Avenir", size: 14))
                     .fontWeight(.thin)
+                    .italic()
+                    
             }
         }
         .padding(.leading, 10)
