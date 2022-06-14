@@ -18,10 +18,11 @@ struct Achievement: Hashable {
 struct AchievementTileView: View {
     @AppStorage("GKGameCenterViewControllerState") var gameCenterViewControllerState:GKGameCenterViewControllerState = .default
     @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
+    @AppStorage("IsChallengeSomeone") var isChallengeSomeone:Bool = false
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     var leaderboardIdentifier = "com.tfp.stairsteppermaster.flights"
-    @State var achievements: [Achievement] = []
+    @State var achievementsList: [Achievement] = []
     
     var body: some View {
         VStack(spacing: 0){
@@ -33,16 +34,17 @@ struct AchievementTileView: View {
                     .padding(.leading, 19)
                     .foregroundColor(.white)
                 Spacer()
-                Text("Show More")
+                Text("Challenge Someone")
                     .font(Font.custom("Avenir", size: 14))
                     .padding(.trailing, 19)
                     .foregroundColor(Color("MoreYellow"))
-                
-            }
-            
+                    .onTapGesture {
+                        isChallengeSomeone = true
+                    }
+            }            
             VStack{
                 HStack{
-                    ForEach(achievements, id: \.self) { item in
+                    ForEach(achievementsList, id: \.self) { item in
                         VStack{
                             Image(uiImage: item.image!)
                                 .resizable()
@@ -84,6 +86,7 @@ struct AchievementTileView: View {
         // Skywalker-3900, AllStairsLeadToRome-16, StairClimbingMasterTier1-10
         Task{
             let achievementDescriptions = try await GKAchievementDescription.loadAchievementDescriptions()
+            achievementsList.removeAll()
             achievementDescriptions.forEach { achievementDescription in
                 GKAchievement.loadAchievements(completionHandler: { (achievements: [GKAchievement]?, error: Error?) in
                     let achievementID = achievementDescription.identifier
@@ -92,7 +95,15 @@ struct AchievementTileView: View {
                     // Find an existing achievement.
                     achievement = achievements?.first(where: { $0.identifier == achievementID})
                     achievementDescription.loadImage() { image, error in
-                        self.achievements.append(Achievement(name: achievementDescription.title, percentComplete: String(format: "%.0f",achievement?.percentComplete ?? 0.0) + "%", image: image))
+                        print(achievement)
+                        print(achievement?.percentComplete)
+                        
+                        if achievement?.percentComplete ?? 0 < 0 || achievement?.percentComplete ?? 0 > 100  {
+                            self.achievementsList.append(Achievement(name: achievementDescription.title, percentComplete: "100%", image: image))
+                        } else {
+                            self.achievementsList.append(Achievement(name: achievementDescription.title, percentComplete: String(format: "%.0f",achievement?.percentComplete ?? 0.0) + "%", image: image))
+                        }
+
                     }
                 })
             }

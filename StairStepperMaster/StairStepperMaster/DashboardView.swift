@@ -10,6 +10,7 @@ import GameKit
 import Foundation
 
 struct DashboardView: View {
+    @AppStorage("IsChallengeSomeone") var isChallengeSomeone:Bool = false
     @AppStorage("VO2Max") var vo2Max:Double = 0
     @AppStorage("IsSettingsActive") var isSettingsActive:Bool = false
     @AppStorage("GKGameCenterViewControllerState") var gameCenterViewControllerState:GKGameCenterViewControllerState = .default
@@ -20,6 +21,8 @@ struct DashboardView: View {
             SettingsView()
         }else if isGKActive{
             GameCenterView(format: gameCenterViewControllerState)
+        }else if isChallengeSomeone{
+            ChallengeView()
         }else{
             VStack(alignment: .leading){
                 HStack(alignment: .top){
@@ -30,7 +33,7 @@ struct DashboardView: View {
                         .onTapGesture {
                             isSettingsActive = true
                         }
-                }
+                }                
                 ScrollView{
                     FlightsTileView()
                     LeadersTileView()

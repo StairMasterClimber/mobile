@@ -21,7 +21,7 @@ struct LeadersTileView: View {
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     var leaderboardIdentifier = "com.tfp.stairsteppermaster.flights"
-    @State var players: [Player] = []
+    @State var playersList: [Player] = []
     
     var body: some View {
         VStack(spacing: 0){
@@ -42,7 +42,7 @@ struct LeadersTileView: View {
             
             VStack{
                 HStack{
-                    ForEach(players, id: \.self) { item in
+                    ForEach(playersList, id: \.self) { item in
                         VStack{
                             Image(uiImage: item.image!)
                                 .resizable()
@@ -90,13 +90,14 @@ struct LeadersTileView: View {
     }
     
     func loadLeaderboard() {
+        playersList.removeAll()
         GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier]) { (leaderboards, error) in
             if let leaderboard = leaderboards?.filter ({ $0.baseLeaderboardID == self.leaderboardIdentifier }).first {
                 leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...3)) { (_, allPlayers, _, error) in
                     if let allPlayers = allPlayers {
                         allPlayers.forEach { leaderboardEntry in
                             leaderboardEntry.player.loadPhoto(for: .small) { image, error in
-                                self.players.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.formattedScore, image: image))
+                                self.playersList.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.formattedScore, image: image))
                             }
                         }
                     }
