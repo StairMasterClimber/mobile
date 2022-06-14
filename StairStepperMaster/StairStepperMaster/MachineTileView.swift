@@ -272,7 +272,7 @@ struct MachineTileView: View {
                         fatalError("Can't get quantityType forIdentifier: .stepCount!")
                     }
                     let HKquery2 = HKStatisticsCollectionQuery(quantityType: quantityType2, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
-                    flightsClimbed = 0
+                    finalStepsWalked = 0
                     
                     HKquery2.initialResultsHandler =
                     {
