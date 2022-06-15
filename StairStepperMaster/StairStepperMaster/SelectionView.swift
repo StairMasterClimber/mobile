@@ -15,6 +15,7 @@ struct SelectionView: View {
     @AppStorage("FlightsClimbedArray") var flightsClimbedArray:[Double] = [4,2,5,6,7,2,4]
     var valHR = 0.0
     var heartCount = 0.0
+    @State var rejectedPermissions = 0
     @AppStorage("VO2Max") var vo2Max:Double = 0
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     var body: some View {
@@ -78,7 +79,20 @@ struct SelectionView: View {
                             .padding()
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
+                        if(rejectedPermissions > 1){
+                            Text("You have rejected Health permissions needed for the app to work. Either delete and reinstall the app or manually go to the Health App ->Sharing ->Apps ->Stair Master Climber ->Turn On permissions")
+                                .font(Font.custom("Avenir", size: 16))
+                                .fontWeight(.thin)
+                                .background(Color("ButtonOrange"))// : Color("ButtonGrey"))
+                                .foregroundColor(Color("TextBrown"))// : .white)
+                                .multilineTextAlignment(.center)
+                                .clipShape(RoundedRectangle(cornerRadius: 4))
+                                .padding()
+
+                        }
                         Button(action: {
+                            rejectedPermissions = rejectedPermissions + 1
+                            notificationPermission()
                             fetchHealthData()
                             simpleSuccessHaptic()
                         }, label: {
@@ -86,8 +100,6 @@ struct SelectionView: View {
                                 .font(Font.custom("Avenir", size: 24))
                         })
                         .buttonStyle(WhiteButton())
-                        
-                        
                     }
                     .padding()
                 }
@@ -175,10 +187,9 @@ struct SelectionView: View {
                         fatalError("Can't get quantityType forIdentifier: .vo2Max!")
                     }
                     let HKquery = HKStatisticsCollectionQuery(quantityType: quantityType, quantitySamplePredicate: nil, options: .discreteAverage, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
-                    let HKquery2 = HKStatisticsCollectionQuery(quantityType: quantityType2, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
-                    flightsClimbed = 0
-                    
-                    HKquery2.initialResultsHandler =
+                    let HKFlightsQuery = HKStatisticsCollectionQuery(quantityType: quantityType2, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
+                    var oldFlights = 0.0
+                    HKFlightsQuery.initialResultsHandler =
                     {
                         query, results, error in
                         guard let statsCollection = results
@@ -186,6 +197,9 @@ struct SelectionView: View {
                         {
                             fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
                         }
+                        oldFlights = flightsClimbed
+                        flightsClimbed = 0
+                        
                         flightsClimbedArray.removeAll()
                         statsCollection.enumerateStatistics(from: startDate, to: endDate)
                         {
@@ -203,9 +217,12 @@ struct SelectionView: View {
                                 self.isActive = true
                             }
                         }
+                        if (flightsClimbed > oldFlights){
+                            self.sendNotification(val: (flightsClimbed - oldFlights))
+                        }
                         
                     }
-                    HKStore.execute(HKquery2)
+                    HKStore.execute(HKFlightsQuery)
                     
                     HKquery.initialResultsHandler =
                     {
@@ -231,19 +248,125 @@ struct SelectionView: View {
                         
                     }
                     HKStore.execute(HKquery)
+                    print("HERE")
+                    var shouldCheck = false
+                    // ---------- Saamer
+                    let predicate = HKQuery.predicateForSamples(withStart: Calendar.current.date(byAdding: .day, value: -7, to: Date()), end: Date(), options: .strictStartDate)
+                    let backgroundQuery = HKObserverQuery(sampleType: HKObjectType.quantityType(forIdentifier: .flightsClimbed)!, predicate: predicate) { query, completionHandler, error in
+                        if let error = error {
+                            print(error.localizedDescription); return
+                        }
+                        if !shouldCheck{ shouldCheck = true }
+                        else{
+                            // HK Sample query that grabs steps
+//                            HKStore.execute(HKFlightsQuery)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                                // 7.
+                                withAnimation {
+                                    let HKFlightsQuery2 = HKStatisticsCollectionQuery(quantityType: quantityType2, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
+                                    var oldFlights = 0.0
+                                    HKFlightsQuery2.initialResultsHandler =
+                                    {
+                                        query, results, error in
+                                        guard let statsCollection = results
+                                        else
+                                        {
+                                            fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
+                                        }
+                                        oldFlights = flightsClimbed
+                                        flightsClimbed = 0
+
+                                        flightsClimbedArray.removeAll()
+                                        statsCollection.enumerateStatistics(from: startDate, to: endDate)
+                                        {
+                                            statistics, stop in
+                                            if let quantity = statistics.sumQuantity()
+                                            {
+                                                print(quantity)
+                                                let date = statistics.startDate
+                                                let val = quantity.doubleValue(for: HKUnit(from: "count"))
+                                                print(val)
+                                                flightsClimbedArray.append(val)
+                                                flightsClimbed = val + flightsClimbed
+                                                print(val)
+                                                print(date)
+                                                self.isActive = true
+                                            }
+                                        }
+                                        if (flightsClimbed > oldFlights){
+                                            self.sendNotification(val: (flightsClimbed - oldFlights))
+                                        }
+                                        
+                                    }
+                                    HKStore.execute(HKFlightsQuery2)
+                                }
+                            }
+                        }
+                        
+                        //                                    self.sendNotification()
+                        completionHandler()
+                    }
                     
+                    
+                    HKStore.execute(backgroundQuery)
+                    
+                    // ------- Saamer
                 }
                 else
                 {
                     print("Unauthorized!")
                 }
             }
+            HKStore.enableBackgroundDelivery(for: HKObjectType.quantityType(forIdentifier: .flightsClimbed)!, frequency: .immediate) { success, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                print(success)
+            }
+            
         }
         else
         {
             print("ERROR: Unable to fetch data!")
         }
     }
+    
+    func notificationPermission() {
+        let center = UNUserNotificationCenter.current()
+        //        center.delegate = self
+        center.requestAuthorization(options: [.sound,.alert,.badge]) { (granted, error) in
+            if granted {
+                print("Notification Enable Successfully")
+            } else {
+                print("Some Error Occure")
+            }
+        }
+    }
+    
+    //    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    //        let notificationBody = response.notification.request.content.title
+    //        if notificationBody == "Range alert" {
+    //            DispatchQueue.main.async {
+    //                self.openedFromNotificationAlert = true
+    //            }
+    //        }
+    //        completionHandler()
+    //    }
+    
+    func sendNotification(val: Double) {
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = "Flights Changed"
+        notificationContent.body = "The number of flights increased by \(String(val))"
+//        notificationContent.badge = NSNumber(value: 1)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+        let request = UNNotificationRequest(identifier: "rangeAlert", content: notificationContent, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if let error = error {
+                print("Notification Error: ", error)
+            }
+        }
+    }
+    
 }
 
 struct SelectionView_Previews: PreviewProvider {
