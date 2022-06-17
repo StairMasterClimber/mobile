@@ -105,7 +105,7 @@ struct SettingsView: View {
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                 if NotificationPermissionDenied{
-                    Text("You have rejected Push Notification permissions needed for to alert about progress. Either delete and reinstall the app or manually go to the Settings App -> Stair Master Climber ->Turn On Push Notification permissions")
+                    Text("You have rejected Push Notification permissions needed to alert about progress. Either delete and reinstall the app or manually go to the Settings App -> Stair Master Climber ->Turn On Push Notification permissions")
                         .font(Font.custom("Avenir", size: 16))
                         .fontWeight(.thin)
                         .background(Color("ButtonOrange"))// : Color("ButtonGrey"))
@@ -122,14 +122,14 @@ struct SettingsView: View {
                                 .font(Font.custom("Avenir", size: 16))
                                 .fontWeight(.heavy)
                         })
-                        .buttonStyle(TileYesNoButton(isYes: ShouldSendPushNotifications))
+                        .buttonStyle(TileYesNoButton(isYes: !ShouldSendPushNotifications))
                         Button(action: {
                             ShouldSendPushNotifications = false
                         }, label:{ Text("Off")
                                 .font(Font.custom("Avenir", size: 16))
                                 .fontWeight(.heavy)
                         })
-                        .buttonStyle(TileYesNoButton(isYes: !ShouldSendPushNotifications))
+                        .buttonStyle(TileYesNoButton(isYes: ShouldSendPushNotifications))
                     }
                 }
             }

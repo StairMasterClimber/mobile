@@ -129,9 +129,9 @@ struct HeaderSubView: View {
             romeAchievement = achievements?.first(where: { $0.identifier == romeAchievementID})
             if romeAchievement == nil {
                 romeAchievement = GKAchievement(identifier: romeAchievementID)
-                romeAchievement?.percentComplete=(romeAchievement?.percentComplete ?? 0) + (flightsClimbed/16) * 100
+                romeAchievement?.percentComplete=(flightsClimbed/16) * 100
             }else{
-                romeAchievement?.percentComplete=(romeAchievement?.percentComplete ?? 0) + (flightsClimbed/16) * 100
+                romeAchievement?.percentComplete=(flightsClimbed/16) * 100
             }
             
             // StairClimbingMasterTier1
@@ -140,9 +140,9 @@ struct HeaderSubView: View {
             masterTier1Achievement = achievements?.first(where: { $0.identifier == masterTier1AchievementID})
             if masterTier1Achievement == nil {
                 masterTier1Achievement = GKAchievement(identifier: masterTier1AchievementID)
-                masterTier1Achievement?.percentComplete=(masterTier1Achievement?.percentComplete ?? 0) + (flightsClimbed/100) * 100
+                masterTier1Achievement?.percentComplete=flightsClimbed
             }else{
-                masterTier1Achievement?.percentComplete=(masterTier1Achievement?.percentComplete ?? 0) + (flightsClimbed/100) * 100
+                masterTier1Achievement?.percentComplete=flightsClimbed
             }
             
             // Skywalker-199
@@ -151,13 +151,13 @@ struct HeaderSubView: View {
             skywalkerAchievement = achievements?.first(where: { $0.identifier == skywalkerAchievementID})
             if skywalkerAchievement == nil {
                 skywalkerAchievement = GKAchievement(identifier: skywalkerAchievementID)
-                skywalkerAchievement?.percentComplete=(skywalkerAchievement?.percentComplete ?? 0) + (flightsClimbed/199) * 100
+                skywalkerAchievement?.percentComplete=(flightsClimbed/199) * 100
             }else{
-                skywalkerAchievement?.percentComplete=(skywalkerAchievement?.percentComplete ?? 0) + (flightsClimbed/199) * 100
+                skywalkerAchievement?.percentComplete=(flightsClimbed/199) * 100
             }
 
             // Create an array containing the achievement.
-            let achievementsToReport: [GKAchievement] = [romeAchievement!]
+            let achievementsToReport: [GKAchievement] = [romeAchievement!, skywalkerAchievement!, masterTier1Achievement!]
             // Report the progress to Game Center.
             GKAchievement.report(achievementsToReport, withCompletionHandler: {(error: Error?) in
                 if error != nil {

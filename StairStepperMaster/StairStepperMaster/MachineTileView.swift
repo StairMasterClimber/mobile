@@ -108,9 +108,9 @@ struct MachineTileView: View {
         guard let stepCountType = HKQuantityType.quantityType(forIdentifier:.flightsClimbed) else {
             fatalError("Step Count Type is no longer available in HealthKit")
         }
-        var numberOfFlights = (finalStepsWalked - initialStepsWalked) / 15
+        var numberOfFlights = (finalStepsWalked - initialStepsWalked) / 16
         // From here: https://developer.apple.com/documentation/swift/floatingpoint/2298113-round to prevent incomplete stairs
-        numberOfFlights = numberOfFlights.rounded(.up)
+        numberOfFlights = numberOfFlights.rounded(.toNearestOrEven)
         let stepsCountUnit:HKUnit = HKUnit.count()
         let stepsCountQuantity = HKQuantity(unit: stepsCountUnit,
                                            doubleValue: numberOfFlights)
@@ -182,8 +182,9 @@ struct MachineTileView: View {
                     {
                         fatalError("Can't generate a startDate! :-/")
                     }
-//                    print(startDate)
-//                    print(endDate)
+                    print("fetchInitialStepData")
+                    print(startDate)
+                    print(endDate)
                     let interval = NSDateComponents()
                     interval.hour = 24
                     
@@ -201,6 +202,7 @@ struct MachineTileView: View {
                         {
                             fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
                         }
+                        initialStepsWalked = 0
                         
                         statsCollection.enumerateStatistics(from: startDate, to: endDate)
                         {
@@ -215,6 +217,8 @@ struct MachineTileView: View {
 //                                print(date)
                             }
                         }
+                        print("initialStepsWalked")
+                        print(initialStepsWalked)
                         
                     }
                     HKStore.execute(HKquery2)                    
@@ -273,8 +277,9 @@ struct MachineTileView: View {
                     {
                         fatalError("Can't generate a startDate! :-/")
                     }
-//                    print(startDate)
-//                    print(endDate)
+                    print("fetchFinalStepData")
+                    print(startDate)
+                    print(endDate)
                     let interval = NSDateComponents()
                     interval.hour = 24
                     
@@ -307,6 +312,8 @@ struct MachineTileView: View {
 //                                print(date)
                             }
                         }
+                        print("finalStepsWalked")
+                        print(finalStepsWalked)
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MMM d, hh:mm a"
                         SyncTime = dateFormatter.string(from: endDate)

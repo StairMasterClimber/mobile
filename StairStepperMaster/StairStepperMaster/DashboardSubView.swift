@@ -24,6 +24,8 @@ struct DashboardSubView: View {
 #if canImport(Charts)
             if #available(iOS 16.0, *) {
                 FlightsChartTileView()
+            } else{
+                FlightsTileView()
             }
 #else
             FlightsTileView()

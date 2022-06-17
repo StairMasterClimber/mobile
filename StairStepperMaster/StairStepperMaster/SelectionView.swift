@@ -307,6 +307,7 @@ struct SelectionView: View {
                                         if (flightsClimbed > oldFlights){
                                             self.sendNotification(val: (flightsClimbed - oldFlights))
                                         }
+                                        calculateAchievements()
                                         
                                     }
                                     HKStore.execute(HKFlightsQuery2)
@@ -342,6 +343,59 @@ struct SelectionView: View {
         }
     }
     
+    func calculateAchievements(){
+        // Skywalker-199, AllStairsLeadToRome-16, StairClimbingMasterTier1-100
+        GKAchievement.loadAchievements(completionHandler: { (achievements: [GKAchievement]?, error: Error?) in
+            // ROME
+            let romeAchievementID = "AllStairsLeadToRome"
+            var romeAchievement: GKAchievement? = nil
+            romeAchievement = achievements?.first(where: { $0.identifier == romeAchievementID})
+            if romeAchievement == nil {
+                romeAchievement = GKAchievement(identifier: romeAchievementID)
+                romeAchievement?.percentComplete=(flightsClimbed/16) * 100
+            }else{
+                romeAchievement?.percentComplete=(flightsClimbed/16) * 100
+            }
+            
+            // StairClimbingMasterTier1
+            let masterTier1AchievementID = "StairClimbingMasterTier1"
+            var masterTier1Achievement: GKAchievement? = nil
+            masterTier1Achievement = achievements?.first(where: { $0.identifier == masterTier1AchievementID})
+            if masterTier1Achievement == nil {
+                masterTier1Achievement = GKAchievement(identifier: masterTier1AchievementID)
+                masterTier1Achievement?.percentComplete=flightsClimbed
+            }else{
+                masterTier1Achievement?.percentComplete=flightsClimbed
+            }
+            
+            // Skywalker-199
+            let skywalkerAchievementID = "Skywalker"
+            var skywalkerAchievement: GKAchievement? = nil
+            skywalkerAchievement = achievements?.first(where: { $0.identifier == skywalkerAchievementID})
+            if skywalkerAchievement == nil {
+                skywalkerAchievement = GKAchievement(identifier: skywalkerAchievementID)
+                skywalkerAchievement?.percentComplete=(flightsClimbed/199) * 100
+            }else{
+                skywalkerAchievement?.percentComplete=(flightsClimbed/199) * 100
+            }
+
+            // Create an array containing the achievement.
+            let achievementsToReport: [GKAchievement] = [romeAchievement!, skywalkerAchievement!, masterTier1Achievement!]
+            // Report the progress to Game Center.
+            GKAchievement.report(achievementsToReport, withCompletionHandler: {(error: Error?) in
+                if error != nil {
+                    // Handle the error that occurs.
+                    print("Error: \(String(describing: error))")
+                }
+            })
+            // Insert code to report the percentage.
+            if error != nil {
+                // Handle the error that occurs.
+                print("Error: \(String(describing: error))")
+            }
+        })
+    }
+
     func notificationPermission() {
         let center = UNUserNotificationCenter.current()
         //        center.delegate = self
@@ -354,17 +408,7 @@ struct SelectionView: View {
             }
         }
     }
-    
-    //    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-    //        let notificationBody = response.notification.request.content.title
-    //        if notificationBody == "Range alert" {
-    //            DispatchQueue.main.async {
-    //                self.openedFromNotificationAlert = true
-    //            }
-    //        }
-    //        completionHandler()
-    //    }
-    
+        
     func sendNotification(val: Double) {
         if !ShouldSendPushNotifications{return}
         let notificationContent = UNMutableNotificationContent()
