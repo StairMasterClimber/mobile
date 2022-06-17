@@ -85,6 +85,7 @@ struct LeadersTileView: View {
         }
         .onTapGesture {
             gameCenterViewControllerState = .leaderboards
+            simpleSuccessHaptic()
             isGKActive = true
         }
     }

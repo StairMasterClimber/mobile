@@ -40,7 +40,10 @@ struct SelectionView: View {
                             .fontWeight(.heavy)
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
-                        Button(action: {activityGoal = 3}, label: {
+                        Button(action: {
+                            activityGoal = 3
+                            simpleSuccessHaptic()
+                        }, label: {
                             VStack{
                                 Text("Lightly")
                                     .fontWeight(.heavy)
@@ -52,7 +55,10 @@ struct SelectionView: View {
                         })
                         .buttonStyle(SelectionButton(isActive: activityGoal == 3))
                         
-                        Button(action: {activityGoal = 8}, label: {
+                        Button(action: {
+                            activityGoal = 8
+                            simpleWarningHaptic()
+                        }, label: {
                             VStack{
                                 Text("Moderately")
                                     .fontWeight(.heavy)
@@ -64,7 +70,10 @@ struct SelectionView: View {
                         })
                         .buttonStyle(SelectionButton(isActive: activityGoal == 8))
                         
-                        Button(action: {activityGoal = 12}, label: {
+                        Button(action: {
+                            activityGoal = 12
+                            simpleErrorHaptic()
+                        }, label: {
                             VStack{
                                 Text("Highly")
                                     .fontWeight(.heavy)

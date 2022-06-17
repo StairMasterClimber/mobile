@@ -40,6 +40,7 @@ struct AchievementTileView: View {
                     .foregroundColor(Color("MoreYellow"))
                     .onTapGesture {
                         isChallengeSomeone = true
+                        simpleSuccessHaptic()
                     }
             }            
             VStack{
@@ -78,6 +79,7 @@ struct AchievementTileView: View {
             
         }
         .onTapGesture {
+            simpleWarningHaptic()
             gameCenterViewControllerState = .achievements
             isGKActive = true
         }

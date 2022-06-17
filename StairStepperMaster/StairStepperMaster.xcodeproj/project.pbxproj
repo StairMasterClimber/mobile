@@ -88,30 +88,18 @@
 		1FB4D841283D5CD3001D00CF /* StairStepperMaster */ = {
 			isa = PBXGroup;
 			children = (
+				FDFFF977285D13B3006A61BE /* Views */,
 				1F8F0FCB284AB0E100A7A11E /* Info.plist */,
 				761B50242841A3290012C2E3 /* StairStepperMaster.entitlements */,
 				1FB4D842283D5CD3001D00CF /* StairStepperMasterApp.swift */,
 				1FB4D844283D5CD3001D00CF /* ContentView.swift */,
 				1FB4D846283D5CD5001D00CF /* Assets.xcassets */,
 				1FB4D848283D5CD5001D00CF /* Preview Content */,
-				761B5016283FF8590012C2E3 /* SelectionView.swift */,
 				761B5018284120990012C2E3 /* ButtonStyles.swift */,
-				761B501C28412C530012C2E3 /* DashboardView.swift */,
 				761B501E28412D0F0012C2E3 /* HapticHelpers.swift */,
-				761B5022284130590012C2E3 /* MachineTileView.swift */,
 				763EF3E5284A9E630044CBE5 /* Extensions.swift */,
-				763EF3E7284AAB460044CBE5 /* SettingsView.swift */,
-				1FC5B81328494AA4008DA00B /* FlightsTileView.swift */,
 				1F8F0FC9284AB08F00A7A11E /* Launch Screen.storyboard */,
-				7641B170284C6E32009B43BB /* LeadersTileView.swift */,
-				7676C43D284D473E000819E3 /* HeaderSubView.swift */,
-				FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */,
-				7671DD2D284ED9BF00993148 /* AchievementTileView.swift */,
-				FD7FBA062850F98700649056 /* VO2MaxTileView.swift */,
-				FD7FBA082851025E00649056 /* FlightsChartTileView.swift */,
-				FD4C2007285905A4004A1F1D /* ChallengeView.swift */,
 				FDFFF973285BB753006A61BE /* PullToRefresh.swift */,
-				FDFFF975285BC641006A61BE /* DashboardSubView.swift */,
 			);
 			path = StairStepperMaster;
 			sourceTree = "<group>";
@@ -131,6 +119,26 @@
 				761B50262841A3290012C2E3 /* HealthKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FDFFF977285D13B3006A61BE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				761B5016283FF8590012C2E3 /* SelectionView.swift */,
+				761B501C28412C530012C2E3 /* DashboardView.swift */,
+				761B5022284130590012C2E3 /* MachineTileView.swift */,
+				763EF3E7284AAB460044CBE5 /* SettingsView.swift */,
+				1FC5B81328494AA4008DA00B /* FlightsTileView.swift */,
+				7641B170284C6E32009B43BB /* LeadersTileView.swift */,
+				7676C43D284D473E000819E3 /* HeaderSubView.swift */,
+				FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */,
+				7671DD2D284ED9BF00993148 /* AchievementTileView.swift */,
+				FD7FBA062850F98700649056 /* VO2MaxTileView.swift */,
+				FD7FBA082851025E00649056 /* FlightsChartTileView.swift */,
+				FD4C2007285905A4004A1F1D /* ChallengeView.swift */,
+				FDFFF975285BC641006A61BE /* DashboardSubView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,7 +358,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
@@ -365,8 +373,8 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = gamekit;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -374,9 +382,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tfp.stairsteppermaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -387,7 +398,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
@@ -402,8 +413,8 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = gamekit;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -411,9 +422,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tfp.stairsteppermaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

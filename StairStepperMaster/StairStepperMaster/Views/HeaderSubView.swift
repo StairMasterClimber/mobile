@@ -29,6 +29,7 @@ struct HeaderSubView: View {
                     .clipShape(Circle())
                     .onTapGesture {
                         gameCenterViewControllerState = .localPlayerProfile
+                        simpleSuccessHaptic()
                         isGKActive = true
                     }
             }else{

@@ -11,12 +11,12 @@ func simpleSuccessHaptic() {
     generator.notificationOccurred(.success)
 }
 
-func simpleEndHaptic() {
+func simpleWarningHaptic() {
     let generator = UINotificationFeedbackGenerator()
     generator.notificationOccurred(.warning)
 }
 
-func simpleBigHaptic() {
+func simpleErrorHaptic() {
     let generator = UINotificationFeedbackGenerator()
     generator.notificationOccurred(.error)
 }
