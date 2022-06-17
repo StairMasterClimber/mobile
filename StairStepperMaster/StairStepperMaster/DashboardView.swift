@@ -23,7 +23,7 @@ struct DashboardView: View {
             GameCenterView(format: gameCenterViewControllerState)
         }else if isChallengeSomeone{
             ChallengeView()
-        }else{
+        }else {
             VStack(alignment: .leading){
                 HStack(alignment: .top){
                     HeaderSubView()
@@ -33,19 +33,8 @@ struct DashboardView: View {
                         .onTapGesture {
                             isSettingsActive = true
                         }
-                }                
-                ScrollView{
-#if canImport(Charts)
-                    if #available(iOS 16.0, *) {
-                        FlightsChartTileView()
-                    }
-#endif
-                    FlightsTileView()
-                    LeadersTileView()
-                    AchievementTileView()
-                    VO2MaxTileView()
-                    MachineTileView()
                 }
+                DashboardSubView()
             }
             .background(ZStack{
                 Image("ScreenBackground").aspectRatio(contentMode: .fit).border(.black)

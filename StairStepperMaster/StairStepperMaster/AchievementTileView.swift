@@ -70,7 +70,7 @@ struct AchievementTileView: View {
             .background(Color("TileBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }.onAppear(){
-            print("HELLOOS")
+//            print("HELLOOS")
             
             Task{
                 await loadAchievements()
@@ -96,8 +96,8 @@ struct AchievementTileView: View {
                     // Find an existing achievement.
                     achievement = achievements?.first(where: { $0.identifier == achievementID})
                     achievementDescription.loadImage() { image, error in
-                        print(achievement)
-                        print(achievement?.percentComplete)
+//                        print(achievement)
+//                        print(achievement?.percentComplete)
                         
                         if achievement?.percentComplete ?? 0 < 0 || achievement?.percentComplete ?? 0 > 100  {
                             self.achievementsList.append(Achievement(name: achievementDescription.title, percentComplete: "100%", image: image))

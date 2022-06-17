@@ -65,10 +65,10 @@ struct LeadersTileView: View {
             .background(Color("TileBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }.onAppear(){
-            print("HELLOS")
+//            print("HELLOS")
             if !GKLocalPlayer.local.isAuthenticated {
                 authenticateUser()
-            } else {
+            } else if playersList.count == 0 {
                 loadLeaderboard()
             }
             

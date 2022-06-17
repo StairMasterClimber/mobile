@@ -10,9 +10,12 @@ import HealthKit
 import GameKit
 
 struct SelectionView: View {
+    @AppStorage("NotificationPermissionDenied") var NotificationPermissionDenied:Bool = false
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
+    @AppStorage("SyncTime") var SyncTime:String = "just now"
     @AppStorage("DidShowSelectionView") var isActive:Bool = false
     @AppStorage("FlightsClimbedArray") var flightsClimbedArray:[Double] = [4,2,5,6,7,2,4]
+    @AppStorage("ShouldSendPushNotifications") var ShouldSendPushNotifications:Bool = true
     var valHR = 0.0
     var heartCount = 0.0
     @State var rejectedPermissions = 0
@@ -37,17 +40,17 @@ struct SelectionView: View {
                             .fontWeight(.heavy)
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
-                        Button(action: {activityGoal = 5}, label: {
+                        Button(action: {activityGoal = 3}, label: {
                             VStack{
                                 Text("Lightly")
                                     .fontWeight(.heavy)
                                     .font(Font.custom("Avenir", size: 24))
-                                Text("Little to no exercise (5 flights/day)")
+                                Text("Little to no exercise (3 flights/day)")
                                     .fontWeight(.thin)
                                     .font(Font.custom("Avenir", size: 14))
                             }
                         })
-                        .buttonStyle(SelectionButton(isActive: activityGoal == 5))
+                        .buttonStyle(SelectionButton(isActive: activityGoal == 3))
                         
                         Button(action: {activityGoal = 8}, label: {
                             VStack{
@@ -61,17 +64,17 @@ struct SelectionView: View {
                         })
                         .buttonStyle(SelectionButton(isActive: activityGoal == 8))
                         
-                        Button(action: {activityGoal = 10}, label: {
+                        Button(action: {activityGoal = 12}, label: {
                             VStack{
                                 Text("Highly")
                                     .fontWeight(.heavy)
                                     .font(Font.custom("Avenir", size: 24))
-                                Text("Dedicated work out routine (10 flights/day)")
+                                Text("Dedicated work out routine (12 flights/day)")
                                     .fontWeight(.thin)
                                     .font(Font.custom("Avenir", size: 14))
                             }
                         })
-                        .buttonStyle(SelectionButton(isActive: activityGoal == 10))
+                        .buttonStyle(SelectionButton(isActive: activityGoal == 12))
                         
                         Text("A flights of stairs is counted as approximately 10 feet (3 meters) of elevation gain")
                             .font(Font.custom("Avenir", size: 14))
@@ -125,7 +128,6 @@ struct SelectionView: View {
                 print(error?.localizedDescription ?? "")
                 return
             }
-            GKAccessPoint.shared.isActive = localPlayer.isAuthenticated
         }
     }
     
@@ -153,7 +155,7 @@ struct SelectionView: View {
                 if success
                 {
                     let cal = NSCalendar.current
-                    print(cal)
+//                    print(cal)
                     var anchorComps = cal.dateComponents([.day, .month, .year, .weekday], from: NSDate() as Date)
                     let offset = (5 + anchorComps.weekday! - 2) % 5
                     let endDate = Date()
@@ -172,8 +174,8 @@ struct SelectionView: View {
                     {
                         fatalError("Can't generate a startDate! :-/")
                     }
-                    print(startDate)
-                    print(endDate)
+//                    print(startDate)
+//                    print(endDate)
                     let interval = NSDateComponents()
                     interval.hour = 24
                     
@@ -206,17 +208,21 @@ struct SelectionView: View {
                             statistics, stop in
                             if let quantity = statistics.sumQuantity()
                             {
-                                print(quantity)
+//                                print(quantity)
                                 let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "count"))
-                                print(val)
+//                                print(val)
                                 flightsClimbedArray.append(val)
                                 flightsClimbed = val + flightsClimbed
-                                print(val)
-                                print(date)
+//                                print(val)
+//                                print(date)
                                 self.isActive = true
                             }
+
                         }
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "MMM d, hh:mm a"
+                        SyncTime = dateFormatter.string(from: endDate)
                         if (flightsClimbed > oldFlights){
                             self.sendNotification(val: (flightsClimbed - oldFlights))
                         }
@@ -238,7 +244,7 @@ struct SelectionView: View {
                             statistics, stop in
                             if let quantity = statistics.averageQuantity()
                             {
-                                print(quantity)
+//                                print(quantity)
                                 let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "mL/min·kg"))
                                 vo2Max = val
@@ -248,7 +254,7 @@ struct SelectionView: View {
                         
                     }
                     HKStore.execute(HKquery)
-                    print("HERE")
+//                    print("HERE")
                     var shouldCheck = false
                     // ---------- Saamer
                     let predicate = HKQuery.predicateForSamples(withStart: Calendar.current.date(byAdding: .day, value: -7, to: Date()), end: Date(), options: .strictStartDate)
@@ -282,17 +288,22 @@ struct SelectionView: View {
                                             statistics, stop in
                                             if let quantity = statistics.sumQuantity()
                                             {
-                                                print(quantity)
+//                                                print(quantity)
                                                 let date = statistics.startDate
                                                 let val = quantity.doubleValue(for: HKUnit(from: "count"))
-                                                print(val)
+//                                                print(val)
                                                 flightsClimbedArray.append(val)
                                                 flightsClimbed = val + flightsClimbed
-                                                print(val)
-                                                print(date)
+//                                                print(val)
+//                                                print(date)
                                                 self.isActive = true
                                             }
+//                                            print(syncTime)
                                         }
+                                        let dateFormatter = DateFormatter()
+                                        dateFormatter.dateFormat = "MMM d, hh:mm a"
+                                        SyncTime = dateFormatter.string(from: endDate)
+
                                         if (flightsClimbed > oldFlights){
                                             self.sendNotification(val: (flightsClimbed - oldFlights))
                                         }
@@ -321,7 +332,7 @@ struct SelectionView: View {
                 if let error = error {
                     print(error.localizedDescription)
                 }
-                print(success)
+//                print(success)
             }
             
         }
@@ -338,7 +349,8 @@ struct SelectionView: View {
             if granted {
                 print("Notification Enable Successfully")
             } else {
-                print("Some Error Occure")
+                print("Some Error Occured")
+                NotificationPermissionDenied = true
             }
         }
     }
@@ -354,6 +366,7 @@ struct SelectionView: View {
     //    }
     
     func sendNotification(val: Double) {
+        if !ShouldSendPushNotifications{return}
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = "Flights Changed"
         notificationContent.body = "The number of flights increased by \(String(val))"

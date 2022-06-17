@@ -22,32 +22,13 @@ struct FlightsChartTileView: View {
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     @AppStorage("FlightsClimbedArray") var flightsClimbedArray:[Double] = [4,2,5,6,7,2,4]
 
-    var last7Days: [Stairs] = []
+    @State var last7Days: [Stairs] = []
     let symbolSize: CGFloat = 30
 
     init(){
-        print("flightsClimbedArray.count")
-        print(flightsClimbedArray.count)
-        if flightsClimbedArray.count < 7 {
-            let neededFligtDays = 7 - flightsClimbedArray.count
-            
-            for _ in 0..<neededFligtDays {
-                flightsClimbedArray.append(0)
-            }
-        
-            
-        }
-        last7Days = [
-            .init(Day: 0, TotalCount: 0),
-            .init(Day: 1, TotalCount: Int(flightsClimbedArray[0])),
-            .init(Day: 2, TotalCount: Int(flightsClimbedArray[1])),
-            .init(Day: 3, TotalCount: Int(flightsClimbedArray[2])),
-            .init(Day: 4, TotalCount: Int(flightsClimbedArray[3])),
-            .init(Day: 5, TotalCount: Int(flightsClimbedArray[4])),
-            .init(Day: 6, TotalCount: Int(flightsClimbedArray[5])),
-            .init(Day: 7, TotalCount: Int(flightsClimbedArray[6])),
-            .init(Day: 8, TotalCount: 0),
-        ]
+//        print("flightsClimbedArray.count")
+//        print(flightsClimbedArray.count)
+        CalculateLast7Days()
     }
     var body: some View {
         VStack(spacing: 0){
@@ -134,10 +115,31 @@ struct FlightsChartTileView: View {
         }
         .onChange(of: flightsClimbedArray, perform: { newNearMeter in
             //Then call the function and if you need to pass the new value do it like this
-            print("newNearMeter")
-            print(newNearMeter)
+//            print("newNearMeter")
+//            print(newNearMeter)
+            CalculateLast7Days()
         })
         .padding([.horizontal])
+    }
+    func CalculateLast7Days(){
+        if flightsClimbedArray.count < 7 {
+            let neededFligtDays = 7 - flightsClimbedArray.count
+            
+            for _ in 0..<neededFligtDays {
+                flightsClimbedArray.append(0)
+            }
+        }
+        last7Days = [
+            .init(Day: 0, TotalCount: 0),
+            .init(Day: 1, TotalCount: Int(flightsClimbedArray[0])),
+            .init(Day: 2, TotalCount: Int(flightsClimbedArray[1])),
+            .init(Day: 3, TotalCount: Int(flightsClimbedArray[2])),
+            .init(Day: 4, TotalCount: Int(flightsClimbedArray[3])),
+            .init(Day: 5, TotalCount: Int(flightsClimbedArray[4])),
+            .init(Day: 6, TotalCount: Int(flightsClimbedArray[5])),
+            .init(Day: 7, TotalCount: Int(flightsClimbedArray[6])),
+            .init(Day: 8, TotalCount: 0),
+        ]
     }
 }
 

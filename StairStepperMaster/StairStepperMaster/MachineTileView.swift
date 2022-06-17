@@ -10,6 +10,7 @@ import HealthKit
 
 struct MachineTileView: View {
     @AppStorage("AskedAboutMachine") var shouldShowInitialQuestion:Bool = true
+    @AppStorage("SyncTime") var SyncTime:String = "just now"
     @AppStorage("FlightsClimbedArray") var flightsClimbedArray:[Double] = [4,2,5,6,7,2,4]
     @AppStorage("MachineUsage") var shouldHide:Bool = false
 //    @AppStorage("DidStartWorkout") var didStartWorkout:Bool = false
@@ -43,14 +44,14 @@ struct MachineTileView: View {
                         HStack{
                             Button(action: {
                                 shouldShowInitialQuestion = false
-                                print("Yes")
+//                                print("Yes")
                             }, label:{ Text("Yes")
                                     .font(Font.custom("Avenir", size: 20))
                                     .fontWeight(.heavy)
                             })
                             .buttonStyle(TileYesNoButton(isYes: true))
                             Button(action: {
-                                print("No")
+//                                print("No")
                                 shouldShowInitialQuestion = false
                                 shouldHide = true
                             }, label:{ Text("No")
@@ -67,7 +68,7 @@ struct MachineTileView: View {
                             .multilineTextAlignment(.center)
                             .padding(.bottom)
                         Button(action: {
-                            print("Yes")
+//                            print("Yes")
                             fetchInitialStepData()
                             didStartWorkout = true
                         }, label:{
@@ -114,6 +115,7 @@ struct MachineTileView: View {
         let stepsCountQuantity = HKQuantity(unit: stepsCountUnit,
                                            doubleValue: numberOfFlights)
         let date:Date = Date.init()
+//        print(date)
         let stepsCountSample = HKQuantitySample(type: stepCountType,
                                                quantity: stepsCountQuantity,
                                                start: date,
@@ -128,7 +130,12 @@ struct MachineTileView: View {
                 flightsClimbedArray.removeLast()
                 flightsClimbedArray.append(newLastValue)
                 flightsClimbed = flightsClimbed + numberOfFlights
-                print("Successfully saved Steps Count Sample")
+//                print("Successfully saved Steps Count Sample")
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MMM d, hh:mm a"
+                SyncTime = dateFormatter.string(from: date)
+//                print(syncTime)
+                
             }
         }
     }
@@ -175,8 +182,8 @@ struct MachineTileView: View {
                     {
                         fatalError("Can't generate a startDate! :-/")
                     }
-                    print(startDate)
-                    print(endDate)
+//                    print(startDate)
+//                    print(endDate)
                     let interval = NSDateComponents()
                     interval.hour = 24
                     
@@ -200,12 +207,12 @@ struct MachineTileView: View {
                             statistics, stop in
                             if let quantity = statistics.sumQuantity()
                             {
-                                print(quantity)
+//                                print(quantity)
                                 let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "count"))
                                 initialStepsWalked = val + initialStepsWalked
-                                print(val)
-                                print(date)
+//                                print(val)
+//                                print(date)
                             }
                         }
                         
@@ -266,8 +273,8 @@ struct MachineTileView: View {
                     {
                         fatalError("Can't generate a startDate! :-/")
                     }
-                    print(startDate)
-                    print(endDate)
+//                    print(startDate)
+//                    print(endDate)
                     let interval = NSDateComponents()
                     interval.hour = 24
                     
@@ -292,14 +299,17 @@ struct MachineTileView: View {
                             statistics, stop in
                             if let quantity = statistics.sumQuantity()
                             {
-                                print(quantity)
+//                                print(quantity)
                                 let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "count"))
                                 finalStepsWalked = val + finalStepsWalked
-                                print(val)
-                                print(date)
+//                                print(val)
+//                                print(date)
                             }
                         }
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "MMM d, hh:mm a"
+                        SyncTime = dateFormatter.string(from: endDate)
                         saveFlights()
                     }
                     HKStore.execute(HKquery2)

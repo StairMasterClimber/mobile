@@ -17,7 +17,8 @@ struct HeaderSubView: View {
     private var quotes = ["It's never too late to be who you might have been","The person who says it cannot be done should not interrupt the person doing it","You can't fall if you don't climb, but there's no joy in living on the ground","Every mountain top is within reach if you just keep climbing"]
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     @AppStorage("FlightsClimbedAtFirstInstall") var flightsClimbedAtFirstInstall:Double = 0
-    
+    @AppStorage("SyncTime") var SyncTime:String = "just now"
+
     var body: some View {
         HStack{
             if playerImage != nil {
@@ -43,7 +44,7 @@ struct HeaderSubView: View {
                 Text(quotes.randomElement()!)
                     .foregroundColor(.white)
                     .font(Font.custom("Avenir", size: 14))
-                Text("last sync: just now")
+                Text("last sync: \(SyncTime)")
                     .foregroundColor(.gray)
                     .italic()
                     .font(Font.custom("Avenir", size: 14))
@@ -84,7 +85,7 @@ struct HeaderSubView: View {
                 print(error?.localizedDescription ?? "")
                 return
             }
-            GKAccessPoint.shared.isActive = localPlayer.isAuthenticated
+            GKAccessPoint.shared.isActive = false
             loadPhoto()
             Task{
                 await leaderboard()
@@ -102,7 +103,7 @@ struct HeaderSubView: View {
             )
         }
         GKAccessPoint.shared.isActive = false
-        print("Code is run")
+//        print("Code is run")
         calculateAchievements()
     }
     
@@ -120,20 +121,41 @@ struct HeaderSubView: View {
     
     func calculateAchievements(){
         // Skywalker-3900, AllStairsLeadToRome-16, StairClimbingMasterTier1-10
+        // Skywalker-199, AllStairsLeadToRome-16, StairClimbingMasterTier1-100
         GKAchievement.loadAchievements(completionHandler: { (achievements: [GKAchievement]?, error: Error?) in
+            // ROME
             let romeAchievementID = "AllStairsLeadToRome"
             var romeAchievement: GKAchievement? = nil
-            
-            // Find an existing achievement.
             romeAchievement = achievements?.first(where: { $0.identifier == romeAchievementID})
-            
-            // Otherwise, create a new achievement.
             if romeAchievement == nil {
                 romeAchievement = GKAchievement(identifier: romeAchievementID)
-                romeAchievement?.percentComplete=(romeAchievement?.percentComplete ?? 0) + ((flightsClimbed - flightsClimbedAtFirstInstall) / flightsClimbedAtFirstInstall) * 16
+                romeAchievement?.percentComplete=(romeAchievement?.percentComplete ?? 0) + (flightsClimbed/16) * 100
             }else{
-                romeAchievement?.percentComplete=(romeAchievement?.percentComplete ?? 0) + ((flightsClimbed - flightsClimbedAtFirstInstall) / flightsClimbedAtFirstInstall) * 16
+                romeAchievement?.percentComplete=(romeAchievement?.percentComplete ?? 0) + (flightsClimbed/16) * 100
             }
+            
+            // StairClimbingMasterTier1
+            let masterTier1AchievementID = "StairClimbingMasterTier1"
+            var masterTier1Achievement: GKAchievement? = nil
+            masterTier1Achievement = achievements?.first(where: { $0.identifier == masterTier1AchievementID})
+            if masterTier1Achievement == nil {
+                masterTier1Achievement = GKAchievement(identifier: masterTier1AchievementID)
+                masterTier1Achievement?.percentComplete=(masterTier1Achievement?.percentComplete ?? 0) + (flightsClimbed/100) * 100
+            }else{
+                masterTier1Achievement?.percentComplete=(masterTier1Achievement?.percentComplete ?? 0) + (flightsClimbed/100) * 100
+            }
+            
+            // Skywalker-199
+            let skywalkerAchievementID = "Skywalker"
+            var skywalkerAchievement: GKAchievement? = nil
+            skywalkerAchievement = achievements?.first(where: { $0.identifier == skywalkerAchievementID})
+            if skywalkerAchievement == nil {
+                skywalkerAchievement = GKAchievement(identifier: skywalkerAchievementID)
+                skywalkerAchievement?.percentComplete=(skywalkerAchievement?.percentComplete ?? 0) + (flightsClimbed/199) * 100
+            }else{
+                skywalkerAchievement?.percentComplete=(skywalkerAchievement?.percentComplete ?? 0) + (flightsClimbed/199) * 100
+            }
+
             // Create an array containing the achievement.
             let achievementsToReport: [GKAchievement] = [romeAchievement!]
             // Report the progress to Game Center.

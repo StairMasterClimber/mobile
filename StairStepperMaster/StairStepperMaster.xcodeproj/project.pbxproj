@@ -29,6 +29,8 @@
 		FD7FBA072850F98700649056 /* VO2MaxTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7FBA062850F98700649056 /* VO2MaxTileView.swift */; };
 		FD7FBA092851025E00649056 /* FlightsChartTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7FBA082851025E00649056 /* FlightsChartTileView.swift */; };
 		FD80DCC9284EB92D00BF94CC /* GameCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */; };
+		FDFFF974285BB753006A61BE /* PullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFFF973285BB753006A61BE /* PullToRefresh.swift */; };
+		FDFFF976285BC641006A61BE /* DashboardSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFFF975285BC641006A61BE /* DashboardSubView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		FD7FBA062850F98700649056 /* VO2MaxTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VO2MaxTileView.swift; sourceTree = "<group>"; };
 		FD7FBA082851025E00649056 /* FlightsChartTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsChartTileView.swift; sourceTree = "<group>"; };
 		FD80DCC8284EB92D00BF94CC /* GameCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterView.swift; sourceTree = "<group>"; };
+		FDFFF973285BB753006A61BE /* PullToRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefresh.swift; sourceTree = "<group>"; };
+		FDFFF975285BC641006A61BE /* DashboardSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSubView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				FD7FBA062850F98700649056 /* VO2MaxTileView.swift */,
 				FD7FBA082851025E00649056 /* FlightsChartTileView.swift */,
 				FD4C2007285905A4004A1F1D /* ChallengeView.swift */,
+				FDFFF973285BB753006A61BE /* PullToRefresh.swift */,
+				FDFFF975285BC641006A61BE /* DashboardSubView.swift */,
 			);
 			path = StairStepperMaster;
 			sourceTree = "<group>";
@@ -202,6 +208,7 @@
 				FD7FBA092851025E00649056 /* FlightsChartTileView.swift in Sources */,
 				1FB4D845283D5CD3001D00CF /* ContentView.swift in Sources */,
 				1FC5B81428494AA4008DA00B /* FlightsTileView.swift in Sources */,
+				FDFFF976285BC641006A61BE /* DashboardSubView.swift in Sources */,
 				7641B171284C6E32009B43BB /* LeadersTileView.swift in Sources */,
 				7671DD2E284ED9BF00993148 /* AchievementTileView.swift in Sources */,
 				7676C43E284D473E000819E3 /* HeaderSubView.swift in Sources */,
@@ -211,6 +218,7 @@
 				763EF3E6284A9E630044CBE5 /* Extensions.swift in Sources */,
 				FD7FBA072850F98700649056 /* VO2MaxTileView.swift in Sources */,
 				761B5023284130590012C2E3 /* MachineTileView.swift in Sources */,
+				FDFFF974285BB753006A61BE /* PullToRefresh.swift in Sources */,
 				FD4C2008285905A4004A1F1D /* ChallengeView.swift in Sources */,
 				761B5019284120990012C2E3 /* ButtonStyles.swift in Sources */,
 				1FB4D843283D5CD3001D00CF /* StairStepperMasterApp.swift in Sources */,
@@ -348,7 +356,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StairStepperMaster/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = StairMasterClimber;
+				INFOPLIST_KEY_CFBundleDisplayName = "Stair Master Climber";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app accesses your health information to show you a dashboard. It doesn't share it with anyone";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app calculates the number of flights you climb and updates your iPhone Health data as well";
@@ -385,7 +393,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StairStepperMaster/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = StairMasterClimber;
+				INFOPLIST_KEY_CFBundleDisplayName = "Stair Master Climber";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app accesses your health information to show you a dashboard. It doesn't share it with anyone";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app calculates the number of flights you climb and updates your iPhone Health data as well";
