@@ -13,7 +13,8 @@ struct SettingsView: View {
     @AppStorage("AskedAboutMachine") var shouldShowInitialQuestion:Bool = true
     @AppStorage("MachineUsage") var shouldHide:Bool = false
     @AppStorage("ShouldSendPushNotifications") var ShouldSendPushNotifications:Bool = true
-    
+    @AppStorage("NotificationPermissionDenied") var NotificationPermissionDenied:Bool = false
+
     var body: some View {
         ScrollView{
             VStack(){
