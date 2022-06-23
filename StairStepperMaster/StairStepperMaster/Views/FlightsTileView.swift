@@ -14,23 +14,20 @@ struct FlightsTileView: View {
 
     var body: some View {
         VStack(spacing: 0){
-           
             HStack{
-
-            Text("ACTIVITY")
-                .font(Font.custom("Avenir", size: 25))
-                .fontWeight(.heavy)
-                .padding(.leading, 20)
-                .foregroundColor(.white)
-  Spacer()
+                Text("ACTIVITY")
+                    .font(Font.custom("Avenir", size: 25))
+                    .fontWeight(.heavy)
+                    .padding(.leading, 20)
+                    .foregroundColor(.white)
+                Spacer()
             }
 
             VStack{
                 Text("Flights climbed last 7 days: " + String(format: "%.0f",flightsClimbed) + "\n Goal: \(activityGoal*7)").foregroundColor(.white)
                     .font(Font.custom("Avenir", size: 21))
                     .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                
+                    .multilineTextAlignment(.center)                
             }
             .padding()
             .frame(minWidth:353, minHeight: 113)

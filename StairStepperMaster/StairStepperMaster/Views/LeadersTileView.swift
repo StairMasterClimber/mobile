@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GameKit
+import CoreMotion
 
 struct Player: Hashable {
     let id = UUID()
@@ -18,8 +19,6 @@ struct Player: Hashable {
 struct LeadersTileView: View {
     @AppStorage("GKGameCenterViewControllerState") var gameCenterViewControllerState:GKGameCenterViewControllerState = .default
     @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
-    @AppStorage("ActivityGoal") var activityGoal:Int = 8
-    @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     var leaderboardIdentifier = "com.tfp.stairsteppermaster.flights"
     @State var playersList: [Player] = []
     
@@ -64,21 +63,24 @@ struct LeadersTileView: View {
             .frame(minWidth:350, minHeight: 113)
             .background(Color("TileBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 20))
-        }.onAppear(){
-//            print("HELLOS")
+        }
+        .onAppear(){
             if !GKLocalPlayer.local.isAuthenticated {
                 authenticateUser()
             } else if playersList.count == 0 {
-                loadLeaderboard()
+                Task{
+                    await loadLeaderboard(source: 1)
+                }
             }
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                 // 7.
                 withAnimation {
                     if !GKLocalPlayer.local.isAuthenticated {
                         authenticateUser()
                     } else if playersList.count == 0 {
-                        loadLeaderboard()
+                        Task{
+                            await loadLeaderboard(source: 2)
+                        }
                     }
                 }
             }
@@ -96,14 +98,19 @@ struct LeadersTileView: View {
                 print(error?.localizedDescription ?? "")
                 return
             }
-            loadLeaderboard()
+            Task{
+                await loadLeaderboard(source: 3)
+            }
         }
     }
     
-    func loadLeaderboard() {
+    func loadLeaderboard(source: Int = 0) async {
+        print(source)
+        print("source")
         playersList.removeAll()
-        GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier]) { (leaderboards, error) in
-            if let leaderboard = leaderboards?.filter ({ $0.baseLeaderboardID == self.leaderboardIdentifier }).first {
+        Task{
+            let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])
+            if let leaderboard = leaderboards.filter ({ $0.baseLeaderboardID == self.leaderboardIdentifier }).first {
                 leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...3)) { (_, allPlayers, _, error) in
                     if let allPlayers = allPlayers {
                         allPlayers.forEach { leaderboardEntry in
@@ -114,6 +121,23 @@ struct LeadersTileView: View {
                     }
                 }
             }
+        }
+
+//        GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier]) { (leaderboards, error) in
+//            if let leaderboard = leaderboards?.filter ({ $0.baseLeaderboardID == self.leaderboardIdentifier }).first {
+//                leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...3)) { (_, allPlayers, _, error) in
+//                    if let allPlayers = allPlayers {
+//                        allPlayers.forEach { leaderboardEntry in
+//                            leaderboardEntry.player.loadPhoto(for: .small) { image, error in
+//                                self.playersList.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.formattedScore, image: image))
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        playersList.sort{
+            $0.score > $1.score
         }
     }
 }

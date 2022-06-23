@@ -32,7 +32,7 @@ struct DashboardSubView: View {
 #endif
             LeadersTileView()
             AchievementTileView()
-            VO2MaxTileView()
+//            VO2MaxTileView()
             MachineTileView()
             
         }
@@ -46,16 +46,16 @@ struct DashboardSubView: View {
         if HKHealthStore.isHealthDataAvailable()
         {
             let readData = Set([
-                HKObjectType.quantityType(forIdentifier: .heartRate)!,
-                HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
+//                HKObjectType.quantityType(forIdentifier: .heartRate)!,
+//                HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
                 //                HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
                 HKObjectType.quantityType(forIdentifier: .stepCount)!,
                 HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
                 HKObjectType.quantityType(forIdentifier: .vo2Max)!,
                 //                HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
                 HKObjectType.quantityType(forIdentifier: .stairAscentSpeed)!,
-                HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!,
-                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!])
+//                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!,
+                HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!])
             let writeData = Set([
                 HKObjectType.quantityType(forIdentifier: .stepCount)!,
                 HKObjectType.quantityType(forIdentifier: .flightsClimbed)!])

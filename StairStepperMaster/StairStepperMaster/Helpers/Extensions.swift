@@ -25,7 +25,7 @@ extension View {
     @available(iOS 14, *)
     func navigationBarTitleTextColor(_ color: Color) -> some View {
         let uiColor = UIColor(color)
-    
+        
         // Set appearance for both normal and large sizes.
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -34,16 +34,16 @@ extension View {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
-
-//        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: uiColor, .font:UIFont(name: "Avenir-Black", size: 24)!]
-//        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor, .font:UIFont(name: "Avenir-Black", size: 30)! ]
+        
+        //        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: uiColor, .font:UIFont(name: "Avenir-Black", size: 24)!]
+        //        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor, .font:UIFont(name: "Avenir-Black", size: 30)! ]
         
         let tabAppearance = UITabBarAppearance()
         tabAppearance.configureWithOpaqueBackground()
         
         UITabBar.appearance().standardAppearance = tabAppearance
-
-//            UITabBar.appearance().scrollEdgeAppearance = tabAppearance
+        
+        //            UITabBar.appearance().scrollEdgeAppearance = tabAppearance
         return self
     }
 }
@@ -73,7 +73,7 @@ extension Array: RawRepresentable where Element: Codable {
         }
         self = result
     }
-
+    
     public var rawValue: String {
         guard let data = try? JSONEncoder().encode(self),
               let result = String(data: data, encoding: .utf8)
@@ -126,4 +126,28 @@ extension UINavigationController {
         navigationBar.tintColor = .white
         
     }
+}
+
+public extension UIDevice {
+    
+    static let iPadDevice: Bool = {
+        print (UIDevice.modelName)
+        if UIDevice.modelName.contains("iPad")
+        {
+            return true
+        }
+        return false
+    }()
+    
+    static let modelName: String = {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = machineMirror.children.reduce("") { identifier, element in
+            guard let value = element.value as? Int8, value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
+        }
+        return ""
+    }()
+    
 }

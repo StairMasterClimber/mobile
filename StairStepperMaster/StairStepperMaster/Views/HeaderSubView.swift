@@ -14,10 +14,14 @@ struct HeaderSubView: View {
     @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
     @State private var displayName: String = ""
     let localPlayer = GKLocalPlayer.local
-    private var quotes = ["It's never too late to be who you might have been","The person who says it cannot be done should not interrupt the person doing it","You can't fall if you don't climb, but there's no joy in living on the ground","Every mountain top is within reach if you just keep climbing"]
+    private var quotes = ["It's never too late to be who you might have been","The person who says it cannot be done should not interrupt the person doing it","You can't fall if you don't climb, but there's no joy in living on the ground","Every mountain top is within reach if you just keep climbing","Quitters never Win, Winners never Quit"]
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     @AppStorage("FlightsClimbedAtFirstInstall") var flightsClimbedAtFirstInstall:Double = 0
     @AppStorage("SyncTime") var SyncTime:String = "just now"
+    var dateFormatter = DateFormatter()
+    init(){
+        dateFormatter.dateFormat = "MMM d, hh:mm a"
+    }
 
     var body: some View {
         HStack{
@@ -45,8 +49,8 @@ struct HeaderSubView: View {
                 Text(quotes.randomElement()!)
                     .foregroundColor(.white)
                     .font(Font.custom("Avenir", size: 14))
-                Text("last sync: \(SyncTime)")
-                    .foregroundColor(.gray)
+                Text("last sync: \(SyncTime)" + (dateFormatter.string(from: Date()) == SyncTime ? "" : ". Pull to refresh"))
+                    .foregroundColor(dateFormatter.string(from: Date()) == SyncTime ? .gray : .red)
                     .italic()
                     .font(Font.custom("Avenir", size: 14))
                     .fontWeight(.thin)

@@ -19,8 +19,11 @@ struct SelectionView: View {
     var valHR = 0.0
     var heartCount = 0.0
     @State var rejectedPermissions = 0
+    @State private var showAlert = false
     @AppStorage("VO2Max") var vo2Max:Double = 0
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
+    @Environment(\.openURL) var openURL
+
     var body: some View {
         ZStack{
             LinearGradient(colors: [Color.gray,Color.black], startPoint: .bottom, endPoint: .leading)
@@ -102,8 +105,19 @@ struct SelectionView: View {
                                 .padding()
 
                         }
+                        Text("\(Text(NSLocalizedString("We do not have ANY servers so we do not store ANY of your information, we just use your phone's Game Center and HealthKit. By tapping Continue, you agree to our", comment: "By tapping Continue, you agree to our"))) \(Text("Privacy Policy").underline())")
+                            .font(Font.custom("Avenir", size: 14))
+                            .fontWeight(.thin)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .onTapGesture {
+                                openURL(URL(string: "https://www.stairmasterclimber.com/privacy-policy.html")!)
+                            }
                         Button(action: {
                             rejectedPermissions = rejectedPermissions + 1
+                            if rejectedPermissions > 1{
+                                showAlert = true
+                            }
                             notificationPermission()
                             fetchHealthData()
                             simpleSuccessHaptic()
@@ -120,6 +134,12 @@ struct SelectionView: View {
                 })
                 .onAppear(){
                     authenticateUser()
+                }
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Permissions Error"),
+                        message: Text("You have rejected Health permissions needed for the app to work. Either delete and reinstall the app or manually go to the Health App ->Sharing ->Apps ->Stair Master Climber ->Turn On permissions.")
+                    )
                 }
             }
         }.onAppear {
@@ -147,16 +167,16 @@ struct SelectionView: View {
         if HKHealthStore.isHealthDataAvailable()
         {
             let readData = Set([
-                HKObjectType.quantityType(forIdentifier: .heartRate)!,
-                HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
+//                HKObjectType.quantityType(forIdentifier: .heartRate)!,
+//                HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
                 //                HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
                 HKObjectType.quantityType(forIdentifier: .stepCount)!,
                 HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
                 HKObjectType.quantityType(forIdentifier: .vo2Max)!,
                 //                HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
                 HKObjectType.quantityType(forIdentifier: .stairAscentSpeed)!,
-                HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!,
-                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!])
+//                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!,
+                HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!])
             let writeData = Set([
                 HKObjectType.quantityType(forIdentifier: .stepCount)!,
                 HKObjectType.quantityType(forIdentifier: .flightsClimbed)!])
@@ -225,10 +245,11 @@ struct SelectionView: View {
                                 flightsClimbed = val + flightsClimbed
 //                                print(val)
 //                                print(date)
-                                self.isActive = true
                             }
 
                         }
+                        self.isActive = true
+
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MMM d, hh:mm a"
                         SyncTime = dateFormatter.string(from: endDate)
@@ -257,11 +278,12 @@ struct SelectionView: View {
                                 let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "mL/min·kg"))
                                 vo2Max = val
-                                self.isActive = true
                             }
                         }
+                        self.isActive = true
                         
                     }
+                    
                     HKStore.execute(HKquery)
 //                    print("HERE")
                     var shouldCheck = false
@@ -305,8 +327,8 @@ struct SelectionView: View {
                                                 flightsClimbed = val + flightsClimbed
 //                                                print(val)
 //                                                print(date)
-                                                self.isActive = true
                                             }
+                                            self.isActive = true
 //                                            print(syncTime)
                                         }
                                         let dateFormatter = DateFormatter()
@@ -349,6 +371,12 @@ struct SelectionView: View {
         else
         {
             print("ERROR: Unable to fetch data!")
+        }
+        if (UIDevice.iPadDevice){
+            isActive = true
+        }
+        if (UIDevice.current.userInterfaceIdiom == .pad){
+            isActive = true
         }
     }
     

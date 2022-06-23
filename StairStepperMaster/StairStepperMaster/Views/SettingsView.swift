@@ -14,10 +14,11 @@ struct SettingsView: View {
     @AppStorage("MachineUsage") var shouldHide:Bool = false
     @AppStorage("ShouldSendPushNotifications") var ShouldSendPushNotifications:Bool = true
     @AppStorage("NotificationPermissionDenied") var NotificationPermissionDenied:Bool = false
+    var activityLevelGoals = [3, 8, 12]
 
     var body: some View {
         ScrollView{
-            VStack(){
+            VStack(alignment:.leading){
                 HStack{
                     Image(systemName: "chevron.left")
                         .padding()
@@ -27,46 +28,21 @@ struct SettingsView: View {
                         }
                     Spacer()
                 }
-                Text("Typically how active are you?")
+                Text("Typically how active are you")
                     .font(Font.custom("Avenir", size: 20))
                     .fontWeight(.heavy)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
-                Button(action: {activityGoal = 3}, label: {
-                    VStack{
-                        Text("Lightly")
-                            .fontWeight(.heavy)
+                Picker(selection: $activityGoal, label: Text("Typically how active are you?")) {
+                    ForEach(activityLevelGoals, id: \.self) {
+                        Text($0 == 3 ? "Lightly" : ($0 == 8 ? "Moderately" : "Highly"))
                             .font(Font.custom("Avenir", size: 20))
-                        Text("Little to no exercise (3 flights/day)")
-                            .fontWeight(.thin)
-                            .font(Font.custom("Avenir", size: 12))
-                    }
-                })
-                .buttonStyle(SettingsSelectionButton(isActive: activityGoal == 3))
-                
-                Button(action: {activityGoal = 8}, label: {
-                    VStack{
-                        Text("Moderately")
                             .fontWeight(.heavy)
-                            .font(Font.custom("Avenir", size: 20))
-                        Text("Somewhat physically active (8 flights/day)")
-                            .fontWeight(.thin)
-                            .font(Font.custom("Avenir", size: 12))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
                     }
-                })
-                .buttonStyle(SettingsSelectionButton(isActive: activityGoal == 8))
-                
-                Button(action: {activityGoal = 12}, label: {
-                    VStack{
-                        Text("Highly")
-                            .fontWeight(.heavy)
-                            .font(Font.custom("Avenir", size: 20))
-                        Text("Dedicated work out routine (12 flights/day)")
-                            .fontWeight(.thin)
-                            .font(Font.custom("Avenir", size: 12))
-                    }
-                })
-                .buttonStyle(SettingsSelectionButton(isActive: activityGoal == 12))
+                }
+                .pickerStyle(.segmented)
                 
                 Text("A flights of stairs is counted as approximately 10 feet (3 meters) of elevation gain")
                     .font(Font.custom("Avenir", size: 12))
@@ -74,12 +50,13 @@ struct SettingsView: View {
                     .padding()
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
-                Text("Do you use a stair stepper machine?")
+                Text("Do you use a stair stepper machine")
                     .font(Font.custom("Avenir", size: 20))
                     .fontWeight(.heavy)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                 HStack{
+                    Spacer()
                     Button(action: {
                         shouldShowInitialQuestion = false
                         shouldHide = false
@@ -89,6 +66,7 @@ struct SettingsView: View {
                             .fontWeight(.heavy)
                     })
                     .buttonStyle(TileYesNoButton(isYes: shouldHide))
+                    Spacer()
                     Button(action: {
 //                        print("No")
                         shouldShowInitialQuestion = false
@@ -98,6 +76,7 @@ struct SettingsView: View {
                             .fontWeight(.heavy)
                     })
                     .buttonStyle(TileYesNoButton(isYes: !shouldHide))
+                    Spacer()
                 }
                 Text("Push Notifications")
                     .font(Font.custom("Avenir", size: 20))
@@ -109,13 +88,14 @@ struct SettingsView: View {
                         .font(Font.custom("Avenir", size: 16))
                         .fontWeight(.thin)
                         .background(Color("ButtonOrange"))// : Color("ButtonGrey"))
-                        .foregroundColor(Color("TextBrown"))// : .white)
+                        .foregroundColor(Color("TextBrown"))// : .white
                         .multilineTextAlignment(.center)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
                         .padding()
                 }
                 else{
                     HStack{
+                        Spacer()
                         Button(action: {
                             ShouldSendPushNotifications = true
                         }, label:{ Text("On")
@@ -123,6 +103,7 @@ struct SettingsView: View {
                                 .fontWeight(.heavy)
                         })
                         .buttonStyle(TileYesNoButton(isYes: !ShouldSendPushNotifications))
+                        Spacer()
                         Button(action: {
                             ShouldSendPushNotifications = false
                         }, label:{ Text("Off")
@@ -130,10 +111,31 @@ struct SettingsView: View {
                                 .fontWeight(.heavy)
                         })
                         .buttonStyle(TileYesNoButton(isYes: ShouldSendPushNotifications))
+                        Spacer()
                     }
                 }
+                Text("Contact Us or Watch Tutorial")
+                    .font(Font.custom("Avenir", size: 20))
+                    .fontWeight(.heavy)
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                HStack{
+                    Spacer()
+                    Link("Visit Website", destination: URL(string: "https://www.stairmasterclimber.com")!)
+                        .font(Font.custom("Avenir", size: 16))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .frame(minWidth: 160)
+                        .padding()
+                        .background(Color("ButtonGrey"))
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .shadow(color: .black, radius: 4, x: 0, y: 2)
+
+                    Spacer()
+                }
+
             }
-            .padding()
+            .padding([.horizontal, .bottom])
         }
         .navigationTitle("")
         .navigationBarHidden(true)
