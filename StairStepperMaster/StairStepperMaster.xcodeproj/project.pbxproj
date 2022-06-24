@@ -26,6 +26,7 @@
 		7645992028641BBA004597E2 /* MachineTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7645991F28641BBA004597E2 /* MachineTutorialView.swift */; };
 		7671DD2E284ED9BF00993148 /* AchievementTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671DD2D284ED9BF00993148 /* AchievementTileView.swift */; };
 		7676C43E284D473E000819E3 /* HeaderSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7676C43D284D473E000819E3 /* HeaderSubView.swift */; };
+		76F21B9E28660CE100842933 /* ChartTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F21B9D28660CE100842933 /* ChartTestView.swift */; };
 		FD4C2008285905A4004A1F1D /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4C2007285905A4004A1F1D /* ChallengeView.swift */; };
 		FD7FBA072850F98700649056 /* VO2MaxTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7FBA062850F98700649056 /* VO2MaxTileView.swift */; };
 		FD7FBA092851025E00649056 /* FlightsChartTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7FBA082851025E00649056 /* FlightsChartTileView.swift */; };
@@ -57,6 +58,7 @@
 		7671DD2D284ED9BF00993148 /* AchievementTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementTileView.swift; sourceTree = "<group>"; };
 		7676C43D284D473E000819E3 /* HeaderSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSubView.swift; sourceTree = "<group>"; };
 		7676C442284EC1C9000819E3 /* StairStepperMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StairStepperMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		76F21B9D28660CE100842933 /* ChartTestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTestView.swift; sourceTree = "<group>"; };
 		FD4C2007285905A4004A1F1D /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 		FD7FBA062850F98700649056 /* VO2MaxTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VO2MaxTileView.swift; sourceTree = "<group>"; };
 		FD7FBA082851025E00649056 /* FlightsChartTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsChartTileView.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 		FDFFF977285D13B3006A61BE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				76F21B9D28660CE100842933 /* ChartTestView.swift */,
 				761B5016283FF8590012C2E3 /* SelectionView.swift */,
 				761B501C28412C530012C2E3 /* DashboardView.swift */,
 				761B5022284130590012C2E3 /* MachineTileView.swift */,
@@ -232,6 +235,7 @@
 				7641B171284C6E32009B43BB /* LeadersTileView.swift in Sources */,
 				7671DD2E284ED9BF00993148 /* AchievementTileView.swift in Sources */,
 				7676C43E284D473E000819E3 /* HeaderSubView.swift in Sources */,
+				76F21B9E28660CE100842933 /* ChartTestView.swift in Sources */,
 				761B501D28412C530012C2E3 /* DashboardView.swift in Sources */,
 				763EF3E8284AAB460044CBE5 /* SettingsView.swift in Sources */,
 				FD80DCC9284EB92D00BF94CC /* GameCenterView.swift in Sources */,
@@ -370,7 +374,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
@@ -391,7 +395,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tfp.stairsteppermaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -410,7 +414,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
@@ -431,7 +435,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tfp.stairsteppermaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
