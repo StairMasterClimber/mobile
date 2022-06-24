@@ -55,11 +55,11 @@ struct ChartView: View {
             //TODO: Change these to your colors or gradients.
             ChartShape(data: data, shouldFill: true)
                 .fill(
-                    LinearGradient(colors: [.orange.opacity(0.2), .orange.opacity(0.6)], startPoint: .bottom, endPoint: .top)
+                    LinearGradient(colors: [Color("FlightsChartLine"), Color("FlightsChartBottomGradient")], startPoint: .top, endPoint: .bottom)
                 )
             ChartShape(data: data, shouldFill: false)
-                .stroke(style: .init(lineWidth: 4.0, lineCap: .round, lineJoin: .round))
-                .foregroundColor(.orange)
+                .stroke(style: .init(lineWidth: 1.0, lineCap: .round, lineJoin: .round))
+                .foregroundColor(Color("FlightsChartLine"))
         }
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 #if canImport(Charts)
 import Charts
+#endif
 
 
 
@@ -21,13 +22,15 @@ struct FlightsChartTileView: View {
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     @AppStorage("FlightsClimbedArray") var flightsClimbedArray:[Double] = [4,2,5,6,7,2,4]
+    @State var flightsClimbedRefinedArray:[Double] = [0,4,2,5,6,7,2,4,0]
 
     @State var last7Days: [Stairs] = []
     let symbolSize: CGFloat = 30
 
     init(){
-//        print("flightsClimbedArray.count")
-//        print(flightsClimbedArray.count)
+        print("flightsClimbedArray.count")
+        print(flightsClimbedArray.count)
+        print(flightsClimbedArray)
         CalculateLast7Days()
     }
     var body: some View {
@@ -68,6 +71,7 @@ struct FlightsChartTileView: View {
                     }.padding(12.0)
                     
                     if #available(iOS 16.0, *) {
+#if canImport(Charts)
                         Chart {
                             ForEach(last7Days, id: \.self) { element in
                                 AreaMark(x: .value("Day", element.Day), y: .value("Flights Count", element.TotalCount))
@@ -103,7 +107,11 @@ struct FlightsChartTileView: View {
                         .foregroundStyle(.pink, .orange, .yellow)
                         .padding(.top,10)
                         .padding(.trailing,15)
+#endif
                     } else {
+                        ChartView(data: flightsClimbedRefinedArray)
+                            .padding(.top,10)
+                            .padding(.trailing,15)
                         // Fallback on earlier versions
                     }
                     
@@ -112,6 +120,9 @@ struct FlightsChartTileView: View {
             .frame(minWidth:350, minHeight: 113)
             .background(Color("TileBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 20))
+        }
+        .onAppear(){
+            CalculateLast7Days()
         }
         .onChange(of: flightsClimbedArray, perform: { newNearMeter in
             //Then call the function and if you need to pass the new value do it like this
@@ -122,24 +133,35 @@ struct FlightsChartTileView: View {
         .padding([.horizontal])
     }
     func CalculateLast7Days(){
-        if flightsClimbedArray.count < 7 {
-            let neededFligtDays = 7 - flightsClimbedArray.count
-            
-            for _ in 0..<neededFligtDays {
-                flightsClimbedArray.append(0)
+        if #available(iOS 16.0, *) {
+            if flightsClimbedArray.count < 7 {
+                let neededFligtDays = 7 - flightsClimbedArray.count
+                
+                for _ in 0..<neededFligtDays {
+                    flightsClimbedArray.append(0)
+                }
             }
+            last7Days = [
+                .init(Day: 0, TotalCount: 0),
+                .init(Day: 1, TotalCount: Int(flightsClimbedArray[0])),
+                .init(Day: 2, TotalCount: Int(flightsClimbedArray[1])),
+                .init(Day: 3, TotalCount: Int(flightsClimbedArray[2])),
+                .init(Day: 4, TotalCount: Int(flightsClimbedArray[3])),
+                .init(Day: 5, TotalCount: Int(flightsClimbedArray[4])),
+                .init(Day: 6, TotalCount: Int(flightsClimbedArray[5])),
+                .init(Day: 7, TotalCount: Int(flightsClimbedArray[6])),
+                .init(Day: 8, TotalCount: 0),
+            ]
+        } else{
+            flightsClimbedRefinedArray = [0]
+            
+            for day in flightsClimbedArray {
+                flightsClimbedRefinedArray.append(day)
+            }
+            flightsClimbedRefinedArray.append(0)
+            
+//            flightsClimbedRefinedArray = [0,flightsClimbedArray[0],flightsClimbedArray[1],flightsClimbedArray[2],flightsClimbedArray[3],flightsClimbedArray[4],flightsClimbedArray[5],flightsClimbedArray[6],0]
         }
-        last7Days = [
-            .init(Day: 0, TotalCount: 0),
-            .init(Day: 1, TotalCount: Int(flightsClimbedArray[0])),
-            .init(Day: 2, TotalCount: Int(flightsClimbedArray[1])),
-            .init(Day: 3, TotalCount: Int(flightsClimbedArray[2])),
-            .init(Day: 4, TotalCount: Int(flightsClimbedArray[3])),
-            .init(Day: 5, TotalCount: Int(flightsClimbedArray[4])),
-            .init(Day: 6, TotalCount: Int(flightsClimbedArray[5])),
-            .init(Day: 7, TotalCount: Int(flightsClimbedArray[6])),
-            .init(Day: 8, TotalCount: 0),
-        ]
     }
 }
 
@@ -152,4 +174,3 @@ struct FlightsChartTileView_Previews: PreviewProvider {
 func date(year: Int, month: Int, day: Int = 1) -> Date {
     Calendar.current.date(from: DateComponents(year: year, month: month, day: day)) ?? Date()
 }
-#endif

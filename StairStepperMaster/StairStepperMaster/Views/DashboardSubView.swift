@@ -21,15 +21,7 @@ struct DashboardSubView: View {
                 print("Pulling")
                 fetchHealthData()
             }
-#if canImport(Charts)
-            if #available(iOS 16.0, *) {
-                FlightsChartTileView()
-            } else{
-                FlightsTileView()
-            }
-#else
-            FlightsTileView()
-#endif
+            FlightsChartTileView()
             LeadersTileView()
             AchievementTileView()
 //            VO2MaxTileView()
