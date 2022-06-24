@@ -9,7 +9,11 @@ import SwiftUI
 import GameKit
 import CoreMotion
 
-struct Player: Hashable {
+struct Player: Hashable, Comparable {
+    static func < (lhs: Player, rhs: Player) -> Bool {
+        return rhs.score > lhs.score
+    }
+    
     let id = UUID()
     let name: String
     let score: String
@@ -40,27 +44,30 @@ struct LeadersTileView: View {
             }
             
             VStack{
-                HStack{
-                    ForEach(playersList, id: \.self) { item in
-                        VStack{
-                            Image(uiImage: item.image!)
-                                .resizable()
-                                .frame(width: 72, height: 72, alignment: .center)
-                                .clipShape(Circle())
-                            Text(item.name)
-                                .font(Font.custom("Avenir",size: 10))
-                                .fontWeight(.heavy)
-                                .foregroundColor(.white)
-                            Text(item.score)
-                                .font(Font.custom("Avenir",size: 10))
-                                .foregroundColor(.white)
-                        }.padding(5)
+                ScrollView(.horizontal)
+                {
+                    HStack(spacing: 10){
+                        ForEach(playersList, id: \.self) { item in
+                            VStack{
+                                Image(uiImage: item.image!)
+                                    .resizable()
+                                    .frame(width: 72, height: 72, alignment: .center)
+                                    .clipShape(Circle())
+                                Text(item.name)
+                                    .font(Font.custom("Avenir",size: 10))
+                                    .fontWeight(.heavy)
+                                    .foregroundColor(.white)
+                                Text(item.score)
+                                    .font(Font.custom("Avenir",size: 10))
+                                    .foregroundColor(.white)
+                            }.padding(5)
+                        }
                     }
                 }
-                
+                .padding(.leading, 10.0)
             }
             .padding(5)
-            .frame(minWidth:350, minHeight: 113)
+            .frame(minWidth:350, idealWidth:350,maxWidth:350, minHeight: 113)
             .background(Color("TileBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }
@@ -111,33 +118,29 @@ struct LeadersTileView: View {
         Task{
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])
             if let leaderboard = leaderboards.filter ({ $0.baseLeaderboardID == self.leaderboardIdentifier }).first {
-                leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...3)) { (_, allPlayers, _, error) in
+                leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...5)) { (_, allPlayers, _, error) in
                     if let allPlayers = allPlayers {
                         allPlayers.forEach { leaderboardEntry in
                             leaderboardEntry.player.loadPhoto(for: .small) { image, error in
                                 self.playersList.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.formattedScore, image: image))
+                                print("playersList")
+                                print(playersList)
+                                playersList.sort{
+                                    $0.score < $1.score
+                                }
+
+//                                playersList.sort()
+                                print("playersList")
+                                print(playersList)
+                                //TODO: Place this outside this loop
+//                                playersList.sort{
+//                                    $0.score < $1.score
+//                                }
                             }
                         }
                     }
                 }
             }
-        }
-
-//        GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier]) { (leaderboards, error) in
-//            if let leaderboard = leaderboards?.filter ({ $0.baseLeaderboardID == self.leaderboardIdentifier }).first {
-//                leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...3)) { (_, allPlayers, _, error) in
-//                    if let allPlayers = allPlayers {
-//                        allPlayers.forEach { leaderboardEntry in
-//                            leaderboardEntry.player.loadPhoto(for: .small) { image, error in
-//                                self.playersList.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.formattedScore, image: image))
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        playersList.sort{
-            $0.score > $1.score
         }
     }
 }
