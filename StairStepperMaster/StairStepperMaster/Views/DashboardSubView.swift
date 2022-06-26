@@ -87,7 +87,6 @@ struct DashboardSubView: View {
                     }
                     let HKquery = HKStatisticsCollectionQuery(quantityType: quantityType, quantitySamplePredicate: nil, options: .discreteAverage, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
                     let HKFlightsQuery = HKStatisticsCollectionQuery(quantityType: quantityType2, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
-                    var oldFlights = 0.0
                     HKFlightsQuery.initialResultsHandler =
                     {
                         query, results, error in
@@ -96,23 +95,26 @@ struct DashboardSubView: View {
                         {
                             fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
                         }
-                        oldFlights = flightsClimbed
                         flightsClimbed = 0
                         
                         flightsClimbedArray.removeAll()
+                        var flightsClimbedTemp:Double = 0.0
+                        var flightsClimbedArrayTemp : [Double] = []
+
                         statsCollection.enumerateStatistics(from: startDate, to: endDate)
                         {
                             statistics, stop in
                             if let quantity = statistics.sumQuantity()
                             {
-                                let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "count"))
-                                flightsClimbedArray.append(val)
-                                flightsClimbed = val + flightsClimbed
-//                                self.isActive = true
+                                flightsClimbedArrayTemp.append(val)
+                                flightsClimbedTemp = val + flightsClimbedTemp
                             }
 
                         }
+                        flightsClimbed = flightsClimbedTemp
+                        flightsClimbedArray = flightsClimbedArrayTemp
+
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MMM d, hh:mm a"
                         SyncTime = dateFormatter.string(from: endDate)
@@ -133,7 +135,7 @@ struct DashboardSubView: View {
                             statistics, stop in
                             if let quantity = statistics.averageQuantity()
                             {
-                                let date = statistics.startDate
+                                //let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "mL/min·kg"))
                                 vo2Max = val
 //                                self.isActive = true

@@ -230,7 +230,8 @@ struct SelectionView: View {
                         }
                         oldFlights = flightsClimbed
                         flightsClimbed = 0
-                        
+                        var flightsClimbedTemp:Double = 0.0
+                        var flightsClimbedArrayTemp : [Double] = []
                         flightsClimbedArray.removeAll()
                         statsCollection.enumerateStatistics(from: startDate, to: endDate)
                         {
@@ -238,22 +239,26 @@ struct SelectionView: View {
                             if let quantity = statistics.sumQuantity()
                             {
 //                                print(quantity)
-                                let date = statistics.startDate
+//                                let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "count"))
 //                                print(val)
-                                flightsClimbedArray.append(val)
-                                flightsClimbed = val + flightsClimbed
+                                
+                                flightsClimbedArrayTemp.append(val)
+                                flightsClimbedTemp = val + flightsClimbedTemp
 //                                print(val)
 //                                print(date)
                             }
 
                         }
+                        flightsClimbed = flightsClimbedTemp
+                        flightsClimbedArray = flightsClimbedArrayTemp
                         self.isActive = true
 
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MMM d, hh:mm a"
                         SyncTime = dateFormatter.string(from: endDate)
                         if (flightsClimbed > oldFlights){
+                            UIApplication.shared.applicationIconBadgeNumber = 1
                             self.sendNotification(val: (flightsClimbed - oldFlights))
                         }
                         
@@ -275,7 +280,7 @@ struct SelectionView: View {
                             if let quantity = statistics.averageQuantity()
                             {
 //                                print(quantity)
-                                let date = statistics.startDate
+                                //let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "mL/min·kg"))
                                 vo2Max = val
                             }
@@ -312,7 +317,8 @@ struct SelectionView: View {
                                         }
                                         oldFlights = flightsClimbed
                                         flightsClimbed = 0
-
+                                        var flightsClimbedTemp:Double = 0.0
+                                        var flightsClimbedArrayTemp : [Double] = []
                                         flightsClimbedArray.removeAll()
                                         statsCollection.enumerateStatistics(from: startDate, to: endDate)
                                         {
@@ -320,14 +326,17 @@ struct SelectionView: View {
                                             if let quantity = statistics.sumQuantity()
                                             {
 //                                                print(quantity)
-                                                let date = statistics.startDate
+//                                                let date = statistics.startDate
                                                 let val = quantity.doubleValue(for: HKUnit(from: "count"))
 //                                                print(val)
-                                                flightsClimbedArray.append(val)
-                                                flightsClimbed = val + flightsClimbed
+                                                flightsClimbedArrayTemp.append(val)
+                                                flightsClimbedTemp = val + flightsClimbedTemp
 //                                                print(val)
 //                                                print(date)
                                             }
+                                            flightsClimbed = flightsClimbedTemp
+                                            flightsClimbedArray = flightsClimbedArrayTemp
+
                                             self.isActive = true
 //                                            print(syncTime)
                                         }

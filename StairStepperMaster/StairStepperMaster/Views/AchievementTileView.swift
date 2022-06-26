@@ -115,6 +115,7 @@ struct AchievementTileView: View {
         Task{
             let achievementDescriptions = try await GKAchievementDescription.loadAchievementDescriptions()
             achievementsList.removeAll()
+            var achievementsListTemp : [Achievement] = []
             achievementDescriptions.forEach { achievementDescription in
                 GKAchievement.loadAchievements(completionHandler: { (achievements: [GKAchievement]?, error: Error?) in
                     let achievementID = achievementDescription.identifier
@@ -127,14 +128,15 @@ struct AchievementTileView: View {
 //                        print(achievement?.percentComplete)
                         
                         if achievement?.percentComplete ?? 0 < 0 || achievement?.percentComplete ?? 0 > 100  {
-                            self.achievementsList.append(Achievement(name: achievementDescription.title, percentComplete: "100%", percentCompleteNumber: 100, image: image))
+                            achievementsListTemp.append(Achievement(name: achievementDescription.title, percentComplete: "100%", percentCompleteNumber: 100, image: image))
                         } else {
-                            self.achievementsList.append(Achievement(name: achievementDescription.title, percentComplete: String(format: "%.0f",achievement?.percentComplete ?? 0.0) + "%", percentCompleteNumber: achievement?.percentComplete ?? 0.0, image: image))
+                            achievementsListTemp.append(Achievement(name: achievementDescription.title, percentComplete: String(format: "%.0f",achievement?.percentComplete ?? 0.0) + "%", percentCompleteNumber: achievement?.percentComplete ?? 0.0, image: image))
                         }
                         // TODO: Put this code in a better place, the code wasn't running when i placed it elsewhere
-                        self.achievementsList.sort{
+                        achievementsListTemp.sort{
                             $0.percentCompleteNumber < $1.percentCompleteNumber
                         }
+                        achievementsList = achievementsListTemp
                     }
                 })
             }

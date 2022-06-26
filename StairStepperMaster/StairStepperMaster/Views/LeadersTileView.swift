@@ -116,22 +116,23 @@ struct LeadersTileView: View {
         print("source")
         playersList.removeAll()
         Task{
+            var playersListTemp : [Player] = []
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])
             if let leaderboard = leaderboards.filter ({ $0.baseLeaderboardID == self.leaderboardIdentifier }).first {
                 leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...5)) { (_, allPlayers, _, error) in
                     if let allPlayers = allPlayers {
                         allPlayers.forEach { leaderboardEntry in
                             leaderboardEntry.player.loadPhoto(for: .small) { image, error in
-                                self.playersList.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.formattedScore, image: image))
-                                print("playersList")
-                                print(playersList)
-                                playersList.sort{
+                                playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.formattedScore, image: image))
+//                                print("playersList")
+//                                print(playersListTemp)
+                                playersListTemp.sort{
                                     $0.score < $1.score
                                 }
 
 //                                playersList.sort()
-                                print("playersList")
-                                print(playersList)
+//                                print("playersList")
+//                                print(playersListTemp)
                                 //TODO: Place this outside this loop
 //                                playersList.sort{
 //                                    $0.score < $1.score
@@ -139,6 +140,9 @@ struct LeadersTileView: View {
                             }
                         }
                     }
+                    print("playersList")
+                    print(playersListTemp)
+                    playersList = playersListTemp
                 }
             }
         }

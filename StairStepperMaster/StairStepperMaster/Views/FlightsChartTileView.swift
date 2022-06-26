@@ -134,24 +134,32 @@ struct FlightsChartTileView: View {
     }
     func CalculateLast7Days(){
         if #available(iOS 16.0, *) {
-            if flightsClimbedArray.count < 7 {
-                let neededFligtDays = 7 - flightsClimbedArray.count
-                
-                for _ in 0..<neededFligtDays {
-                    flightsClimbedArray.append(0)
-                }
+            flightsClimbedRefinedArray = [0]
+            
+            for day in flightsClimbedArray {
+                flightsClimbedRefinedArray.append(day)
             }
-            last7Days = [
-                .init(Day: 0, TotalCount: 0),
-                .init(Day: 1, TotalCount: Int(flightsClimbedArray[0])),
-                .init(Day: 2, TotalCount: Int(flightsClimbedArray[1])),
-                .init(Day: 3, TotalCount: Int(flightsClimbedArray[2])),
-                .init(Day: 4, TotalCount: Int(flightsClimbedArray[3])),
-                .init(Day: 5, TotalCount: Int(flightsClimbedArray[4])),
-                .init(Day: 6, TotalCount: Int(flightsClimbedArray[5])),
-                .init(Day: 7, TotalCount: Int(flightsClimbedArray[6])),
-                .init(Day: 8, TotalCount: 0),
-            ]
+            flightsClimbedRefinedArray.append(0)
+            // TODO: Need to test above code with iOS 16 device
+//
+//            if flightsClimbedArray.count < 7 {
+//                let neededFligtDays = 7 - flightsClimbedArray.count
+//                
+//                for _ in 0..<neededFligtDays {
+//                    flightsClimbedArray.append(0)
+//                }
+//            }
+//            last7Days = [
+//                .init(Day: 0, TotalCount: 0),
+//                .init(Day: 1, TotalCount: Int(flightsClimbedArray[0])),
+//                .init(Day: 2, TotalCount: Int(flightsClimbedArray[1])),
+//                .init(Day: 3, TotalCount: Int(flightsClimbedArray[2])),
+//                .init(Day: 4, TotalCount: Int(flightsClimbedArray[3])),
+//                .init(Day: 5, TotalCount: Int(flightsClimbedArray[4])),
+//                .init(Day: 6, TotalCount: Int(flightsClimbedArray[5])),
+//                .init(Day: 7, TotalCount: Int(flightsClimbedArray[6])),
+//                .init(Day: 8, TotalCount: 0),
+//            ]
         } else{
             flightsClimbedRefinedArray = [0]
             

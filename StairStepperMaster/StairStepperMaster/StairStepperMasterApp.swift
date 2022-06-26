@@ -10,10 +10,15 @@ import SwiftUI
 @main
 struct StairStepperMasterApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
+    @Environment(\.scenePhase) var scenePhase
     var body: some Scene {
         WindowGroup {
             SelectionView()
+                .onChange(of: scenePhase) { newPhase in
+                    if newPhase == .active {
+                        UIApplication.shared.applicationIconBadgeNumber = 0
+                    }
+                }
         }
     }
 }
