@@ -1,4 +1,4 @@
-# Stair Climber Master, Fitness and Fun, for iPhones
+# [Stair Climber Master, Fitness and Fun, for iPhones](https://stairmasterclimber.com)
 
 What do fitness and fun have in common? You know… besides starting with the letter F?
 Let me tell you. They both were used in creating our new app!
