@@ -7,6 +7,7 @@
 
 import SwiftUI
 import HealthKit
+import WidgetKit
 
 struct DashboardSubView: View {
     @AppStorage("SyncTime") var SyncTime:String = "just now"
@@ -118,6 +119,18 @@ struct DashboardSubView: View {
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MMM d, hh:mm a"
                         SyncTime = dateFormatter.string(from: endDate)
+                        if let userDefaults = UserDefaults(suiteName: "group.com.tfp.stairsteppermaster") {
+                            var flightsClimbedRefinedArray = [0.0]
+                            for day in flightsClimbedArray {
+                                flightsClimbedRefinedArray.append(day)
+                            }
+                            flightsClimbedRefinedArray.append(0.0)
+                            userDefaults.setValue(flightsClimbedRefinedArray, forKey: "activityArray")
+                            userDefaults.setValue(flightsClimbed, forKey: "widgetFlightsClimbed")
+                            userDefaults.setValue(SyncTime, forKey: "widgetSyncTime")
+                        }
+                        WidgetCenter.shared.reloadAllTimelines()
+
                     }
                     HKStore.execute(HKFlightsQuery)
                     

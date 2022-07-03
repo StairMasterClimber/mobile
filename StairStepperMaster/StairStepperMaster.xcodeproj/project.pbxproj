@@ -24,6 +24,16 @@
 		763EF3E8284AAB460044CBE5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763EF3E7284AAB460044CBE5 /* SettingsView.swift */; };
 		7641B171284C6E32009B43BB /* LeadersTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641B170284C6E32009B43BB /* LeadersTileView.swift */; };
 		7645992028641BBA004597E2 /* MachineTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7645991F28641BBA004597E2 /* MachineTutorialView.swift */; };
+		766EBD8E28683B0200C9F510 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766EBD8D28683B0200C9F510 /* WidgetKit.framework */; };
+		766EBD9028683B0200C9F510 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766EBD8F28683B0200C9F510 /* SwiftUI.framework */; };
+		766EBD9328683B0200C9F510 /* StairsClimbedWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EBD9228683B0200C9F510 /* StairsClimbedWidget.swift */; };
+		766EBD9628683B0400C9F510 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 766EBD9528683B0400C9F510 /* Assets.xcassets */; };
+		766EBD9C28683B0400C9F510 /* StairsClimbedWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 766EBD8C28683B0100C9F510 /* StairsClimbedWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		766EBDA22868B39A00C9F510 /* ChartTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F21B9D28660CE100842933 /* ChartTestView.swift */; };
+		766EBDA42868B53300C9F510 /* ActivityChartTileWidgetSharedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EBDA32868B53200C9F510 /* ActivityChartTileWidgetSharedView.swift */; };
+		766EBDA52868B53300C9F510 /* ActivityChartTileWidgetSharedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EBDA32868B53200C9F510 /* ActivityChartTileWidgetSharedView.swift */; };
+		766FF0862871C80C004337E8 /* StairsClimbedWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 766FF0892871C80C004337E8 /* StairsClimbedWidget.intentdefinition */; };
+		766FF0872871C80C004337E8 /* StairsClimbedWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 766FF0892871C80C004337E8 /* StairsClimbedWidget.intentdefinition */; };
 		7671DD2E284ED9BF00993148 /* AchievementTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7671DD2D284ED9BF00993148 /* AchievementTileView.swift */; };
 		7676C43E284D473E000819E3 /* HeaderSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7676C43D284D473E000819E3 /* HeaderSubView.swift */; };
 		76F21B9E28660CE100842933 /* ChartTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F21B9D28660CE100842933 /* ChartTestView.swift */; };
@@ -34,6 +44,30 @@
 		FDFFF974285BB753006A61BE /* PullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFFF973285BB753006A61BE /* PullToRefresh.swift */; };
 		FDFFF976285BC641006A61BE /* DashboardSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFFF975285BC641006A61BE /* DashboardSubView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		766EBD9A28683B0400C9F510 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FB4D837283D5CD3001D00CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 766EBD8B28683B0100C9F510;
+			remoteInfo = StairsClimbedWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		766EBDA028683B0400C9F510 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				766EBD9C28683B0400C9F510 /* StairsClimbedWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1F8F0FC9284AB08F00A7A11E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -55,6 +89,16 @@
 		763EF3E7284AAB460044CBE5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7641B170284C6E32009B43BB /* LeadersTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadersTileView.swift; sourceTree = "<group>"; };
 		7645991F28641BBA004597E2 /* MachineTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineTutorialView.swift; sourceTree = "<group>"; };
+		766EBD8C28683B0100C9F510 /* StairsClimbedWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StairsClimbedWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		766EBD8D28683B0200C9F510 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		766EBD8F28683B0200C9F510 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		766EBD9228683B0200C9F510 /* StairsClimbedWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StairsClimbedWidget.swift; sourceTree = "<group>"; };
+		766EBD9528683B0400C9F510 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		766EBD9728683B0400C9F510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		766EBDA128683B2A00C9F510 /* StairsClimbedWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StairsClimbedWidgetExtension.entitlements; sourceTree = "<group>"; };
+		766EBDA32868B53200C9F510 /* ActivityChartTileWidgetSharedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChartTileWidgetSharedView.swift; sourceTree = "<group>"; };
+		766FF0882871C80C004337E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/StairsClimbedWidget.intentdefinition; sourceTree = "<group>"; };
+		766FF08B2871C81C004337E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StairsClimbedWidget.strings; sourceTree = "<group>"; };
 		7671DD2D284ED9BF00993148 /* AchievementTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementTileView.swift; sourceTree = "<group>"; };
 		7676C43D284D473E000819E3 /* HeaderSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSubView.swift; sourceTree = "<group>"; };
 		7676C442284EC1C9000819E3 /* StairStepperMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StairStepperMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,15 +121,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		766EBD8928683B0100C9F510 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				766EBD9028683B0200C9F510 /* SwiftUI.framework in Frameworks */,
+				766EBD8E28683B0200C9F510 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		1FB4D836283D5CD3001D00CF = {
 			isa = PBXGroup;
 			children = (
+				766EBDA128683B2A00C9F510 /* StairsClimbedWidgetExtension.entitlements */,
 				1FB4D841283D5CD3001D00CF /* StairStepperMaster */,
+				766EBD9128683B0200C9F510 /* StairsClimbedWidget */,
 				761B50252841A3290012C2E3 /* Frameworks */,
 				7676C442284EC1C9000819E3 /* StairStepperMaster.app */,
+				766EBD8C28683B0100C9F510 /* StairsClimbedWidgetExtension.appex */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,8 +174,21 @@
 			children = (
 				761B502C2841F2620012C2E3 /* GameKit.framework */,
 				761B50262841A3290012C2E3 /* HealthKit.framework */,
+				766EBD8D28683B0200C9F510 /* WidgetKit.framework */,
+				766EBD8F28683B0200C9F510 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		766EBD9128683B0200C9F510 /* StairsClimbedWidget */ = {
+			isa = PBXGroup;
+			children = (
+				766EBD9228683B0200C9F510 /* StairsClimbedWidget.swift */,
+				766FF0892871C80C004337E8 /* StairsClimbedWidget.intentdefinition */,
+				766EBD9528683B0400C9F510 /* Assets.xcassets */,
+				766EBD9728683B0400C9F510 /* Info.plist */,
+			);
+			path = StairsClimbedWidget;
 			sourceTree = "<group>";
 		};
 		76BD4DBF285D71BF002B3139 /* Helpers */ = {
@@ -151,6 +220,7 @@
 				FD4C2007285905A4004A1F1D /* ChallengeView.swift */,
 				FDFFF975285BC641006A61BE /* DashboardSubView.swift */,
 				7645991F28641BBA004597E2 /* MachineTutorialView.swift */,
+				766EBDA32868B53200C9F510 /* ActivityChartTileWidgetSharedView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -165,15 +235,34 @@
 				1FB4D83B283D5CD3001D00CF /* Sources */,
 				1FB4D83C283D5CD3001D00CF /* Frameworks */,
 				1FB4D83D283D5CD3001D00CF /* Resources */,
+				766EBDA028683B0400C9F510 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				766EBD9B28683B0400C9F510 /* PBXTargetDependency */,
 			);
 			name = StairStepperMaster;
 			productName = StairStepperMaster;
 			productReference = 7676C442284EC1C9000819E3 /* StairStepperMaster.app */;
 			productType = "com.apple.product-type.application";
+		};
+		766EBD8B28683B0100C9F510 /* StairsClimbedWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 766EBD9D28683B0400C9F510 /* Build configuration list for PBXNativeTarget "StairsClimbedWidgetExtension" */;
+			buildPhases = (
+				766EBD8828683B0100C9F510 /* Sources */,
+				766EBD8928683B0100C9F510 /* Frameworks */,
+				766EBD8A28683B0100C9F510 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StairsClimbedWidgetExtension;
+			productName = StairsClimbedWidgetExtension;
+			productReference = 766EBD8C28683B0100C9F510 /* StairsClimbedWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -182,11 +271,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1330;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					1FB4D83E283D5CD3001D00CF = {
 						CreatedOnToolsVersion = 13.3.1;
+					};
+					766EBD8B28683B0100C9F510 = {
+						CreatedOnToolsVersion = 13.4.1;
 					};
 				};
 			};
@@ -204,6 +296,7 @@
 			projectRoot = "";
 			targets = (
 				1FB4D83E283D5CD3001D00CF /* StairStepperMaster */,
+				766EBD8B28683B0100C9F510 /* StairsClimbedWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -216,6 +309,14 @@
 				1F8F0FCA284AB08F00A7A11E /* Launch Screen.storyboard in Resources */,
 				1FB4D84A283D5CD5001D00CF /* Preview Assets.xcassets in Resources */,
 				1FB4D847283D5CD5001D00CF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		766EBD8A28683B0100C9F510 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				766EBD9628683B0400C9F510 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +338,8 @@
 				7676C43E284D473E000819E3 /* HeaderSubView.swift in Sources */,
 				76F21B9E28660CE100842933 /* ChartTestView.swift in Sources */,
 				761B501D28412C530012C2E3 /* DashboardView.swift in Sources */,
+				766FF0862871C80C004337E8 /* StairsClimbedWidget.intentdefinition in Sources */,
+				766EBDA42868B53300C9F510 /* ActivityChartTileWidgetSharedView.swift in Sources */,
 				763EF3E8284AAB460044CBE5 /* SettingsView.swift in Sources */,
 				FD80DCC9284EB92D00BF94CC /* GameCenterView.swift in Sources */,
 				763EF3E6284A9E630044CBE5 /* Extensions.swift in Sources */,
@@ -250,7 +353,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		766EBD8828683B0100C9F510 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				766EBDA22868B39A00C9F510 /* ChartTestView.swift in Sources */,
+				766EBDA52868B53300C9F510 /* ActivityChartTileWidgetSharedView.swift in Sources */,
+				766EBD9328683B0200C9F510 /* StairsClimbedWidget.swift in Sources */,
+				766FF0872871C80C004337E8 /* StairsClimbedWidget.intentdefinition in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		766EBD9B28683B0400C9F510 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 766EBD8B28683B0100C9F510 /* StairsClimbedWidgetExtension */;
+			targetProxy = 766EBD9A28683B0400C9F510 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		766FF0892871C80C004337E8 /* StairsClimbedWidget.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				766FF0882871C80C004337E8 /* Base */,
+				766FF08B2871C81C004337E8 /* en */,
+			);
+			name = StairsClimbedWidget.intentdefinition;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1FB4D84B283D5CD5001D00CF /* Debug */ = {
@@ -370,17 +504,18 @@
 		1FB4D84E283D5CD5001D00CF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StairStepperMaster/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Stair Master Climber";
+				INFOPLIST_KEY_CFBundleDisplayName = StairMasterClimber;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app accesses your health information in the background to show you a dashboard with your Activity and Wellness. We don't sell the data or mix it with any personal infromation to share it with any 3rd party";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app calculates the number of flights you climb and updates your iPhone Health data as well when you use the Stair Stepper Machine functionality";
@@ -396,7 +531,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tfp.stairsteppermaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -411,17 +546,18 @@
 		1FB4D84F283D5CD5001D00CF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = StairStepperMaster/StairStepperMaster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_ASSET_PATHS = "\"StairStepperMaster/Preview Content\"";
 				DEVELOPMENT_TEAM = VTU445YWD6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StairStepperMaster/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Stair Master Climber";
+				INFOPLIST_KEY_CFBundleDisplayName = StairMasterClimber;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app accesses your health information in the background to show you a dashboard with your Activity and Wellness. We don't sell the data or mix it with any personal infromation to share it with any 3rd party";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app calculates the number of flights you climb and updates your iPhone Health data as well when you use the Stair Stepper Machine functionality";
@@ -437,12 +573,70 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tfp.stairsteppermaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		766EBD9E28683B0400C9F510 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StairsClimbedWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 40;
+				DEVELOPMENT_TEAM = VTU445YWD6;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StairsClimbedWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StairsClimbedWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tfp.stairsteppermaster.StairsClimbedWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		766EBD9F28683B0400C9F510 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StairsClimbedWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 40;
+				DEVELOPMENT_TEAM = VTU445YWD6;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StairsClimbedWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StairsClimbedWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tfp.stairsteppermaster.StairsClimbedWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -466,6 +660,15 @@
 			buildConfigurations = (
 				1FB4D84E283D5CD5001D00CF /* Debug */,
 				1FB4D84F283D5CD5001D00CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		766EBD9D28683B0400C9F510 /* Build configuration list for PBXNativeTarget "StairsClimbedWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				766EBD9E28683B0400C9F510 /* Debug */,
+				766EBD9F28683B0400C9F510 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

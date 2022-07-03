@@ -32,6 +32,7 @@ struct DashboardView: View {
             VStack(alignment: .leading){
                 HStack(alignment: .top){
                     HeaderSubView()
+                    Spacer()
                     Image(systemName: "gearshape")
                         .padding([.top, .trailing])
                         .foregroundColor(.white)

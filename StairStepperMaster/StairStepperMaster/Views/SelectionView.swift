@@ -8,6 +8,7 @@
 import SwiftUI
 import HealthKit
 import GameKit
+import WidgetKit
 
 struct SelectionView: View {
     @AppStorage("NotificationPermissionDenied") var NotificationPermissionDenied:Bool = false
@@ -45,6 +46,11 @@ struct SelectionView: View {
                             .multilineTextAlignment(.center)
                         Button(action: {
                             activityGoal = 3
+                            if let userDefaults = UserDefaults(suiteName: "group.com.tfp.stairsteppermaster") {
+                                userDefaults.setValue(activityGoal, forKey: "widgetActivityGoal")
+                            }
+                            WidgetCenter.shared.reloadAllTimelines()
+
                             simpleSuccessHaptic()
                         }, label: {
                             VStack{
@@ -60,6 +66,11 @@ struct SelectionView: View {
                         
                         Button(action: {
                             activityGoal = 8
+                            if let userDefaults = UserDefaults(suiteName: "group.com.tfp.stairsteppermaster") {
+                                userDefaults.setValue(activityGoal, forKey: "widgetActivityGoal")
+                            }
+                            WidgetCenter.shared.reloadAllTimelines()
+
                             simpleWarningHaptic()
                         }, label: {
                             VStack{
@@ -75,6 +86,11 @@ struct SelectionView: View {
                         
                         Button(action: {
                             activityGoal = 12
+                            if let userDefaults = UserDefaults(suiteName: "group.com.tfp.stairsteppermaster") {
+                                userDefaults.setValue(activityGoal, forKey: "widgetActivityGoal")
+                            }
+                            WidgetCenter.shared.reloadAllTimelines()
+
                             simpleErrorHaptic()
                         }, label: {
                             VStack{
@@ -252,11 +268,24 @@ struct SelectionView: View {
                         }
                         flightsClimbed = flightsClimbedTemp
                         flightsClimbedArray = flightsClimbedArrayTemp
+
                         self.isActive = true
 
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MMM d, hh:mm a"
                         SyncTime = dateFormatter.string(from: endDate)
+                        if let userDefaults = UserDefaults(suiteName: "group.com.tfp.stairsteppermaster") {
+                            var flightsClimbedRefinedArray = [0.0]
+                            for day in flightsClimbedArray {
+                                flightsClimbedRefinedArray.append(day)
+                            }
+                            flightsClimbedRefinedArray.append(0.0)
+                            userDefaults.setValue(flightsClimbedRefinedArray, forKey: "activityArray")
+                            userDefaults.setValue(flightsClimbed, forKey: "widgetFlightsClimbed")
+                            userDefaults.setValue(SyncTime, forKey: "widgetSyncTime")
+                        }
+                        WidgetCenter.shared.reloadAllTimelines()
+
                         if (flightsClimbed > oldFlights){
                             UIApplication.shared.applicationIconBadgeNumber = 1
                             self.sendNotification(val: (flightsClimbed - oldFlights))
@@ -286,7 +315,6 @@ struct SelectionView: View {
                             }
                         }
                         self.isActive = true
-                        
                     }
                     
                     HKStore.execute(HKquery)
@@ -336,6 +364,15 @@ struct SelectionView: View {
                                             }
                                             flightsClimbed = flightsClimbedTemp
                                             flightsClimbedArray = flightsClimbedArrayTemp
+                                            if let userDefaults = UserDefaults(suiteName: "group.com.tfp.stairsteppermaster"){
+                                                var flightsClimbedRefinedArray = [0.0]
+                                                for day in flightsClimbedArray {
+                                                    flightsClimbedRefinedArray.append(day)
+                                                }
+                                                flightsClimbedRefinedArray.append(0.0)
+                                                userDefaults.setValue(flightsClimbedRefinedArray, forKey: "activityArray")
+                                                userDefaults.setValue(flightsClimbed, forKey: "widgetFlightsClimbed")
+                                            }
 
                                             self.isActive = true
 //                                            print(syncTime)
@@ -343,6 +380,10 @@ struct SelectionView: View {
                                         let dateFormatter = DateFormatter()
                                         dateFormatter.dateFormat = "MMM d, hh:mm a"
                                         SyncTime = dateFormatter.string(from: endDate)
+                                        if let userDefaults = UserDefaults(suiteName: "group.com.tfp.stairsteppermaster") {
+                                            userDefaults.setValue(SyncTime, forKey: "widgetSyncTime")
+                                        }
+                                        WidgetCenter.shared.reloadAllTimelines()
 
                                         if (flightsClimbed > oldFlights){
                                             self.sendNotification(val: (flightsClimbed - oldFlights))

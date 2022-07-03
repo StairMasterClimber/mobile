@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct SettingsView: View {
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
@@ -135,6 +136,12 @@ struct SettingsView: View {
                 }
 
             }
+            .onChange(of: activityGoal, perform: { newGoal in
+                if let userDefaults = UserDefaults(suiteName: "group.com.tfp.stairsteppermaster") {
+                    userDefaults.setValue(newGoal, forKey: "widgetActivityGoal")
+                }
+                WidgetCenter.shared.reloadAllTimelines()
+            })
             .padding([.horizontal, .bottom])
         }
         .navigationTitle("")

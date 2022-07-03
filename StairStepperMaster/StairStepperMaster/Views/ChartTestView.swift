@@ -7,6 +7,50 @@
 
 import SwiftUI
 
+struct ChartSoftShape: Shape {
+    var data: [Double]
+    var shouldFill: Bool
+    
+    init(data: [Double], shouldFill: Bool) {
+        let maxPoint = data.max() ?? 1.0
+        var translatedData: [Double] = []
+        
+        for item in data {
+            translatedData.append(item / maxPoint)
+        }
+        
+        self.data = translatedData
+        
+        self.shouldFill = shouldFill
+    }
+    
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        let start = CGPoint(x: rect.minX, y: rect.maxY - ((data.first ?? 0.0) * rect.height))
+        path.move(to: start)
+        var point = CGPoint()
+        var control1 = CGPoint()
+        var control2 = CGPoint()
+
+        for (i, value) in data.enumerated() {
+            if i != 0 {
+                 point = CGPoint(x: rect.minX + (rect.width / CGFloat(data.count - 1) * CGFloat(i)), y: rect.maxY - (value * rect.height) )
+                 control2 = CGPoint(x: rect.minX + (rect.width / CGFloat(data.count - 1) * (CGFloat(i) - 0.4)), y: rect.maxY - (value * rect.height) )
+                 path.addCurve(to: point, control1: control1, control2: control2)
+             }
+             control1 = CGPoint(x: rect.minX + (rect.width / CGFloat(data.count - 1) * (CGFloat(i) + 0.4)), y: rect.maxY - (value * rect.height) )
+        }
+        
+        if shouldFill {
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+            path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+            path.addLine(to: start)
+        }
+        
+        return path
+    }
+}
 
 //MARK: Start of Sample Code.
 struct ChartShape: Shape {
@@ -52,12 +96,12 @@ struct ChartView: View {
     
     var body: some View {
         ZStack {
-            //TODO: Change these to your colors or gradients.
-            ChartShape(data: data, shouldFill: true)
+            //TODO: Change the ChartSoftShape to ChartShape if you prefer soft curves.
+            ChartSoftShape(data: data, shouldFill: true)
                 .fill(
                     LinearGradient(colors: [Color("FlightsChartLine"), Color("FlightsChartBottomGradient")], startPoint: .top, endPoint: .bottom)
                 )
-            ChartShape(data: data, shouldFill: false)
+            ChartSoftShape(data: data, shouldFill: false)
                 .stroke(style: .init(lineWidth: 1.0, lineCap: .round, lineJoin: .round))
                 .foregroundColor(Color("FlightsChartLine"))
         }

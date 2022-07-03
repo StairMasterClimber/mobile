@@ -119,32 +119,31 @@ struct LeadersTileView: View {
             var playersListTemp : [Player] = []
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardIdentifier])
             if let leaderboard = leaderboards.filter ({ $0.baseLeaderboardID == self.leaderboardIdentifier }).first {
-                leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...5)) { (_, allPlayers, _, error) in
-                    if let allPlayers = allPlayers {
-                        allPlayers.forEach { leaderboardEntry in
-                            leaderboardEntry.player.loadPhoto(for: .small) { image, error in
-                                playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.formattedScore, image: image))
-//                                print("playersList")
-//                                print(playersListTemp)
-                                playersListTemp.sort{
-                                    $0.score < $1.score
-                                }
-
-//                                playersList.sort()
-//                                print("playersList")
-//                                print(playersListTemp)
-                                //TODO: Place this outside this loop
-//                                playersList.sort{
-//                                    $0.score < $1.score
-//                                }
-                            }
+                let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...5))
+                if allPlayers.1.count > 0 {
+                    try await allPlayers.1.asyncForEach { leaderboardEntry in
+                        var image = try await leaderboardEntry.player.loadPhoto(for: .small)
+                        //                            leaderboardEntry.player.loadPhoto(for: .normal) { image, error in
+                        playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.formattedScore, image: image))
+                        //                                print("playersList")
+                        //                                print(playersListTemp)
+                        playersListTemp.sort{
+                            $0.score < $1.score
                         }
+                        
+                        //                                playersList.sort()
+                        //                                print("playersList")
+                        //                                print(playersListTemp)
+                        //TODO: Place this outside this loop
+                        //                                playersList.sort{
+                        //                                    $0.score < $1.score
+                        //                                }
                     }
-                    print("playersList")
-                    print(playersListTemp)
-                    playersList = playersListTemp
                 }
             }
+            print("playersList")
+            print(playersListTemp)
+            playersList = playersListTemp            
         }
     }
 }

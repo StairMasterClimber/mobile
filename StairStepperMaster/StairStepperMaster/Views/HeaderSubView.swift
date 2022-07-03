@@ -22,14 +22,14 @@ struct HeaderSubView: View {
     init(){
         dateFormatter.dateFormat = "MMM d, hh:mm a"
     }
-
+    
     var body: some View {
         HStack{
             if playerImage != nil {
                 Image(uiImage: playerImage!)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 64, height: 64)
+                    .frame(width: 60, height: 60)
                     .clipShape(Circle())
                     .onTapGesture {
                         gameCenterViewControllerState = .localPlayerProfile
@@ -38,7 +38,7 @@ struct HeaderSubView: View {
                     }
             }else{
                 Circle()
-                    .frame(width: 96, height: 96)
+                    .frame(width: 60, height: 60)
                     .foregroundColor(.red)
             }
             VStack(alignment: .leading){
@@ -55,7 +55,7 @@ struct HeaderSubView: View {
                     .font(Font.custom("Avenir", size: 14))
                     .fontWeight(.thin)
                     .italic()
-                    
+                
             }
         }
         .padding(.leading, 10)
@@ -63,20 +63,20 @@ struct HeaderSubView: View {
             if !GKLocalPlayer.local.isAuthenticated {
                 authenticateUser()
             } else {
-                loadPhoto()
                 Task{
                     await leaderboard()
+                    try await loadPhoto()
                 }
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 // 7.
                 withAnimation {
                     if !localPlayer.isAuthenticated {
                         authenticateUser()
                     } else if playerImage == nil {
-                        loadPhoto()
                         Task{
                             await leaderboard()
+                            try await loadPhoto()
                         }
                     }
                 }
@@ -91,9 +91,9 @@ struct HeaderSubView: View {
                 return
             }
             GKAccessPoint.shared.isActive = false
-            loadPhoto()
             Task{
                 await leaderboard()
+                try await loadPhoto()
             }
         }
     }
@@ -108,21 +108,20 @@ struct HeaderSubView: View {
             )
         }
         GKAccessPoint.shared.isActive = false
-//        print("Code is run")
+        //        print("Code is run")
         calculateAchievements()
     }
     
-    func loadPhoto() {
+    func loadPhoto() async throws {
         // https://github.com/alicerunsonfedora/CS400/...PrefPaneGC.swift by Marquis Curt
         if GKLocalPlayer.local.isAuthenticated {
-            GKLocalPlayer.local.loadPhoto(for: .normal) { gameImage, error in
-                print(error)
-                guard error == nil else { return }
-                playerImage = gameImage
-                displayName = GKLocalPlayer.local.displayName
-            }
+            let image = try await GKLocalPlayer.local.loadPhoto(for: .normal)
+            
+            playerImage = image
+            displayName = GKLocalPlayer.local.displayName
         }
     }
+    
     
     func calculateAchievements(){
         // Skywalker-3900, AllStairsLeadToRome-16, StairClimbingMasterTier1-10
@@ -160,7 +159,7 @@ struct HeaderSubView: View {
             }else{
                 skywalkerAchievement?.percentComplete=(flightsClimbed/199) * 100
             }
-
+            
             // Create an array containing the achievement.
             let achievementsToReport: [GKAchievement] = [romeAchievement!, skywalkerAchievement!, masterTier1Achievement!]
             // Report the progress to Game Center.
