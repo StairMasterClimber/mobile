@@ -6,7 +6,7 @@ Let me tell you. They both were used in creating our new app!
 But how did we achieve such a feat? We turned a low impact cardio exercise (stair climbing) into a fun and competitive game! With our app you’re able to compete with friends, family and even strangers in a variety of different events and challenges.
 
 When you open the app for the first time it will ask you about your activity level. After you answer the prompt you will be taken to the main page of the app.
-Introducing BeAware, an assistant for the Deaf and hard of hearing.
+Introducing Stair Master Climber...
 
 [Stair Master Climber Video Walkthrough](https://vimeo.com/721774909)
 
