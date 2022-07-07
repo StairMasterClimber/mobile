@@ -35,14 +35,40 @@ struct ChartShape: Shape {
         var point = CGPoint()
         var control1 = CGPoint()
         var control2 = CGPoint()
+        var value1 = 0.0
+        var value2 = 0.0
+        let maxData = data.max() ?? 1
         
         for (i, value) in data.enumerated() {
+            var slope = 0.0
+            
             if i != 0 {
                 point = CGPoint(x: rect.minX + (rect.width / CGFloat(data.count - 1) * CGFloat(i)), y: rect.maxY - (value * rect.height) )
                 control2 = CGPoint(x: rect.minX + (rect.width / CGFloat(data.count - 1) * (CGFloat(i) - 0.4)), y: rect.maxY - (value * rect.height) )
+                
+                if i + 1 < data.count {
+                    value2 = data[i + 1]
+                    slope = (value2 - value1) / 2
+                } else {
+                    value2 = value
+                    slope = value2 - value1
+                }
+                
+                if i == 1 {
+                    control1.y = control1.y - (slope * rect.height / maxData * 0.4)
+                }
+                
+                control2.y = control2.y + (slope * rect.height / maxData * 0.4)
+                
                 path.addCurve(to: point, control1: control1, control2: control2)
             }
             control1 = CGPoint(x: rect.minX + (rect.width / CGFloat(data.count - 1) * (CGFloat(i) + 0.4)), y: rect.maxY - (value * rect.height) )
+            control1.y = control1.y - (slope * rect.height / maxData * 0.4)
+            value1 = value
+        }
+        
+        if data.count == 1 {
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
         }
         
         if shouldFill {
@@ -61,13 +87,24 @@ struct ChartView: View {
     
     var body: some View {
         ZStack {
+            HStack {
+                Rectangle()
+                    .frame(width: 2.0)
+                Spacer()
+            }
+            VStack {
+                Spacer()
+                Rectangle()
+                    .frame(height: 2.0)
+            }
             //TODO: Change these to your colors or gradients.
             ChartShape(data: data, shouldFill: true)
                 .fill(
                     LinearGradient(colors: [Color("FlightsChartLine"), Color("FlightsChartBottomGradient")], startPoint: .top, endPoint: .bottom)
                 )
+                .opacity(0.6)
             ChartShape(data: data, shouldFill: false)
-                .stroke(style: .init(lineWidth: 1.0, lineCap: .round, lineJoin: .round))
+                .stroke(style: .init(lineWidth: 3.0, lineCap: .round, lineJoin: .round))
                 .foregroundColor(Color("FlightsChartLine"))
         }
     }
@@ -78,7 +115,7 @@ struct ChartView: View {
 
 //TODO: Intead of using this view, insert ChartView into your View hierarchy, and it will resize appropriately.
 struct ChartTestView: View {
-    var data: [Double] = [7, 8, 10, 4, 15, 4, 6]
+    var data: [Double] = [1, 2, 3, 6, 0, 5]
     
     var body: some View {
         HStack {
@@ -98,8 +135,9 @@ struct ChartTestView: View {
             }
             ChartView(data: data)
         }
+        .padding()
         //Note: Shapes want to expand to the full area they're given, so care should be taken to test larger text sizes when constraining the frame like this.
-        .frame(height: 120.0)
+        .frame(height: 140.0)
     }
 }
 
