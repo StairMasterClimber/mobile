@@ -1,10 +1,18 @@
-# Leaderboard
+# How to implement a Leaderboard in SwiftUI
 
-In this article we will talk about how to implement Leaderboard within your app
+In this article we will talk about how to implement Leaderboard within your app. We have followed these steps while implementing the GameCenter Leaderboard in the [Stair Master Climber iPhone Health & Fitness app](https://stairmasterclimber.com/app). 
 
-Most of the logic for the leaderboard is in [this file](httpshttps://github.com/StairMasterClimber/mobile/blob/main/StairStepperMaster/StairStepperMaster/Views/LeadersTileView.swift)
+### Requirements
 
-Here's a quick break down
+* You have to have an Apple Developer paid account
+* You have to create the App Id for your app in the provisioning profiles section of the Apple Developer Portal
+* You have to create the App in App Store Connect portal
+
+## Procedure
+
+Most of the code logic for the leaderboard is in [this file if you want to skip ahead](httpshttps://github.com/StairMasterClimber/mobile/blob/main/StairStepperMaster/StairStepperMaster/Views/LeadersTileView.swift)
+
+Here's a quick break down of the steps taken to implement this:
 
 ### 1. Authentication
 
@@ -23,6 +31,7 @@ func authenticateUser() {
     }
 }
 ```
+<img width="232" alt="image" src="https://user-images.githubusercontent.com/8262287/180823235-cafefcfa-3d25-46e5-8524-d7f475b9a000.png">
 
 ### 2. Diplaying Leaderboard items in UI
 
@@ -54,6 +63,8 @@ func loadLeaderboard(source: Int = 0) async {
     }
 }
 ```
+<img width="311" alt="image" src="https://user-images.githubusercontent.com/8262287/180823292-2dee4f9a-4894-4442-9241-2ad1c84b1cf7.png">
+
 ### 3. Call functionality as view appears
 
 You can take advantage of the onAppear lifecycle function of the view to actually make the calls to authenticate & load etc. But you can also do it on the tap of a button if you prefer.
@@ -84,10 +95,24 @@ func leaderboard() async{
             leaderboardIDs: ["com.tfp.stairsteppermaster.flights"]
         )
     }
-    GKAccessPoint.shared.isActive = false
     calculateAchievements()
 }
 ```
+
+### 5. App Store Connect Leaderboard Creation
+
+Once you have created the app in the App Store Connect portal successfully, you need to go ahead and add a new leaderboard using the "+" sign. The LeaderboardID you input there, is the one that you need to use in all the places in the code that ask for it
+
+<img width="674" alt="image" src="https://user-images.githubusercontent.com/8262287/180824532-2e27ca8a-c1c0-4676-b439-f3ab09887271.png">
+
+### 6. GameCenter ViewController portal
+
+When you're logged in to GameCenter, the little annoying icon appears in the top right of your screen. When you tap on it, you are taken to the GameCenter ViewController. But you can hide it if its not part of your design, using `GKAccessPoint.shared.isActive = false`. In order to make the View Controller appear using a different button, since it's a `ViewController` and not a simple `View` you need to have this UIViewControllerRepresentable first, as you can [see here](https://github.com/StairMasterClimber/mobile/blob/main/StairStepperMaster/StairStepperMaster/Views/GameCenterView.swift).
+
+Once you add that file to your project, you can display the GameCenter portal simply using this: `GameCenterView(format: gameCenterViewControllerState)` where gameCenterViewControllerState can be `.leaderboards` so as to go directly to that page
+
+``
+![IMG_2582](https://user-images.githubusercontent.com/8262287/180823132-ffe7f2c1-eff1-4900-b9a8-6d1a6da96071.PNG)
 
 ## Pain points:
 
@@ -99,3 +124,7 @@ func leaderboard() async{
 
 * There are many pros of using GameCenter leaderboards in general
 * With iOS 16, if your friend beats your score, you get a notificiation, motivating you to get back in the game
+
+### Screenshot of the App
+
+![IMG_2581](https://user-images.githubusercontent.com/8262287/180823148-bcf0d9ef-dd19-40a3-8433-14fde1b582e2.PNG)
