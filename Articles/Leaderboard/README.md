@@ -10,7 +10,7 @@ In this article we will talk about how to implement Leaderboard within your app.
 
 ## Procedure
 
-Most of the code logic for the leaderboard is in [this file if you want to skip ahead](httpshttps://github.com/StairMasterClimber/mobile/blob/main/StairStepperMaster/StairStepperMaster/Views/LeadersTileView.swift)
+Most of the code logic for the leaderboard is in [this file if you want to skip ahead](https://github.com/StairMasterClimber/mobile/blob/main/StairStepperMaster/StairStepperMaster/Views/LeadersTileView.swift)
 
 Here's a quick break down of the steps taken to implement this:
 
