@@ -94,3 +94,8 @@ func leaderboard() async{
 * It is hard to work collaboratively on this because other developers cannot access your leaderboardID, so they also have to create their own leaderboard on their Apple account and reference it from the app.
 * Also, for some reason the authenticate to GameCenter is extremely slow on a simulator, so it might make sense to even create a mock of data when using the simulator
 * This is different from "Achievements" which is calculated and displayed differently
+
+## Pros:
+
+* There are many pros of using GameCenter leaderboards in general
+* With iOS 16, if your friend beats your score, you get a notificiation, motivating you to get back in the game
