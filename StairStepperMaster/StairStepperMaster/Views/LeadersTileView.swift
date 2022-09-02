@@ -122,7 +122,7 @@ struct LeadersTileView: View {
                 let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...5))
                 if allPlayers.1.count > 0 {
                     try await allPlayers.1.asyncForEach { leaderboardEntry in
-                        var image = try await leaderboardEntry.player.loadPhoto(for: .small)
+                        let image = try await leaderboardEntry.player.loadPhoto(for: .small)
                         //                            leaderboardEntry.player.loadPhoto(for: .normal) { image, error in
                         playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.formattedScore, image: image))
                         //                                print("playersList")

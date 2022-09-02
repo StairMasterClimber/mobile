@@ -211,7 +211,7 @@ struct MachineTileView: View {
                             if let quantity = statistics.sumQuantity()
                             {
 //                                print(quantity)
-                                let date = statistics.startDate
+//                                let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "count"))
                                 initialStepsWalked = val + initialStepsWalked
 //                                print(val)
@@ -306,7 +306,7 @@ struct MachineTileView: View {
                             if let quantity = statistics.sumQuantity()
                             {
 //                                print(quantity)
-                                let date = statistics.startDate
+//                                let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "count"))
                                 finalStepsWalked = val + finalStepsWalked
 //                                print(val)
