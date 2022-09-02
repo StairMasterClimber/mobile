@@ -51,7 +51,8 @@ struct AchievementTileView: View {
                     }
             }            
             VStack{
-                HStack{
+                ScrollView(.horizontal) {
+                HStack {
                     ForEach(achievementsList, id: \.self) { item in
                         VStack{
                             Image(uiImage: item.image!)
@@ -74,10 +75,12 @@ struct AchievementTileView: View {
                             .frame(maxWidth:105)
                     }
                 }
-                
+                }
+                .padding(.leading, 10.0)
             }
             .padding(5)
-            .frame(minWidth:350, minHeight: 113)
+//            .frame(minWidth:350, minHeight: 113)
+            .frame(minWidth:350, idealWidth:350,maxWidth:350, minHeight: 113)
             .background(Color("TileBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }.onAppear(){
