@@ -17,7 +17,10 @@ struct MachineTileView: View {
     @AppStorage("FinalWorkoutStepsClimbed") var finalStepsWalked:Double = 0
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     @AppStorage("StepsTakenAtStart") var stepsAt:Double = 0
+    
     @State private var didStartWorkout:Bool = false
+    
+    private let HKStore = HKHealthStore()
 
     var body: some View {
         if !shouldHide{
@@ -141,197 +144,151 @@ struct MachineTileView: View {
         }
     }
     
-    func fetchInitialStepData()
-    {
-        let HKStore = HKHealthStore()
-        
-        if HKHealthStore.isHealthDataAvailable()
-        {
-            let readData = Set([
-//                HKObjectType.quantityType(forIdentifier: .heartRate)!,
-//                HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
-                //                HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
-                HKObjectType.quantityType(forIdentifier: .stepCount)!,
-                HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
+    private let initialStepData = Set([
+//            HKObjectType.quantityType(forIdentifier: .heartRate)!,
+//            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
+//            HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
+        HKObjectType.quantityType(forIdentifier: .stepCount)!,
+        HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
 //                HKObjectType.quantityType(forIdentifier: .vo2Max)!,
-                //                HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
-                HKObjectType.quantityType(forIdentifier: .stairAscentSpeed)!,
+//                HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
+        HKObjectType.quantityType(forIdentifier: .stairAscentSpeed)!,
 //                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!,
-                HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!])
-            let writeData = Set([
-                HKObjectType.quantityType(forIdentifier: .stepCount)!,
-                HKObjectType.quantityType(forIdentifier: .flightsClimbed)!])
-            HKStore.requestAuthorization(toShare: writeData, read: readData) {(success, error) in
-                if success
-                {
-                    let cal = NSCalendar.current
-                    var anchorComps = cal.dateComponents([.day, .month, .year, .weekday], from: NSDate() as Date)
-                    let offset = (5 + anchorComps.weekday! - 2) % 5
-                    let endDate = Date()
-                    
-                    anchorComps.day! -= offset
-                    anchorComps.hour = 1
-                    
-                    guard let anchorDate = Calendar.current.date(from: anchorComps)
-                    else
-                    {
-                        fatalError("Can't get a valid date from the achor. You fucked something up!")
-                    }
-                    
-                    guard let startDate = cal.date(byAdding: .month, value: -1, to: endDate)
-                    else
-                    {
-                        fatalError("Can't generate a startDate! :-/")
-                    }
-                    print("fetchInitialStepData")
-                    print(startDate)
-                    print(endDate)
-                    let interval = NSDateComponents()
-                    interval.hour = 24
-                    
-                    guard let quantityType2 = HKObjectType.quantityType(forIdentifier: .stepCount)
-                    else{
-                        fatalError("Can't get quantityType forIdentifier: .stepCount!")
-                    }
-                    let HKquery2 = HKStatisticsCollectionQuery(quantityType: quantityType2, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
-                    
-                    HKquery2.initialResultsHandler =
-                    {
-                        query, results, error in
-                        guard let statsCollection = results
-                        else
-                        {
-                            fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
-                        }
-                        initialStepsWalked = 0
-                        
-                        statsCollection.enumerateStatistics(from: startDate, to: endDate)
-                        {
-                            statistics, stop in
-                            if let quantity = statistics.sumQuantity()
-                            {
-//                                print(quantity)
-                                let date = statistics.startDate
-                                let val = quantity.doubleValue(for: HKUnit(from: "count"))
-                                initialStepsWalked = val + initialStepsWalked
-//                                print(val)
-//                                print(date)
-                            }
-                        }
-                        print("initialStepsWalked")
-                        print(initialStepsWalked)
-                        
-                    }
-                    HKStore.execute(HKquery2)                    
+        HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!])
+    
+    private let finalStepData = Set([
+//        KObjectType.quantityType(forIdentifier: .heartRate)!,
+//        HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
+//        HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
+        HKObjectType.quantityType(forIdentifier: .stepCount)!,
+        HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
+        HKObjectType.quantityType(forIdentifier: .vo2Max)!,
+//                HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
+        HKObjectType.quantityType(forIdentifier: .stairAscentSpeed)!,
+//                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!,
+        HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!])
+    
+    //MARK: - Authorization process
+    
+    private func requestAuthorization(readData: Set<HKQuantityType>,
+                                      completion: @escaping (_ query: HKStatisticsCollectionQuery?,
+                                                             _ startDate: Date, _ endDate: Date) -> Void) {
+        let writeData = Set([
+            HKObjectType.quantityType(forIdentifier: .stepCount)!,
+            HKObjectType.quantityType(forIdentifier: .flightsClimbed)!])
+        
+        HKStore.requestAuthorization(toShare: writeData, read: readData) {(success, error) in
+            if success {
+                let cal = NSCalendar.current
+                var anchorComps = cal.dateComponents([.day, .month, .year, .weekday], from: NSDate() as Date)
+                let offset = (5 + anchorComps.weekday! - 2) % 5
+                let endDate = Date()
+                
+                anchorComps.day! -= offset
+                anchorComps.hour = 1
+                
+                guard let anchorDate = Calendar.current.date(from: anchorComps) else {
+                    fatalError("Can't get a valid date from the achor. You fucked something up!")
                 }
-                else
-                {
-                    print("Unauthorized!")
+                
+                guard let startDate = cal.date(byAdding: .month, value: -1, to: endDate) else {
+                    fatalError("Can't generate a startDate! :-/")
                 }
+                
+                print("fetchData interval begin \(startDate) end \(endDate)")
+                
+                let interval = NSDateComponents()
+                interval.hour = 24
+                
+                guard let quantityType2 = HKObjectType.quantityType(forIdentifier: .stepCount) else{
+                    fatalError("Can't get quantityType forIdentifier: .stepCount!")
+                }
+                
+                let HKquery2: HKStatisticsCollectionQuery = HKStatisticsCollectionQuery(quantityType: quantityType2, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
+                
+                completion(HKquery2, startDate, endDate)
+            }
+            else
+            {
+                print("Unauthorized!")
+                completion(nil, Date(), Date())
             }
         }
-        else
-        {
-            print("ERROR: Unable to fetch data!")
+    }
+
+    //MARK: - Fetch Methods
+    
+    func fetchInitialStepData() {
+        requestAuthorization(readData: initialStepData) { query, startDate, endDate in
+            if let query = query {
+                // The user has authorization and receive the query
+                let HKquery2 = createQueryForInitialStep(query, startDate: startDate, endDate: endDate)
+                HKStore.execute(HKquery2)
+            }
         }
     }
     
-    func fetchFinalStepData()
-    {
-        let HKStore = HKHealthStore()
-        
-        if HKHealthStore.isHealthDataAvailable()
-        {
-            let readData = Set([
-//                HKObjectType.quantityType(forIdentifier: .heartRate)!,
-//                HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
-                //                HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
-                HKObjectType.quantityType(forIdentifier: .stepCount)!,
-                HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
-                HKObjectType.quantityType(forIdentifier: .vo2Max)!,
-                //                HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
-                HKObjectType.quantityType(forIdentifier: .stairAscentSpeed)!,
-//                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!,
-                HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!])
-            let writeData = Set([
-                HKObjectType.quantityType(forIdentifier: .stepCount)!,
-                HKObjectType.quantityType(forIdentifier: .flightsClimbed)!])
-            HKStore.requestAuthorization(toShare: writeData, read: readData) {(success, error) in
-                if success
-                {
-                    let cal = NSCalendar.current
-                    var anchorComps = cal.dateComponents([.day, .month, .year, .weekday], from: NSDate() as Date)
-                    let offset = (5 + anchorComps.weekday! - 2) % 5
-                    let endDate = Date()
-                    
-                    anchorComps.day! -= offset
-                    anchorComps.hour = 1
-                    
-                    guard let anchorDate = Calendar.current.date(from: anchorComps)
-                    else
-                    {
-                        fatalError("Can't get a valid date from the achor. You fucked something up!")
-                    }
-                    
-                    guard let startDate = cal.date(byAdding: .month, value: -1, to: endDate)
-                    else
-                    {
-                        fatalError("Can't generate a startDate! :-/")
-                    }
-                    print("fetchFinalStepData")
-                    print(startDate)
-                    print(endDate)
-                    let interval = NSDateComponents()
-                    interval.hour = 24
-                    
-                    guard let quantityType2 = HKObjectType.quantityType(forIdentifier: .stepCount)
-                    else{
-                        fatalError("Can't get quantityType forIdentifier: .stepCount!")
-                    }
-                    let HKquery2 = HKStatisticsCollectionQuery(quantityType: quantityType2, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
-                    finalStepsWalked = 0
-                    
-                    HKquery2.initialResultsHandler =
-                    {
-                        query, results, error in
-                        guard let statsCollection = results
-                        else
-                        {
-                            fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
-                        }
-                        
-                        statsCollection.enumerateStatistics(from: startDate, to: endDate)
-                        {
-                            statistics, stop in
-                            if let quantity = statistics.sumQuantity()
-                            {
-//                                print(quantity)
-                                let date = statistics.startDate
-                                let val = quantity.doubleValue(for: HKUnit(from: "count"))
-                                finalStepsWalked = val + finalStepsWalked
-//                                print(val)
-//                                print(date)
-                            }
-                        }
-                        print("finalStepsWalked")
-                        print(finalStepsWalked)
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "MMM d, hh:mm a"
-                        SyncTime = dateFormatter.string(from: endDate)
-                        saveFlights()
-                    }
-                    HKStore.execute(HKquery2)
-                }
-                else
-                {
-                    print("Unauthorized!")
-                }
+    func fetchFinalStepData() {
+        requestAuthorization(readData: finalStepData) { query, startDate, endDate in
+            if let query = query {
+                // The user has authorization and receive the query
+                let HKquery2 = createQueryForFinalStep(query, startDate: startDate, endDate: endDate)
+                HKStore.execute(HKquery2)
             }
         }
-        else
-        {
-            print("ERROR: Unable to fetch data!")
+    }
+    
+    //MARK: - Helper Methods
+    
+    private func createQueryForInitialStep(_ HKquery2: HKStatisticsCollectionQuery,
+                                           startDate: Date, endDate: Date) -> HKStatisticsCollectionQuery {
+        HKquery2.initialResultsHandler = { query, results, error in
+            guard let statsCollection = results else {
+                fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
+            }
+            
+            initialStepsWalked = 0
+            statsCollection.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
+                if let quantity = statistics.sumQuantity() {
+//                    print(quantity)
+//                    let date = statistics.startDate
+                    let val = quantity.doubleValue(for: HKUnit(from: "count"))
+                    initialStepsWalked = val + initialStepsWalked
+//                    print(val)
+//                    print(date)
+                }
+            }
+            print("InitialStepsWalked: \(initialStepsWalked)")
         }
+        return HKquery2
+    }
+    
+    private func createQueryForFinalStep(_ HKquery2: HKStatisticsCollectionQuery,
+                                          startDate: Date, endDate: Date) -> HKStatisticsCollectionQuery {
+        HKquery2.initialResultsHandler = { query, results, error in
+            guard let statsCollection = results else {
+                fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
+            }
+            
+            finalStepsWalked = 0
+            statsCollection.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
+                if let quantity = statistics.sumQuantity() {
+//                    print(quantity)
+//                    let date = statistics.startDate
+                    let val = quantity.doubleValue(for: HKUnit(from: "count"))
+                    finalStepsWalked = val + finalStepsWalked
+//                    print(val)
+//                    print(date)
+                }
+            }
+            print("FinalStepsWalked: \(finalStepsWalked)")
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM d, hh:mm a"
+            SyncTime = dateFormatter.string(from: endDate)
+            saveFlights()
+        }
+        return HKquery2
     }
 }
 
