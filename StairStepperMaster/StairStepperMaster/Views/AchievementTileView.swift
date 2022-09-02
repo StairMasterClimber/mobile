@@ -30,7 +30,7 @@ struct AchievementTileView: View {
     @State private var rotateY : Double = 0
     @State private var rotateZ : Double = 0
     @State private var angle : Double = 3
-
+    
     var body: some View {
         VStack(spacing: 0){
             HStack{
@@ -52,34 +52,34 @@ struct AchievementTileView: View {
             }            
             VStack{
                 ScrollView(.horizontal) {
-                HStack {
-                    ForEach(achievementsList, id: \.self) { item in
-                        VStack{
-                            Image(uiImage: item.image!)
-                                .resizable()
-                                .frame(width: 72, height: 72, alignment: .center)
-                                .clipShape(Circle())
-                                .rotation3DEffect(.degrees(angle), axis: (x: rotateX*60, y: rotateY*60, z: rotateZ*60))
-                                .shadow(color: Color("MoreYellow"), radius: rotateX.magnitude*3 + rotateY.magnitude*3, x: rotateX*3, y: rotateY*3)
-
-                            Text(item.name)
-                                .font(Font.custom("Avenir",size: 10))
-                                .fontWeight(.heavy)
-                                .lineLimit(1)
-                                .truncationMode(.middle)
-                                .foregroundColor(.white)
-                            Text(item.percentComplete)
-                                .font(Font.custom("Avenir",size: 10))
-                                .foregroundColor(.white)
-                        }.padding(5)
-                            .frame(maxWidth:105)
+                    HStack {
+                        ForEach(achievementsList, id: \.self) { item in
+                            VStack{
+                                Image(uiImage: item.image!)
+                                    .resizable()
+                                    .frame(width: 72, height: 72, alignment: .center)
+                                    .clipShape(Circle())
+                                    .rotation3DEffect(.degrees(angle), axis: (x: rotateX*60, y: rotateY*60, z: rotateZ*60))
+                                    .shadow(color: Color("MoreYellow"), radius: rotateX.magnitude*3 + rotateY.magnitude*3, x: rotateX*3, y: rotateY*3)
+                                
+                                Text(item.name)
+                                    .font(Font.custom("Avenir",size: 10))
+                                    .fontWeight(.heavy)
+                                    .lineLimit(1)
+                                    .truncationMode(.middle)
+                                    .foregroundColor(.white)
+                                Text(item.percentComplete)
+                                    .font(Font.custom("Avenir",size: 10))
+                                    .foregroundColor(.white)
+                            }.padding(5)
+                                .frame(maxWidth:105)
+                        }
                     }
-                }
                 }
                 .padding(.leading, 10.0)
             }
             .padding(5)
-//            .frame(minWidth:350, minHeight: 113)
+            //            .frame(minWidth:350, minHeight: 113)
             .frame(minWidth:350, idealWidth:350,maxWidth:350, minHeight: 113)
             .background(Color("TileBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -91,21 +91,21 @@ struct AchievementTileView: View {
             }            
         }
         .onAppear() {
-                print(motionManager.isDeviceMotionAvailable)
-                if motionManager.isDeviceMotionAvailable {
-                    motionManager.deviceMotionUpdateInterval = 0.01
-                    
-                    motionManager.startDeviceMotionUpdates(to: OperationQueue.main) { data,error in
-                        withAnimation {
-                            rotateX = -(data?.gravity.x ?? 0)
-                            rotateY = -(data?.gravity.y ?? 0)
-                            rotateZ = (data?.gravity.z ?? 0)
-                            angle = ((data?.gravity.x ?? 0)) * 10
-                        }
+            print(motionManager.isDeviceMotionAvailable)
+            if motionManager.isDeviceMotionAvailable {
+                motionManager.deviceMotionUpdateInterval = 0.01
+                
+                motionManager.startDeviceMotionUpdates(to: OperationQueue.main) { data,error in
+                    withAnimation {
+                        rotateX = -(data?.gravity.x ?? 0)
+                        rotateY = -(data?.gravity.y ?? 0)
+                        rotateZ = (data?.gravity.z ?? 0)
+                        angle = ((data?.gravity.x ?? 0)) * 10
                     }
                 }
             }
-
+        }
+        
         .onTapGesture {
             simpleWarningHaptic()
             gameCenterViewControllerState = .achievements
@@ -123,12 +123,12 @@ struct AchievementTileView: View {
                 GKAchievement.loadAchievements(completionHandler: { (achievements: [GKAchievement]?, error: Error?) in
                     let achievementID = achievementDescription.identifier
                     var achievement: GKAchievement? = nil
-                                        
+                    
                     // Find an existing achievement.
                     achievement = achievements?.first(where: { $0.identifier == achievementID})
                     achievementDescription.loadImage() { image, error in
-//                        print(achievement)
-//                        print(achievement?.percentComplete)
+                        //                        print(achievement)
+                        //                        print(achievement?.percentComplete)
                         
                         if achievement?.percentComplete ?? 0 < 0 || achievement?.percentComplete ?? 0 > 100  {
                             achievementsListTemp.append(Achievement(name: achievementDescription.title, percentComplete: "100%", percentCompleteNumber: 100, image: image))
