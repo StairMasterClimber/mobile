@@ -31,7 +31,7 @@ struct FlightsTileView: View {
             }
             .padding()
             .frame(minWidth:353, minHeight: 113)
-            .background(Color("TileBackground"))
+            .modifier(FlatGlassViewModifier())
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }
         

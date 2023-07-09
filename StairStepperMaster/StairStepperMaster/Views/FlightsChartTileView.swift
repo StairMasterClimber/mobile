@@ -6,9 +6,7 @@
 //
 
 import SwiftUI
-#if canImport(Charts)
 import Charts
-#endif
 
 
 
@@ -25,7 +23,6 @@ struct FlightsChartTileView: View {
     @State var flightsClimbedRefinedArray:[Double] = [0,4,2,5,6,7,2,4,0]
 
     @State var last7Days: [Stairs] = []
-    let symbolSize: CGFloat = 30
 
     init(){
         print("flightsClimbedArray.count")
@@ -40,7 +37,6 @@ struct FlightsChartTileView: View {
                 Text("ACTIVITY")
                     .font(Font.custom("Avenir", size: 25))
                     .fontWeight(.heavy)
-                    .padding(.leading, 20)
                     .foregroundColor(.white)
                 Spacer()
             }
@@ -48,9 +44,15 @@ struct FlightsChartTileView: View {
                 .font(Font.custom("Avenir", size: 15))
                 .padding(.bottom, 8)
                 .foregroundColor(.white)
+            if flightsClimbed == 0 {
+                Text("You might have rejected Health permissions needed for the app to work. Either delete and reinstall the app or manually go to your Health app ->Sharing ->Apps ->Stair Master Climber ->Turn On permissions.")
+                    .font(Font.custom("Avenir", size: 12))
+                    .padding(.bottom, 8)
+                    .foregroundColor(.red)
+            }
             ActivityChartTileWidgetSharedView(flightsArrayPadded: flightsClimbedRefinedArray, flightsClimbed: flightsClimbed, activityGoal: activityGoal)
             .frame(minWidth:350, minHeight: 113)
-            .background(Color("TileBackground"))
+//            .modifier(FlatGlassViewModifier())
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }
         .onAppear(){
@@ -66,34 +68,15 @@ struct FlightsChartTileView: View {
         .padding([.horizontal])
     }
     func CalculateLast7Days(){
-        if #available(iOS 16.0, *) {
-            flightsClimbedRefinedArray = [0]
-            
-            for day in flightsClimbedArray {
-                flightsClimbedRefinedArray.append(day)
-            }
-            flightsClimbedRefinedArray.append(0)
-            // TODO: Need to test above code with iOS 16 device
+//        if #available(iOS 16.0, *) {
+//            flightsClimbedRefinedArray = [0]
 //
-//            if flightsClimbedArray.count < 7 {
-//                let neededFligtDays = 7 - flightsClimbedArray.count
-//                
-//                for _ in 0..<neededFligtDays {
-//                    flightsClimbedArray.append(0)
-//                }
+//            for day in flightsClimbedArray {
+//                flightsClimbedRefinedArray.append(day)
 //            }
-//            last7Days = [
-//                .init(Day: 0, TotalCount: 0),
-//                .init(Day: 1, TotalCount: Int(flightsClimbedArray[0])),
-//                .init(Day: 2, TotalCount: Int(flightsClimbedArray[1])),
-//                .init(Day: 3, TotalCount: Int(flightsClimbedArray[2])),
-//                .init(Day: 4, TotalCount: Int(flightsClimbedArray[3])),
-//                .init(Day: 5, TotalCount: Int(flightsClimbedArray[4])),
-//                .init(Day: 6, TotalCount: Int(flightsClimbedArray[5])),
-//                .init(Day: 7, TotalCount: Int(flightsClimbedArray[6])),
-//                .init(Day: 8, TotalCount: 0),
-//            ]
-        } else{
+//            flightsClimbedRefinedArray.append(0)
+            // TODO: Need to test above code with iOS 16 device
+//        } else{
             flightsClimbedRefinedArray = [0]
             
             for day in flightsClimbedArray {
@@ -102,7 +85,7 @@ struct FlightsChartTileView: View {
             flightsClimbedRefinedArray.append(0)
             
 //            flightsClimbedRefinedArray = [0,flightsClimbedArray[0],flightsClimbedArray[1],flightsClimbedArray[2],flightsClimbedArray[3],flightsClimbedArray[4],flightsClimbedArray[5],flightsClimbedArray[6],0]
-        }
+//        }
     }
 }
 

@@ -44,7 +44,7 @@ struct LeadersTileView: View {
             }
             
             VStack{
-                ScrollView(.horizontal)
+                ScrollView(.horizontal, showsIndicators: false)
                 {
                     HStack(spacing: 10){
                         ForEach(playersList, id: \.self) { item in
@@ -56,7 +56,10 @@ struct LeadersTileView: View {
                                 Text(item.name)
                                     .font(Font.custom("Avenir",size: 10))
                                     .fontWeight(.heavy)
+                                    .lineLimit(1)
                                     .foregroundColor(.white)
+                                    .truncationMode(.middle)
+                                    .frame(minWidth:105,idealWidth:105,maxWidth:105)
                                 Text(item.score)
                                     .font(Font.custom("Avenir",size: 10))
                                     .foregroundColor(.white)
@@ -68,7 +71,7 @@ struct LeadersTileView: View {
             }
             .padding(5)
             .frame(minWidth:350, idealWidth:350,maxWidth:350, minHeight: 113)
-            .background(Color("TileBackground"))
+            .modifier(FlatGlassViewModifier())
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }
         .onAppear(){
@@ -122,7 +125,7 @@ struct LeadersTileView: View {
                 let allPlayers = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...5))
                 if allPlayers.1.count > 0 {
                     try await allPlayers.1.asyncForEach { leaderboardEntry in
-                        var image = try await leaderboardEntry.player.loadPhoto(for: .small)
+                        let image = try await leaderboardEntry.player.loadPhoto(for: .small)
                         //                            leaderboardEntry.player.loadPhoto(for: .normal) { image, error in
                         playersListTemp.append(Player(name: leaderboardEntry.player.displayName, score:leaderboardEntry.formattedScore, image: image))
                         //                                print("playersList")
@@ -143,7 +146,7 @@ struct LeadersTileView: View {
             }
             print("playersList")
             print(playersListTemp)
-            playersList = playersListTemp            
+            playersList = playersListTemp
         }
     }
 }

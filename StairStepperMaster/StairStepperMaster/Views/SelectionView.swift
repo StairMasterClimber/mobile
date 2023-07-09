@@ -228,12 +228,12 @@ struct SelectionView: View {
                     else{
                         fatalError("Can't get quantityType forIdentifier: .flightsClimbed!")
                     }
-                    guard let quantityType = HKObjectType.quantityType(forIdentifier: .vo2Max)
-                    else
-                    {
-                        fatalError("Can't get quantityType forIdentifier: .vo2Max!")
-                    }
-                    let HKquery = HKStatisticsCollectionQuery(quantityType: quantityType, quantitySamplePredicate: nil, options: .discreteAverage, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
+//                    guard let quantityType = HKObjectType.quantityType(forIdentifier: .vo2Max)
+//                    else
+//                    {
+//                        fatalError("Can't get quantityType forIdentifier: .vo2Max!")
+//                    }
+//                    let HKquery = HKStatisticsCollectionQuery(quantityType: quantityType, quantitySamplePredicate: nil, options: .discreteAverage, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
                     let HKFlightsQuery = HKStatisticsCollectionQuery(quantityType: quantityType2, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
                     var oldFlights = 0.0
                     HKFlightsQuery.initialResultsHandler =
@@ -294,30 +294,30 @@ struct SelectionView: View {
                     }
                     HKStore.execute(HKFlightsQuery)
                     
-                    HKquery.initialResultsHandler =
-                    {
-                        query, results, error in
-                        guard let statsCollection = results
-                        else
-                        {
-                            fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
-                        }
-                        
-                        statsCollection.enumerateStatistics(from: startDate, to: endDate)
-                        {
-                            statistics, stop in
-                            if let quantity = statistics.averageQuantity()
-                            {
-//                                print(quantity)
-                                //let date = statistics.startDate
-                                let val = quantity.doubleValue(for: HKUnit(from: "mL/min·kg"))
-                                vo2Max = val
-                            }
-                        }
-                        self.isActive = true
-                    }
+//                    HKquery.initialResultsHandler =
+//                    {
+//                        query, results, error in
+//                        guard let statsCollection = results
+//                        else
+//                        {
+//                            fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
+//                        }
+//                        
+//                        statsCollection.enumerateStatistics(from: startDate, to: endDate)
+//                        {
+//                            statistics, stop in
+//                            if let quantity = statistics.averageQuantity()
+//                            {
+////                                print(quantity)
+//                                //let date = statistics.startDate
+//                                let val = quantity.doubleValue(for: HKUnit(from: "mL/min·kg"))
+//                                vo2Max = val
+//                            }
+//                        }
+//                        self.isActive = true
+//                    }
                     
-                    HKStore.execute(HKquery)
+//                    HKStore.execute(HKquery)
 //                    print("HERE")
                     var shouldCheck = false
                     // ---------- Saamer

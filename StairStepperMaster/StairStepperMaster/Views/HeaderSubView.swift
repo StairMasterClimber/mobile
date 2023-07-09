@@ -58,7 +58,7 @@ struct HeaderSubView: View {
                 
             }
         }
-        .padding(.leading, 10)
+        .padding([.leading, .trailing], 10)
         .onAppear(){
             if !GKLocalPlayer.local.isAuthenticated {
                 authenticateUser()

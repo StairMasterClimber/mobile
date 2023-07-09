@@ -50,7 +50,7 @@ struct AchievementTileView: View {
                         simpleSuccessHaptic()
                     }
             }            
-            VStack{
+            ScrollView(.horizontal, showsIndicators: false){
                 HStack{
                     ForEach(achievementsList, id: \.self) { item in
                         VStack{
@@ -67,18 +67,18 @@ struct AchievementTileView: View {
                                 .lineLimit(1)
                                 .truncationMode(.middle)
                                 .foregroundColor(.white)
+                                .frame(minWidth:105,idealWidth:105,maxWidth:105)
                             Text(item.percentComplete)
                                 .font(Font.custom("Avenir",size: 10))
                                 .foregroundColor(.white)
                         }.padding(5)
-                            .frame(maxWidth:105)
                     }
                 }
                 
             }
             .padding(5)
-            .frame(minWidth:350, minHeight: 113)
-            .background(Color("TileBackground"))
+            .frame(minWidth:350, idealWidth: 350, maxWidth: 350, minHeight: 113)
+            .modifier(FlatGlassViewModifier())
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }.onAppear(){
             Task{

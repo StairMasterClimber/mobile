@@ -30,6 +30,7 @@ struct DashboardSubView: View {
             
         }
         .coordinateSpace(name: "pullToRefresh")
+        .padding(.bottom, 20)
     }
     
     func fetchHealthData()
@@ -44,7 +45,7 @@ struct DashboardSubView: View {
                 //                HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
                 HKObjectType.quantityType(forIdentifier: .stepCount)!,
                 HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
-                HKObjectType.quantityType(forIdentifier: .vo2Max)!,
+//                HKObjectType.quantityType(forIdentifier: .vo2Max)!,
                 //                HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
                 HKObjectType.quantityType(forIdentifier: .stairAscentSpeed)!,
 //                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!,
@@ -81,12 +82,12 @@ struct DashboardSubView: View {
                     else{
                         fatalError("Can't get quantityType forIdentifier: .flightsClimbed!")
                     }
-                    guard let quantityType = HKObjectType.quantityType(forIdentifier: .vo2Max)
-                    else
-                    {
-                        fatalError("Can't get quantityType forIdentifier: .vo2Max!")
-                    }
-                    let HKquery = HKStatisticsCollectionQuery(quantityType: quantityType, quantitySamplePredicate: nil, options: .discreteAverage, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
+//                    guard let quantityType = HKObjectType.quantityType(forIdentifier: .vo2Max)
+//                    else
+//                    {
+//                        fatalError("Can't get quantityType forIdentifier: .vo2Max!")
+//                    }
+//                    let HKquery = HKStatisticsCollectionQuery(quantityType: quantityType, quantitySamplePredicate: nil, options: .discreteAverage, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
                     let HKFlightsQuery = HKStatisticsCollectionQuery(quantityType: quantityType2, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: interval as DateComponents)
                     HKFlightsQuery.initialResultsHandler =
                     {
@@ -134,29 +135,28 @@ struct DashboardSubView: View {
                     }
                     HKStore.execute(HKFlightsQuery)
                     
-                    HKquery.initialResultsHandler =
-                    {
-                        query, results, error in
-                        guard let statsCollection = results
-                        else
-                        {
-                            fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
-                        }
-                        
-                        statsCollection.enumerateStatistics(from: startDate, to: endDate)
-                        {
-                            statistics, stop in
-                            if let quantity = statistics.averageQuantity()
-                            {
-                                //let date = statistics.startDate
-                                let val = quantity.doubleValue(for: HKUnit(from: "mL/min·kg"))
-                                vo2Max = val
-//                                self.isActive = true
-                            }
-                        }
-                        
-                    }
-                    HKStore.execute(HKquery)
+//                    HKquery.initialResultsHandler =
+//                    {
+//                        query, results, error in
+//                        guard let statsCollection = results
+//                        else
+//                        {
+//                            fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
+//                        }
+//
+//                        statsCollection.enumerateStatistics(from: startDate, to: endDate)
+//                        {
+//                            statistics, stop in
+//                            if let quantity = statistics.averageQuantity()
+//                            {
+//                                //let date = statistics.startDate
+//                                let val = quantity.doubleValue(for: HKUnit(from: "mL/min·kg"))
+//                                vo2Max = val
+//                            }
+//                        }
+//
+//                    }
+//                    HKStore.execute(HKquery)
                 }
                 else
                 {

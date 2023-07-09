@@ -102,7 +102,7 @@ struct MachineTileView: View {
                 }
                 .padding()
                 .frame(minWidth:350, minHeight: 113)
-                .background(Color("TileBackground"))
+                .modifier(FlatGlassViewModifier())
                 .clipShape(RoundedRectangle(cornerRadius: 20))
             }
         }
@@ -248,7 +248,7 @@ struct MachineTileView: View {
                 //                HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
                 HKObjectType.quantityType(forIdentifier: .stepCount)!,
                 HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
-                HKObjectType.quantityType(forIdentifier: .vo2Max)!,
+//                HKObjectType.quantityType(forIdentifier: .vo2Max)!,
                 //                HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
                 HKObjectType.quantityType(forIdentifier: .stairAscentSpeed)!,
 //                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!,

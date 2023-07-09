@@ -90,12 +90,20 @@ struct StairsClimbedWidgetEntryView : View {
 struct StairsClimbedWidget: Widget {
     let kind: String = "StairsClimbedWidget"
     
+    private let supportedFamilies:[WidgetFamily] = {
+        if #available(iOSApplicationExtension 16.0, *) {
+            return [.systemMedium, .accessoryInline, .accessoryCircular, .accessoryRectangular]
+        } else {
+            return [.systemMedium]
+        }
+    }()
+
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             StairsClimbedWidgetEntryView()
         }
         .configurationDisplayName("Activity Widget")
-        .supportedFamilies([.systemMedium])
+        .supportedFamilies(supportedFamilies)
         .description("This widget displays the last 7 days of stairs climbed")
     }
 }

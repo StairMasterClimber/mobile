@@ -10,7 +10,6 @@ import WidgetKit
 
 struct SettingsView: View {
     @AppStorage("ActivityGoal") var activityGoal:Int = 8
-    @AppStorage("IsSettingsActive") var isSettingsActive:Bool = false
     @AppStorage("AskedAboutMachine") var shouldShowInitialQuestion:Bool = true
     @AppStorage("MachineUsage") var shouldHide:Bool = false
     @AppStorage("ShouldSendPushNotifications") var ShouldSendPushNotifications:Bool = true
@@ -21,17 +20,16 @@ struct SettingsView: View {
         ScrollView{
             VStack(alignment:.leading){
                 HStack{
-                    Image(systemName: "chevron.left")
-                        .padding()
+                    Text("SETTINGS")
+                        .font(Font.custom("Avenir", size: 25))
+                        .fontWeight(.heavy)
+                        .padding([.top,.bottom], 10)
                         .foregroundColor(.white)
-                        .onTapGesture {
-                            isSettingsActive = false
-                        }
                     Spacer()
                 }
                 Text("Typically how active are you")
                     .font(Font.custom("Avenir", size: 20))
-                    .fontWeight(.heavy)
+//                    .fontWeight(.heavy)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                 Picker(selection: $activityGoal, label: Text("Typically how active are you?")) {
@@ -53,7 +51,6 @@ struct SettingsView: View {
                     .multilineTextAlignment(.center)
                 Text("Do you use a stair stepper machine")
                     .font(Font.custom("Avenir", size: 20))
-                    .fontWeight(.heavy)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                 HStack{
@@ -61,7 +58,6 @@ struct SettingsView: View {
                     Button(action: {
                         shouldShowInitialQuestion = false
                         shouldHide = false
-//                        print("Yes")
                     }, label:{ Text("Yes")
                             .font(Font.custom("Avenir", size: 16))
                             .fontWeight(.heavy)
@@ -81,18 +77,27 @@ struct SettingsView: View {
                 }
                 Text("Push Notifications")
                     .font(Font.custom("Avenir", size: 20))
-                    .fontWeight(.heavy)
+                    .padding(.top, 10)
                     .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
+
+//                    .font(Font.custom("Avenir", size: 20))
+//                    .fontWeight(.heavy)
+//                    .foregroundColor(.white)
+//                    .multilineTextAlignment(.center)
                 if NotificationPermissionDenied{
                     Text("You have rejected Push Notification permissions needed to alert about progress. Either delete and reinstall the app or manually go to the Settings App -> Stair Master Climber ->Turn On Push Notification permissions")
-                        .font(Font.custom("Avenir", size: 16))
-                        .fontWeight(.thin)
-                        .background(Color("ButtonOrange"))// : Color("ButtonGrey"))
-                        .foregroundColor(Color("TextBrown"))// : .white
-                        .multilineTextAlignment(.center)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                        .padding()
+                        .font(Font.custom("Avenir", size: 12))
+                        .padding(.bottom, 8)
+                        .foregroundColor(.red)
+// TODO: Remove this after verifying
+//                    Text("You have rejected Push Notification permissions needed to alert about progress. Either delete and reinstall the app or manually go to the Settings App -> Stair Master Climber ->Turn On Push Notification permissions")
+//                        .font(Font.custom("Avenir", size: 16))
+//                        .fontWeight(.thin)
+//                        .background(Color("ButtonOrange"))// : Color("ButtonGrey"))
+//                        .foregroundColor(Color("TextBrown"))// : .white
+//                        .multilineTextAlignment(.center)
+//                        .clipShape(RoundedRectangle(cornerRadius: 4))
+//                        .padding()
                 }
                 else{
                     HStack{
@@ -117,7 +122,6 @@ struct SettingsView: View {
                 }
                 Text("Contact Us or Watch Tutorial")
                     .font(Font.custom("Avenir", size: 20))
-                    .fontWeight(.heavy)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                 HStack{
@@ -144,11 +148,6 @@ struct SettingsView: View {
             })
             .padding([.horizontal, .bottom])
         }
-        .navigationTitle("")
-        .navigationBarHidden(true)
-        .background(ZStack{
-            Image("ScreenBackground").aspectRatio(contentMode: .fit).border(.black)
-        })
     }
 }
 

@@ -36,43 +36,7 @@ struct ActivityChartTileWidgetSharedView: View {
                 }.padding(12.0)
                 
                 if #available(iOS 16.0, *) {
-#if canImport(Charts)
-                    Chart {
-                        ForEach(last7Days, id: \.self) { element in
-                            AreaMark(x: .value("Day", element.Day), y: .value("Flights Count", element.TotalCount))
-                                .foregroundStyle(.linearGradient(colors: [Color("FlightsChartBottomGradient"),Color("FlightsChartLine")], startPoint: UnitPoint(x: 0.5, y: 1), endPoint: UnitPoint(x: 0.5, y: 0)))
-                            LineMark(x: .value("Day", element.Day), y: .value("Flights Count", element.TotalCount))
-                                .foregroundStyle(Color("FlightsChartLine"))
-                            if element.Day != 0 && element.Day != 8{
-                                PointMark(x: .value("Day", element.Day), y: .value("Flights Count", element.TotalCount))
-                                    .foregroundStyle(Color("FlightsChartLine"))
-//                                TODO: Figure out why it doesn't build
-//                                        .annotation(position: .top, alignment: .top) {
-//                                            Text(element.TotalCount)
-//                                                .font(Font.custom("Avenir", size: 12))
-//                                                .fontWeight(.light)
-//                                                .foregroundColor(.white)
-//                                        }
-                                    .symbolSize(symbolSize)
-
-                            }
-
-                        }
-                        .interpolationMethod(.catmullRom(alpha: 0.5))
-                        
-                        RuleMark(y: .value("Goal", activityGoal))
-                            .foregroundStyle(.white)
-                            .opacity(0.2)
-                    }
-                    .chartXAxis {
-                        AxisMarks(values: .stride(by: .day)) { _ in
-                            AxisValueLabel(format: .dateTime.weekday(.abbreviated), centered: true)
-                        }
-                    }
-                    .foregroundStyle(.pink, .orange, .yellow)
-                    .padding(.top,10)
-                    .padding(.trailing,15)
-#endif
+                    SwiftChartView(last7Days: Calc(flightsArrayPadded: flightsArrayPadded))
                 } else {
                     ChartView(data: flightsArrayPadded)
                         .padding(.top,10)
@@ -82,6 +46,23 @@ struct ActivityChartTileWidgetSharedView: View {
                 
             }
         }
+    }
+    
+    func Calc(flightsArrayPadded: [Double]) -> [Stairs]{
+        var x:[Stairs] = []
+        if flightsArrayPadded.count == 8{
+            x = [
+                .init(Day: 0, TotalCount: Int(flightsArrayPadded[0])),
+                .init(Day: 1, TotalCount: Int(flightsArrayPadded[1])),
+                .init(Day: 2, TotalCount: Int(flightsArrayPadded[2])),
+                .init(Day: 3, TotalCount: Int(flightsArrayPadded[3])),
+                .init(Day: 4, TotalCount: Int(flightsArrayPadded[4])),
+                .init(Day: 5, TotalCount: Int(flightsArrayPadded[5])),
+                .init(Day: 6, TotalCount: Int(flightsArrayPadded[6])),
+                .init(Day: 7, TotalCount: Int(flightsArrayPadded[7])),
+            ]
+        }
+        return x
     }
 }
 

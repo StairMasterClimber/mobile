@@ -14,15 +14,12 @@ struct DashboardView: View {
     @AppStorage("ratingTapCounter") var ratingTapCounter = 0
     @AppStorage("IsChallengeSomeone") var isChallengeSomeone:Bool = false
     @AppStorage("StairStepperTutorial") var StairStepperTutorial:Bool = false
-    @AppStorage("IsSettingsActive") var isSettingsActive:Bool = false
     @AppStorage("GKGameCenterViewControllerState") var gameCenterViewControllerState:GKGameCenterViewControllerState = .default
     @AppStorage("IsGameCenterActive") var isGKActive:Bool = false
     @State private var showRatePopup = false
 
     var body: some View {
-        if isSettingsActive{
-            SettingsView()
-        }else if isGKActive{
+        if isGKActive{
             GameCenterView(format: gameCenterViewControllerState)
         }else if isChallengeSomeone{
             ChallengeView()
@@ -32,15 +29,12 @@ struct DashboardView: View {
             VStack(alignment: .leading){
                 HStack(alignment: .top){
                     HeaderSubView()
-                    Spacer()
-                    Image(systemName: "gearshape")
-                        .padding([.top, .trailing])
-                        .foregroundColor(.white)
-                        .onTapGesture {
-                            isSettingsActive = true
-                        }
                 }
-                DashboardSubView()
+                TabView{
+                    DashboardSubView()
+                    SettingsView()
+                }
+                .tabViewStyle(PageTabViewStyle())
             }
             .background(ZStack{
                 Image("ScreenBackground").aspectRatio(contentMode: .fit).border(.black)
