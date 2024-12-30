@@ -7,18 +7,16 @@
 
 import SwiftUI
 import HealthKit
-
 struct MachineTileView: View {
     @AppStorage("AskedAboutMachine") var shouldShowInitialQuestion:Bool = true
+    @AppStorage("SyncTime") var SyncTime:String = "just now"
     @AppStorage("FlightsClimbedArray") var flightsClimbedArray:[Double] = [4,2,5,6,7,2,4]
     @AppStorage("MachineUsage") var shouldHide:Bool = false
-//    @AppStorage("DidStartWorkout") var didStartWorkout:Bool = false
+    @AppStorage("StairStepperTutorial") var StairStepperTutorial:Bool = false
     @AppStorage("InitialWorkoutStepsClimbed") var initialStepsWalked:Double = 0
     @AppStorage("FinalWorkoutStepsClimbed") var finalStepsWalked:Double = 0
     @AppStorage("FlightsClimbed") var flightsClimbed:Double = 0
     @AppStorage("StepsTakenAtStart") var stepsAt:Double = 0
-//    @State private var shouldShowInitialQuestion:Bool = true
-//    @State private var shouldHide:Bool = false
     @State private var didStartWorkout:Bool = false
 
     var body: some View {
@@ -28,9 +26,17 @@ struct MachineTileView: View {
                     Text("STAIR STEPPER MACHINE")
                         .font(Font.custom("Avenir", size: 25))
                         .fontWeight(.heavy)
-                        .padding(.leading, 19)
+                        .padding(.leading, 20)
                         .foregroundColor(.white)
                     Spacer()
+                    Text("\(Image(systemName: "questionmark.circle.fill"))")
+                        .font(Font.custom("Avenir", size: 20))
+                        .padding(.trailing, 20)
+                        .foregroundColor(Color("MoreYellow"))
+                        .onTapGesture {
+                            StairStepperTutorial = true
+                            simpleSuccessHaptic()
+                        }
                 }
 
                 VStack(spacing: 0){
@@ -43,14 +49,14 @@ struct MachineTileView: View {
                         HStack{
                             Button(action: {
                                 shouldShowInitialQuestion = false
-                                print("Yes")
+//                                print("Yes")
                             }, label:{ Text("Yes")
                                     .font(Font.custom("Avenir", size: 20))
                                     .fontWeight(.heavy)
                             })
                             .buttonStyle(TileYesNoButton(isYes: true))
                             Button(action: {
-                                print("No")
+//                                print("No")
                                 shouldShowInitialQuestion = false
                                 shouldHide = true
                             }, label:{ Text("No")
@@ -67,7 +73,7 @@ struct MachineTileView: View {
                             .multilineTextAlignment(.center)
                             .padding(.bottom)
                         Button(action: {
-                            print("Yes")
+//                            print("Yes")
                             fetchInitialStepData()
                             didStartWorkout = true
                         }, label:{
@@ -96,7 +102,7 @@ struct MachineTileView: View {
                 }
                 .padding()
                 .frame(minWidth:350, minHeight: 113)
-                .background(Color("TileBackground"))
+//                .modifier(FlatGlassViewModifier())
                 .clipShape(RoundedRectangle(cornerRadius: 20))
             }
         }
@@ -107,9 +113,9 @@ struct MachineTileView: View {
         guard let stepCountType = HKQuantityType.quantityType(forIdentifier:.flightsClimbed) else {
             fatalError("Step Count Type is no longer available in HealthKit")
         }
-        var numberOfFlights = (finalStepsWalked - initialStepsWalked) / 15
+        var numberOfFlights = (finalStepsWalked - initialStepsWalked) / 16
         // From here: https://developer.apple.com/documentation/swift/floatingpoint/2298113-round to prevent incomplete stairs
-        numberOfFlights = numberOfFlights.rounded(.up)
+        numberOfFlights = numberOfFlights.rounded(.toNearestOrEven)
         let stepsCountUnit:HKUnit = HKUnit.count()
         let stepsCountQuantity = HKQuantity(unit: stepsCountUnit,
                                            doubleValue: numberOfFlights)
@@ -128,7 +134,9 @@ struct MachineTileView: View {
                 flightsClimbedArray.removeLast()
                 flightsClimbedArray.append(newLastValue)
                 flightsClimbed = flightsClimbed + numberOfFlights
-                print("Successfully saved Steps Count Sample")
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MMM d, hh:mm a"
+                SyncTime = dateFormatter.string(from: date)
             }
         }
     }
@@ -140,16 +148,16 @@ struct MachineTileView: View {
         if HKHealthStore.isHealthDataAvailable()
         {
             let readData = Set([
-                HKObjectType.quantityType(forIdentifier: .heartRate)!,
-                HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
+//                HKObjectType.quantityType(forIdentifier: .heartRate)!,
+//                HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
                 //                HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
                 HKObjectType.quantityType(forIdentifier: .stepCount)!,
                 HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
-                HKObjectType.quantityType(forIdentifier: .vo2Max)!,
+//                HKObjectType.quantityType(forIdentifier: .vo2Max)!,
                 //                HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
                 HKObjectType.quantityType(forIdentifier: .stairAscentSpeed)!,
-                HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!,
-                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!])
+//                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!,
+                HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!])
             let writeData = Set([
                 HKObjectType.quantityType(forIdentifier: .stepCount)!,
                 HKObjectType.quantityType(forIdentifier: .flightsClimbed)!])
@@ -175,6 +183,7 @@ struct MachineTileView: View {
                     {
                         fatalError("Can't generate a startDate! :-/")
                     }
+                    print("fetchInitialStepData")
                     print(startDate)
                     print(endDate)
                     let interval = NSDateComponents()
@@ -194,20 +203,23 @@ struct MachineTileView: View {
                         {
                             fatalError("Unable to get results! Reason: \(String(describing: error?.localizedDescription))")
                         }
+                        initialStepsWalked = 0
                         
                         statsCollection.enumerateStatistics(from: startDate, to: endDate)
                         {
                             statistics, stop in
                             if let quantity = statistics.sumQuantity()
                             {
-                                print(quantity)
+//                                print(quantity)
                                 let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "count"))
                                 initialStepsWalked = val + initialStepsWalked
-                                print(val)
-                                print(date)
+//                                print(val)
+//                                print(date)
                             }
                         }
+                        print("initialStepsWalked")
+                        print(initialStepsWalked)
                         
                     }
                     HKStore.execute(HKquery2)                    
@@ -231,16 +243,16 @@ struct MachineTileView: View {
         if HKHealthStore.isHealthDataAvailable()
         {
             let readData = Set([
-                HKObjectType.quantityType(forIdentifier: .heartRate)!,
-                HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
+//                HKObjectType.quantityType(forIdentifier: .heartRate)!,
+//                HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
                 //                HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
                 HKObjectType.quantityType(forIdentifier: .stepCount)!,
                 HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
-                HKObjectType.quantityType(forIdentifier: .vo2Max)!,
+//                HKObjectType.quantityType(forIdentifier: .vo2Max)!,
                 //                HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
                 HKObjectType.quantityType(forIdentifier: .stairAscentSpeed)!,
-                HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!,
-                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!])
+//                HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!,
+                HKObjectType.quantityType(forIdentifier: .stairDescentSpeed)!])
             let writeData = Set([
                 HKObjectType.quantityType(forIdentifier: .stepCount)!,
                 HKObjectType.quantityType(forIdentifier: .flightsClimbed)!])
@@ -266,6 +278,7 @@ struct MachineTileView: View {
                     {
                         fatalError("Can't generate a startDate! :-/")
                     }
+                    print("fetchFinalStepData")
                     print(startDate)
                     print(endDate)
                     let interval = NSDateComponents()
@@ -292,14 +305,19 @@ struct MachineTileView: View {
                             statistics, stop in
                             if let quantity = statistics.sumQuantity()
                             {
-                                print(quantity)
+//                                print(quantity)
                                 let date = statistics.startDate
                                 let val = quantity.doubleValue(for: HKUnit(from: "count"))
                                 finalStepsWalked = val + finalStepsWalked
-                                print(val)
-                                print(date)
+//                                print(val)
+//                                print(date)
                             }
                         }
+                        print("finalStepsWalked")
+                        print(finalStepsWalked)
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "MMM d, hh:mm a"
+                        SyncTime = dateFormatter.string(from: endDate)
                         saveFlights()
                     }
                     HKStore.execute(HKquery2)
